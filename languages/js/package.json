@@ -1,0 +1,27 @@
+{
+  "name": "@tripleplay/sdk",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.js",
+  "type": "commonjs",
+  "types": "src/index.d.ts",
+  "scripts": {
+    "test": "jasmine",
+    "prepare": "npm run tsc -- --declaration src/index.js --allowJs",
+    "tsc": "tsc"
+  },
+  "bugs": {
+    "url": "https://github.com/TriplePlayPay/triple-sdks/issues"
+  },
+  "license": "Apache-2.0",
+  "homepage": "https://github.com/TriplePlayPay/triple-sdks/tree/test/languages/js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/TriplePlayPay/triple-sdks.git"
+  },
+  "devDependencies": {
+    "chai": "^5.0.3",
+    "jasmine": "^5.1.0",
+    "typescript": "^5.3.3"
+  }
+}
