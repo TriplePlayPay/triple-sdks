@@ -1,30 +1,69 @@
+export namespace TriplePlayPayApi {
+    export { TriplePlayClient as ApiApi };
+}
+export type Options = {
+    baseUrl?: string;
+    bearerToken: string;
+    fetch?: (input: RequestInfo | URL, init?: RequestInit) => Promise<Response>;
+};
+export type AuthorizeRequest = {
+    amount: string;
+    cc: string;
+    mm: string;
+    yy: string;
+    cvv: string;
+    zip: string;
+    ticket: string;
+    meta: string;
+};
 /**
  * @typedef {{
- *     baseUrl : string,
- *     fetch : (input: RequestInfo | URL, init?: RequestInit) => Promise<Response>,
- * }} ClientOptions
+ *     baseUrl? : string,
+ *     bearerToken : string,
+ *     fetch? : (input: RequestInfo | URL, init?: RequestInit) => Promise<Response>,
+ * }} Options
  */
 /**
- * @param {ClientOptions} options
+ * Triple Play (API) Client
+ *
+ * This is the main class you can instantiate to interact with the Triple Play Pay API.
+ * You can instantiate it with options to specify the base url, token,
+ * and override the fetch function if needed.
+ *
+ * @param {Options} options
  * @constructor
  */
-declare function TriplePlayClient(options: ClientOptions): TriplePlayClient;
-declare class TriplePlayClient {
+export function TriplePlayClient(options: Options): TriplePlayClient;
+export class TriplePlayClient {
     /**
      * @typedef {{
-     *     baseUrl : string,
-     *     fetch : (input: RequestInfo | URL, init?: RequestInit) => Promise<Response>,
-     * }} ClientOptions
+     *     baseUrl? : string,
+     *     bearerToken : string,
+     *     fetch? : (input: RequestInfo | URL, init?: RequestInit) => Promise<Response>,
+     * }} Options
      */
     /**
-     * @param {ClientOptions} options
+     * Triple Play (API) Client
+     *
+     * This is the main class you can instantiate to interact with the Triple Play Pay API.
+     * You can instantiate it with options to specify the base url, token,
+     * and override the fetch function if needed.
+     *
+     * @param {Options} options
      * @constructor
      */
-    constructor(options: ClientOptions);
-    options: ClientOptions;
-    private _verifyResponseOk;
+    constructor(options: Options);
+    options: Options;
     /**
-     * @param {{
+     * @type {Record<string, string>}
+     */
+    headers: Record<string, string>;
+    /**
+     * @type {RequestInit}
+     */
+    postOptions: RequestInit;
+    /**
+     * @typedef {{
      *     amount : string,
      *     cc : string,
      *     mm : string,
@@ -33,18 +72,13 @@ declare class TriplePlayClient {
      *     zip : string,
      *     ticket : string,
      *     meta : string,
-     * }} request
+     * }} AuthorizeRequest
      */
-    authorize(request: {
-        amount: string;
-        cc: string;
-        mm: string;
-        yy: string;
-        cvv: string;
-        zip: string;
-        ticket: string;
-        meta: string;
-    }): Promise<any>;
+    /**
+     * @param {AuthorizeRequest} request
+     * @return {Promise<any>}
+     */
+    authorize(request: AuthorizeRequest): Promise<any>;
     /**
      * @param {{
      *     amount : string,
@@ -79,7 +113,12 @@ declare class TriplePlayClient {
         items: string;
         meta: string;
     }): Promise<any>;
-    client(request: any): Promise<any>;
+    /**
+     *
+     * @param {} request
+     * @return {Promise<Response>}
+     */
+    client(request: any): Promise<Response>;
     enroll(request: any): Promise<any>;
     refund(request: any): Promise<any>;
     report(request: any): Promise<any>;
@@ -87,16 +126,6 @@ declare class TriplePlayClient {
     subscription(request: any): Promise<any>;
     terminal(request: any): Promise<any>;
     tokenize(request: any): Promise<any>;
-    void(request: any): Promise<any>;
+    callVoid(request: any): Promise<any>;
 }
-/**
- * @param {Response} response
- * @return Promise<Object>
- * @private
- */
-declare function _thenJson(response: Response): Promise<any>;
-declare function _qs(object: any): string;
-type ClientOptions = {
-    baseUrl: string;
-    fetch: (input: RequestInfo | URL, init?: RequestInit) => Promise<Response>;
-};
+export { TriplePlayClient as client };

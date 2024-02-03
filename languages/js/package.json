@@ -1,13 +1,13 @@
 {
-  "name": "@tripleplay/sdk",
+  "name": "@tripleplaypay/sdk",
   "version": "1.0.0",
   "description": "",
   "main": "src/index.js",
   "type": "commonjs",
   "types": "src/index.d.ts",
   "scripts": {
-    "test": "jasmine",
-    "prepare": "npm run tsc -- --declaration src/index.js --allowJs",
+    "test": "jasmine --config=jasmine.json",
+    "prepare": "tsc --declaration --emitDeclarationOnly src/index.js --allowJs",
     "tsc": "tsc"
   },
   "bugs": {
@@ -20,7 +20,7 @@
     "url": "https://github.com/TriplePlayPay/triple-sdks.git"
   },
   "devDependencies": {
-    "chai": "^5.0.3",
+    "chai": "^4",
     "jasmine": "^5.1.0",
     "typescript": "^5.3.3"
   }

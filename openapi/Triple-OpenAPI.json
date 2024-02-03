@@ -151,7 +151,7 @@
             "name": "items",
             "description": "List of items for receipt and level3 data. <code><br>[[id, price, description, tax, options],]<br>[{\"id\": \"\", \"price\": \"\", \"description\": \"\", \"tax\": \"\", \"options\": \"\"},]</code> ",
             "required": false,
-           - "schema": {
+            "schema": {
               "type": "array",
               "items": {
                 "type": "object",
