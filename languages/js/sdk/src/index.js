@@ -4,6 +4,12 @@
  *     bearerToken : string,
  *     fetch? : (input: RequestInfo | URL, init?: RequestInit) => Promise<Response>,
  * }} Options
+
+ * @typedef {{
+ *     baseUrl : string,
+ *     bearerToken : string,
+ *     fetch? : (input: RequestInfo | URL, init?: RequestInit) => Promise<Response>,
+ * }} ApiResponse
  */
 
 /**
@@ -104,64 +110,142 @@ TriplePlayClient.prototype.authorize = function authorize(request) {
 };
 
 /**
- * @param {{
+ * @typedef {{
  *     amount : string,
- *     terminal : string,
- *     id : string,
+ *     terminal : number,
+ *     id? : string,
  *     cc : string,
  *     mm : string,
  *     yy : string,
  *     cvv : string,
- *     zip : string,
+ *     zip? : string,
  *     accountNumber : string,
  *     routingNumber : string,
  *     type : string,
- *     ticket : string,
- *     items : string,
- *     meta : string,
- * }} request
+ *     ticket? : string,
+ *     items? : Array,
+ *     meta : Record<string, any>,
+ * }} ChargeRequest
+ */
+
+/**
+ *
+ * @param {ChargeRequest} request
+ * @return {Promise<ApiResponse>}
  */
 TriplePlayClient.prototype.charge = function charge(request) {
     return this.options.fetch('/api/charge?' + _qs(request), this.postOptions).then(_verifyResponseOk).then(_thenJson);
 };
 
 /**
- *
- * @param {} request
- * @return {Promise<Response>}
+ * @typedef {{
+ *     timezone? : string,
+ *     email? : string,
+ *     callback? : string,
+ *     tax? : string,
+ * }} ClientRequest
+ */
+
+/**
+ * @param {ClientRequest} request
+ * @return {Promise<ApiResponse>}
  */
 TriplePlayClient.prototype.client = function client(request) {
     return this.options.fetch('/api/client?' + _qs(request), this.postOptions).then(_verifyResponseOk).then(_thenJson);
 };
 
+/**
+ * @typedef {{ a : true }} EnrollRequest
+ */
+
+/**
+ * @param {EnrollRequest} request
+ * @return {Promise<ApiResponse>}
+ */
 TriplePlayClient.prototype.enroll = function enroll(request) {
     return this.options.fetch('/api/enroll?' + _qs(request), this.postOptions).then(_verifyResponseOk).then(_thenJson);
 };
 
+/**
+ * @typedef {{ a : true }} RefundRequest
+ */
+
+/**
+ * @param {RefundRequest} request
+ * @return {Promise<ApiResponse>}
+ */
 TriplePlayClient.prototype.refund = function refund(request) {
     return this.options.fetch('/api/refund?' + _qs(request), this.postOptions).then(_verifyResponseOk).then(_thenJson);
 };
 
+/**
+ * @typedef {{ a : true }} ReportRequest
+ */
+
+/**
+ * @param {ReportRequest} request
+ * @return {Promise<ApiResponse>}
+ */
 TriplePlayClient.prototype.report = function report(request) {
     return this.options.fetch('/api/report?' + _qs(request), this.postOptions).then(_verifyResponseOk).then(_thenJson);
 };
 
+/**
+ * @typedef {{ a : true }} SettleRequest
+ */
+
+/**
+ * @param {SettleRequest} request
+ * @return {Promise<ApiResponse>}
+ */
 TriplePlayClient.prototype.settle = function settle(request) {
     return this.options.fetch('/api/settle?' + _qs(request), this.postOptions).then(_verifyResponseOk).then(_thenJson);
 };
 
+/**
+ * @typedef {{ a : true }} SubscriptionRequest
+ */
+
+/**
+ * @param {SubscriptionRequest} request
+ * @return {Promise<ApiResponse>}
+ */
 TriplePlayClient.prototype.subscription = function subscription(request) {
     return this.options.fetch('/api/subscription?' + _qs(request), this.postOptions).then(_verifyResponseOk).then(_thenJson);
 };
 
+/**
+ * @typedef {{ a : true }} TerminalRequest
+ */
+
+/**
+ * @param {TerminalRequest} request
+ * @return {Promise<ApiResponse>}
+ */
 TriplePlayClient.prototype.terminal = function terminal(request) {
     return this.options.fetch('/api/terminal?' + _qs(request), this.postOptions).then(_verifyResponseOk).then(_thenJson);
 };
 
+/**
+ * @typedef {{ a : true }} TokenizeRequest
+ */
+
+/**
+ * @param {TokenizeRequest} request
+ * @return {Promise<ApiResponse>}
+ */
 TriplePlayClient.prototype.tokenize = function tokenize(request) {
     return this.options.fetch('/api/tokenize?' + _qs(request), this.postOptions).then(_verifyResponseOk).then(_thenJson);
 };
 
+/**
+ * @typedef {{ a : true }} VoidRequest
+ */
+
+/**
+ * @param {VoidRequest} request
+ * @return {Promise<ApiResponse>}
+ */
 TriplePlayClient.prototype.callVoid = function callVoid(request) {
     return this.options.fetch('/api/void?' + _qs(request), this.postOptions).then(_verifyResponseOk).then(_thenJson);
 };
