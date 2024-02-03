@@ -106,7 +106,7 @@ function _qs(object) {
  * @return {Promise<any>}
  */
 TriplePlayClient.prototype.authorize = function authorize(request) {
-    return this.options.fetch('/api/authorize?' + _qs(request), this.options).then(_verifyResponseOk).then(_thenJson);
+    return this.options.fetch('/api/authorize', { ...this.options, body: _qs(request) }).then(_verifyResponseOk).then(_thenJson);
 };
 
 /**
@@ -134,7 +134,7 @@ TriplePlayClient.prototype.authorize = function authorize(request) {
  * @return {Promise<ApiResponse>}
  */
 TriplePlayClient.prototype.charge = function charge(request) {
-    return this.options.fetch('/api/charge?' + _qs(request), this.postOptions).then(_verifyResponseOk).then(_thenJson);
+    return this.options.fetch('/api/charge', { ...this.postOptions, body: _qs(request) }).then(_verifyResponseOk).then(_thenJson);
 };
 
 /**
@@ -151,7 +151,7 @@ TriplePlayClient.prototype.charge = function charge(request) {
  * @return {Promise<ApiResponse>}
  */
 TriplePlayClient.prototype.client = function client(request) {
-    return this.options.fetch('/api/client?' + _qs(request), this.postOptions).then(_verifyResponseOk).then(_thenJson);
+    return this.options.fetch('/api/client', { ...this.postOptions, body: _qs(request) }).then(_verifyResponseOk).then(_thenJson);
 };
 
 /**
@@ -163,7 +163,7 @@ TriplePlayClient.prototype.client = function client(request) {
  * @return {Promise<ApiResponse>}
  */
 TriplePlayClient.prototype.enroll = function enroll(request) {
-    return this.options.fetch('/api/enroll?' + _qs(request), this.postOptions).then(_verifyResponseOk).then(_thenJson);
+    return this.options.fetch('/api/enroll', { ...this.postOptions, body: _qs(request) }).then(_verifyResponseOk).then(_thenJson);
 };
 
 /**
@@ -175,7 +175,7 @@ TriplePlayClient.prototype.enroll = function enroll(request) {
  * @return {Promise<ApiResponse>}
  */
 TriplePlayClient.prototype.refund = function refund(request) {
-    return this.options.fetch('/api/refund?' + _qs(request), this.postOptions).then(_verifyResponseOk).then(_thenJson);
+    return this.options.fetch('/api/refund', { ...this.postOptions, body: _qs(request) }).then(_verifyResponseOk).then(_thenJson);
 };
 
 /**
@@ -187,7 +187,7 @@ TriplePlayClient.prototype.refund = function refund(request) {
  * @return {Promise<ApiResponse>}
  */
 TriplePlayClient.prototype.report = function report(request) {
-    return this.options.fetch('/api/report?' + _qs(request), this.postOptions).then(_verifyResponseOk).then(_thenJson);
+    return this.options.fetch('/api/report', { ...this.postOptions, body: _qs(request) }).then(_verifyResponseOk).then(_thenJson);
 };
 
 /**
@@ -199,7 +199,7 @@ TriplePlayClient.prototype.report = function report(request) {
  * @return {Promise<ApiResponse>}
  */
 TriplePlayClient.prototype.settle = function settle(request) {
-    return this.options.fetch('/api/settle?' + _qs(request), this.postOptions).then(_verifyResponseOk).then(_thenJson);
+    return this.options.fetch('/api/settle', { ...this.postOptions, body: _qs(request) }).then(_verifyResponseOk).then(_thenJson);
 };
 
 /**
@@ -211,7 +211,7 @@ TriplePlayClient.prototype.settle = function settle(request) {
  * @return {Promise<ApiResponse>}
  */
 TriplePlayClient.prototype.subscription = function subscription(request) {
-    return this.options.fetch('/api/subscription?' + _qs(request), this.postOptions).then(_verifyResponseOk).then(_thenJson);
+    return this.options.fetch('/api/subscription', { ...this.postOptions, body: _qs(request) }).then(_verifyResponseOk).then(_thenJson);
 };
 
 /**
@@ -223,7 +223,7 @@ TriplePlayClient.prototype.subscription = function subscription(request) {
  * @return {Promise<ApiResponse>}
  */
 TriplePlayClient.prototype.terminal = function terminal(request) {
-    return this.options.fetch('/api/terminal?' + _qs(request), this.postOptions).then(_verifyResponseOk).then(_thenJson);
+    return this.options.fetch('/api/terminal', { ...this.postOptions, body: _qs(request) }).then(_verifyResponseOk).then(_thenJson);
 };
 
 /**
@@ -235,7 +235,7 @@ TriplePlayClient.prototype.terminal = function terminal(request) {
  * @return {Promise<ApiResponse>}
  */
 TriplePlayClient.prototype.tokenize = function tokenize(request) {
-    return this.options.fetch('/api/tokenize?' + _qs(request), this.postOptions).then(_verifyResponseOk).then(_thenJson);
+    return this.options.fetch('/api/tokenize', { ...this.postOptions, body: _qs(request) }).then(_verifyResponseOk).then(_thenJson);
 };
 
 /**
@@ -247,7 +247,7 @@ TriplePlayClient.prototype.tokenize = function tokenize(request) {
  * @return {Promise<ApiResponse>}
  */
 TriplePlayClient.prototype.callVoid = function callVoid(request) {
-    return this.options.fetch('/api/void?' + _qs(request), this.postOptions).then(_verifyResponseOk).then(_thenJson);
+    return this.options.fetch('/api/void', { ...this.postOptions, body: _qs(request) }).then(_verifyResponseOk).then(_thenJson);
 };
 
 // export the thing

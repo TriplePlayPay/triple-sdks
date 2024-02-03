@@ -1,0 +1,611 @@
+---
+openapi: '3.0.0'
+servers:
+- description: 'Triple Play Pay'
+  url: 'https://www.tripleplaypay.com'
+info:
+  description: 'Payment API'
+  version: '0.0.0'
+  title: 'Triple Play Pay API'
+  contact:
+    email: 'support@tripleplaypay.com'
+  license:
+    name: 'Apache 2.0'
+    url: 'https://www.apache.org/licenses/LICENSE-2.0.html'
+
+paths:
+  /charge:
+    post:
+      summary: '/charge'
+      operationId: 'charge'
+      description: >-
+        Process payment or settle a previous charge. (card, bank, terminal)
+      requestBody:
+        $ref: '#/components/requestBodies/ChargeRequestBody'
+      responses: { '200': { $ref: '#/components/responses/200' }, '201': { $ref: '#/components/responses/201' }, '202': { $ref: '#/components/responses/202' }, '204': { $ref: '#/components/responses/204' }, '304': { $ref: '#/components/responses/304' }, '400': { $ref: '#/components/responses/400' }, '401': { $ref: '#/components/responses/401' }, '403': { $ref: '#/components/responses/403' }, '404': { $ref: '#/components/responses/404' }, '429': { $ref: '#/components/responses/429' }, '500': { $ref: '#/components/responses/500' }, '502': { $ref: '#/components/responses/502' }, '503': { $ref: '#/components/responses/503' }, }
+
+  /authorize:
+    post:
+      summary: '/authorize'
+      description: >-
+        Used to verify funds when the total amount of the purchase is unknown.
+      requestBody:
+        $ref: '#/components/requestBodies/AuthorizeRequestBody'
+      responses: { '200': { $ref: '#/components/responses/200' }, '201': { $ref: '#/components/responses/201' }, '202': { $ref: '#/components/responses/202' }, '204': { $ref: '#/components/responses/204' }, '304': { $ref: '#/components/responses/304' }, '400': { $ref: '#/components/responses/400' }, '401': { $ref: '#/components/responses/401' }, '403': { $ref: '#/components/responses/403' }, '404': { $ref: '#/components/responses/404' }, '429': { $ref: '#/components/responses/429' }, '500': { $ref: '#/components/responses/500' }, '502': { $ref: '#/components/responses/502' }, '503': { $ref: '#/components/responses/503' }, }
+
+  /settle:
+    post:
+      summary: '/settle'
+      operationId: 'settle'
+      description: >-
+        Same as sending "id" to charge, this method will settle an outstanding Authorization.
+      requestBody:
+        $ref: '#/components/requestBodies/SettleRequestBody'
+      responses: { '200': { $ref: '#/components/responses/200' }, '201': { $ref: '#/components/responses/201' }, '202': { $ref: '#/components/responses/202' }, '204': { $ref: '#/components/responses/204' }, '304': { $ref: '#/components/responses/304' }, '400': { $ref: '#/components/responses/400' }, '401': { $ref: '#/components/responses/401' }, '403': { $ref: '#/components/responses/403' }, '404': { $ref: '#/components/responses/404' }, '429': { $ref: '#/components/responses/429' }, '500': { $ref: '#/components/responses/500' }, '502': { $ref: '#/components/responses/502' }, '503': { $ref: '#/components/responses/503' }, }
+  /refund:
+    post:
+      summary: '/refund'
+      operationId: 'refund'
+      description: |
+        Void/Refund a previous transaction or Credit the account. void/refund* credit**
+        The system will automatically determine the optimal refund method between void, refund, and credit.
+      requestBody:
+        $ref: '#/components/requestBodies/RefundRequestBody'
+      responses: { '200': { $ref: '#/components/responses/200' }, '201': { $ref: '#/components/responses/201' }, '202': { $ref: '#/components/responses/202' }, '204': { $ref: '#/components/responses/204' }, '304': { $ref: '#/components/responses/304' }, '400': { $ref: '#/components/responses/400' }, '401': { $ref: '#/components/responses/401' }, '403': { $ref: '#/components/responses/403' }, '404': { $ref: '#/components/responses/404' }, '429': { $ref: '#/components/responses/429' }, '500': { $ref: '#/components/responses/500' }, '502': { $ref: '#/components/responses/502' }, '503': { $ref: '#/components/responses/503' }, }
+  /multipay:
+    post:
+      summary: '/multipay'
+      operationId: 'multipay'
+      description: >-
+        Takes an existing transaction id, as well as a list of key-value pairs containing
+        an account/routing number, as well as an amount, which cannot exceed the total of
+        the previously authorized transaction.
+      requestBody:
+        $ref: '#/components/requestBodies/MultipayRequestBody'
+      responses: { '200': { $ref: '#/components/responses/200' }, '201': { $ref: '#/components/responses/201' }, '202': { $ref: '#/components/responses/202' }, '204': { $ref: '#/components/responses/204' }, '304': { $ref: '#/components/responses/304' }, '400': { $ref: '#/components/responses/400' }, '401': { $ref: '#/components/responses/401' }, '403': { $ref: '#/components/responses/403' }, '404': { $ref: '#/components/responses/404' }, '429': { $ref: '#/components/responses/429' }, '500': { $ref: '#/components/responses/500' }, '502': { $ref: '#/components/responses/502' }, '503': { $ref: '#/components/responses/503' }, }
+
+  /void:
+    post:
+      summary: '/void'
+      operationId: 'void'
+      description: 'Void a transaction by its transaction UUID'
+      requestBody:
+        $ref: '#/components/requestBodies/VoidRequestBody'
+      responses: { '200': { $ref: '#/components/responses/200' }, '201': { $ref: '#/components/responses/201' }, '202': { $ref: '#/components/responses/202' }, '204': { $ref: '#/components/responses/204' }, '304': { $ref: '#/components/responses/304' }, '400': { $ref: '#/components/responses/400' }, '401': { $ref: '#/components/responses/401' }, '403': { $ref: '#/components/responses/403' }, '404': { $ref: '#/components/responses/404' }, '429': { $ref: '#/components/responses/429' }, '500': { $ref: '#/components/responses/500' }, '502': { $ref: '#/components/responses/502' }, '503': { $ref: '#/components/responses/503' }, }
+
+  /tipadjust:
+    post:
+      summary: '/tipadjust'
+      operationId: 'tipadjust'
+      description: 'Adjust the tip amount on a previously settled transaction'
+      requestBody:
+        $ref: '#/components/requestBodies/TipAdjustRequestBody'
+      responses: { '200': { $ref: '#/components/responses/200' }, '201': { $ref: '#/components/responses/201' }, '202': { $ref: '#/components/responses/202' }, '204': { $ref: '#/components/responses/204' }, '304': { $ref: '#/components/responses/304' }, '400': { $ref: '#/components/responses/400' }, '401': { $ref: '#/components/responses/401' }, '403': { $ref: '#/components/responses/403' }, '404': { $ref: '#/components/responses/404' }, '429': { $ref: '#/components/responses/429' }, '500': { $ref: '#/components/responses/500' }, '502': { $ref: '#/components/responses/502' }, '503': { $ref: '#/components/responses/503' }, }
+
+  /terminal:
+    get:
+      summary: '/terminal'
+      description: >-
+        Get terminal(s) and their status.
+        Shows the activation codes for inactive terminals
+      responses: { '200': { $ref: '#/components/responses/200' }, '201': { $ref: '#/components/responses/201' }, '202': { $ref: '#/components/responses/202' }, '204': { $ref: '#/components/responses/204' }, '304': { $ref: '#/components/responses/304' }, '400': { $ref: '#/components/responses/400' }, '401': { $ref: '#/components/responses/401' }, '403': { $ref: '#/components/responses/403' }, '404': { $ref: '#/components/responses/404' }, '429': { $ref: '#/components/responses/429' }, '500': { $ref: '#/components/responses/500' }, '502': { $ref: '#/components/responses/502' }, '503': { $ref: '#/components/responses/503' }, }
+
+  /terminal/activate:
+    post:
+      summary: '/terminal/activate'
+      operationId: 'terminalActivate'
+      description: 'Activate and configure a deactivated terminal'
+      requestBody:
+        $ref: '#/components/requestBodies/TerminalActivateRequestBody'
+      responses: { '200': { $ref: '#/components/responses/200' }, '201': { $ref: '#/components/responses/201' }, '202': { $ref: '#/components/responses/202' }, '204': { $ref: '#/components/responses/204' }, '304': { $ref: '#/components/responses/304' }, '400': { $ref: '#/components/responses/400' }, '401': { $ref: '#/components/responses/401' }, '403': { $ref: '#/components/responses/403' }, '404': { $ref: '#/components/responses/404' }, '429': { $ref: '#/components/responses/429' }, '500': { $ref: '#/components/responses/500' }, '502': { $ref: '#/components/responses/502' }, '503': { $ref: '#/components/responses/503' }, }
+
+  /terminal/deactivate:
+    post:
+      summary: '/terminal/deactivate'
+      operationId: 'terminalDeactivate'
+      description: 'Activate a terminal'
+      requestBody:
+        $ref: '#/components/requestBodies/TerminalDeactivateRequestBody'
+      responses: { '200': { $ref: '#/components/responses/200' }, '201': { $ref: '#/components/responses/201' }, '202': { $ref: '#/components/responses/202' }, '204': { $ref: '#/components/responses/204' }, '304': { $ref: '#/components/responses/304' }, '400': { $ref: '#/components/responses/400' }, '401': { $ref: '#/components/responses/401' }, '403': { $ref: '#/components/responses/403' }, '404': { $ref: '#/components/responses/404' }, '429': { $ref: '#/components/responses/429' }, '500': { $ref: '#/components/responses/500' }, '502': { $ref: '#/components/responses/502' }, '503': { $ref: '#/components/responses/503' }, }
+
+  /report:
+    get:
+      summary: '/report'
+      operationId: 'report'
+      description: 'Get transaction detail history'
+      responses: { '200': { $ref: '#/components/responses/200' }, '201': { $ref: '#/components/responses/201' }, '202': { $ref: '#/components/responses/202' }, '204': { $ref: '#/components/responses/204' }, '304': { $ref: '#/components/responses/304' }, '400': { $ref: '#/components/responses/400' }, '401': { $ref: '#/components/responses/401' }, '403': { $ref: '#/components/responses/403' }, '404': { $ref: '#/components/responses/404' }, '429': { $ref: '#/components/responses/429' }, '500': { $ref: '#/components/responses/500' }, '502': { $ref: '#/components/responses/502' }, '503': { $ref: '#/components/responses/503' }, }
+
+  /subscription:
+    get:
+      summary: '/subscription'
+      operationId: 'subscriptionGet'
+      description: 'Setup a payment subscription or get details/history. Can also send to /api/charge'
+      parameters:
+        - in: query
+          name: id
+          required: false
+          description: GET specific subscription by id. An empty call gets a list of all current subscriptions
+          schema:
+            type: string
+      responses: { '200': { $ref: '#/components/responses/200' }, '201': { $ref: '#/components/responses/201' }, '202': { $ref: '#/components/responses/202' }, '204': { $ref: '#/components/responses/204' }, '304': { $ref: '#/components/responses/304' }, '400': { $ref: '#/components/responses/400' }, '401': { $ref: '#/components/responses/401' }, '403': { $ref: '#/components/responses/403' }, '404': { $ref: '#/components/responses/404' }, '429': { $ref: '#/components/responses/429' }, '500': { $ref: '#/components/responses/500' }, '502': { $ref: '#/components/responses/502' }, '503': { $ref: '#/components/responses/503' }, }
+    post:
+      summary: '/subscription'
+      operationId: 'subscriptionCreate'
+      requestBody:
+        $ref: '#/components/requestBodies/SubscriptionCreateRequestBody'
+      responses: { '200': { $ref: '#/components/responses/200' }, '201': { $ref: '#/components/responses/201' }, '202': { $ref: '#/components/responses/202' }, '204': { $ref: '#/components/responses/204' }, '304': { $ref: '#/components/responses/304' }, '400': { $ref: '#/components/responses/400' }, '401': { $ref: '#/components/responses/401' }, '403': { $ref: '#/components/responses/403' }, '404': { $ref: '#/components/responses/404' }, '429': { $ref: '#/components/responses/429' }, '500': { $ref: '#/components/responses/500' }, '502': { $ref: '#/components/responses/502' }, '503': { $ref: '#/components/responses/503' }, }
+  /enroll:
+    post:
+      summary: '/enroll'
+      description: 'Enroll a new child merchant.'
+      requestBody:
+        $ref: '#/components/requestBodies/EnrollRequestBody'
+      responses: { '200': { $ref: '#/components/responses/200' }, '201': { $ref: '#/components/responses/201' }, '202': { $ref: '#/components/responses/202' }, '204': { $ref: '#/components/responses/204' }, '304': { $ref: '#/components/responses/304' }, '400': { $ref: '#/components/responses/400' }, '401': { $ref: '#/components/responses/401' }, '403': { $ref: '#/components/responses/403' }, '404': { $ref: '#/components/responses/404' }, '429': { $ref: '#/components/responses/429' }, '500': { $ref: '#/components/responses/500' }, '502': { $ref: '#/components/responses/502' }, '503': { $ref: '#/components/responses/503' }, }
+
+components:
+  requestBodies:
+    ChargeRequestBody: { content: { 'application/json': { schema: { $ref: '#/components/schemas/ChargeRequest' } } } }
+    AuthorizeRequestBody: { content: { 'application/json': { schema: { $ref: '#/components/schemas/AuthorizeRequest' } } } }
+    SettleRequestBody: { content: { 'application/json': { schema: { $ref: '#/components/schemas/SettleRequest' } } } }
+    RefundRequestBody: { content: { 'application/json': { schema: { $ref: '#/components/schemas/RefundRequest' } } } }
+    MultipayRequestBody: { content: { 'application/json': { schema: { $ref: '#/components/schemas/MultipayRequest' } } } }
+    VoidRequestBody: { content: { 'application/json': { schema: { $ref: '#/components/schemas/VoidRequest' } } } }
+    TipAdjustRequestBody: { content: { 'application/json': { schema: { $ref: '#/components/schemas/TipAdjustRequest' } } } }
+    TerminalActivateRequestBody: { content: { 'application/json': { schema: { $ref: '#/components/schemas/TerminalActivateRequest' } } } }
+    TerminalDeactivateRequestBody: { content: { 'application/json': { schema: { $ref: '#/components/schemas/TerminalDeactivateRequest' } } } }
+    SubscriptionCreateRequestBody: { content: { 'application/json': { schema: { $ref: '#/components/schemas/SubscriptionCreateRequest' } } } }
+    EnrollRequestBody: { content: { 'application/json': { schema: { $ref: '#/components/schemas/EnrollRequest' } } } }
+  schemas:
+    StandardResponse:
+      type: object
+      properties:
+        status: { type: boolean }
+        id: { type: string }
+        message:
+          oneOf:
+            - type: string
+              description: result
+            - type: string
+              description: error message
+        method:
+          type: string
+          description: 'endpoint called'
+
+    ChargeRequest: &ChargeRequest
+      oneOf:
+        - type: 'object'
+          title: 'Card Charge Request'
+          required: [ 'amount', 'cc', 'mm', 'yy', 'cvv' ]
+          properties:
+            amount:
+              type: 'string'
+              description: >-
+                The total transaction amount. This is the amount of funds to move on the card
+            id:
+              type: 'string'
+              example: >-
+                Transaction ID used to settle an authorized payment method
+                (cc or bank info then not required).
+            token:
+              type: string
+              description: Use a saved payment token (cc or bank info then not required)
+            email:
+              type: string
+              description: User email, will auto generate payment tokens
+            meta:
+              type: 'object'
+              description: Optional user defined object to be returned with future response
+            address1: { type: 'string', description: 'Address' }
+            address2: { type: 'string', description: 'Unit Number' }
+            city: { type: 'string', description: 'City' }
+            state: { type: 'string', description: 'State' }
+            zip: { type: 'string', description: 'Postal code (can be the only part of the address)' }
+            tip: { type: 'string', description: 'Add a tip to the transaction, `amount` should be total including tip.' }
+
+            # Payment Method: Cards
+            cc: { type: 'string', description: 'Credit Card Number without dashes' }
+            mm: { type: 'string', description: '2 digit month' }
+            yy: { type: 'string', description: '2 digit year' }
+            cvv: { type: 'string', description: 'Card Verification Value found on the card (CVV2, CVC2, CID)' }
+
+        - type: 'object'
+          title: 'Bank Charge Request'
+          required: [ 'amount', 'accountNumber', 'routingNumber' ]
+          properties:
+            amount:
+              type: 'string'
+              description: >-
+                The total transaction amount. This is the amount of funds to move on the card
+            id:
+              type: 'string'
+              example: >-
+                Transaction ID used to settle an authorized payment method
+                (cc or bank info then not required).
+            token:
+              type: string
+              description: Use a saved payment token (cc or bank info then not required)
+            email:
+              type: string
+              description: User email, will auto generate payment tokens
+            meta:
+              type: 'object'
+              description: Optional user defined object to be returned with future response
+            address1: { type: 'string', description: 'Address' }
+            address2: { type: 'string', description: 'Unit Number' }
+            city: { type: 'string', description: 'City' }
+            state: { type: 'string', description: 'State' }
+            zip: { type: 'string', description: 'Postal code (can be the only part of the address)' }
+            tip: { type: 'string', description: 'Add a tip to the transaction, `amount` should be total including tip.' }
+
+            # Payment Method: ACH
+            accountNumber: { type: 'string', description: 'Bank Account Number' }
+            routingNumber: { type: 'string', description: 'Bank Routing Number' }
+            type: { enum: [ 'checking', 'savings' ], default: 'checking' }
+
+        - type: 'object'
+          title: 'Terminal Charge Request'
+          required: [ 'amount', 'laneId', ]
+          properties:
+            amount:
+              type: 'string'
+              description: >-
+                The total transaction amount. This is the amount of funds to move on the card.
+            id:
+              type: 'string'
+              example: >-
+                Transaction ID used to settle an authorized payment method
+                (cc or bank info then not required).
+            token:
+              type: string
+              description: Use a saved payment token (cc or bank info then not required)
+            email:
+              type: string
+              description: User email, will auto generate payment tokens
+            meta:
+              type: 'object'
+              description: Optional user defined object to be returned with future response
+            address1: { type: 'string', description: 'Address' }
+            address2: { type: 'string', description: 'Unit Number' }
+            city: { type: 'string', description: 'City' }
+            state: { type: 'string', description: 'State' }
+            zip: { type: 'string', description: 'Postal code (can be the only part of the address)' }
+            tip: { type: 'string', description: 'Add a tip to the transaction, `amount` should be total including tip.' }
+
+            # Payment Method: Terminals
+            laneId: { type: 'string', description: 'Initiate a Credit Card terminal transaction by its laneId (assigned during creation)' }
+            surcharge: { type: 'string', description: 'A surcharge added to the total and ultimately charged to the customer' }
+            #amount
+            #tip: { type: 'string', description: 'Preset tip amount to be sent to the terminal. Note: this overrides `askForTip`.' \}
+
+    AuthorizeRequest:
+      oneOf:
+        - type: 'object'
+          required: [ 'amount', 'cc', 'mm', 'yy', 'cvv' ]
+          properties:
+            amount:
+              type: 'string'
+              description: >-
+                The total transaction amount. This is the amount of funds to move on the card
+            id:
+              type: 'string'
+              example: >-
+                Transaction ID used to settle an authorized payment method
+                (cc or bank info then not required).
+            token:
+              type: string
+              description: Use a saved payment token (cc or bank info then not required)
+            ticket:
+              type: string
+              description: Ticket Number used by POS
+            email:
+              type: string
+              description: User email, will auto generate payment tokens
+            items:
+              type: array
+              description: List of items for receipt and level3 data.
+              items:
+                type: object
+                properties:
+                  id: { type: string }
+                  price: { type: string }
+                  description: { type: string }
+                  tax: { type: string }
+                  options: { type: string }
+            meta:
+              type: 'object'
+              description: Optional user defined object to be returned with future response
+            address1: { type: 'string', description: 'Address' }
+            address2: { type: 'string', description: 'Unit Number' }
+            city: { type: 'string', description: 'City' }
+            state: { type: 'string', description: 'State' }
+            zip: { type: 'string', description: 'Postal code (can be the only part of the address)' }
+
+            # Payment Method: Cards
+            cc: { type: 'string', description: 'Credit Card Number without dashes' }
+            mm: { type: 'string', description: '2 digit month' }
+            yy: { type: 'string', description: '2 digit year' }
+            cvv: { type: 'string', description: 'Card Verification Value found on the card (CVV2, CVC2, CID)' }
+
+        - type: 'object'
+          required: [ 'amount', 'accountNumber', 'routingNumber', 'type' ]
+          properties:
+            amount:
+              type: 'string'
+              description: >-
+                The total transaction amount. This is the amount of funds to move on the card
+            id:
+              type: 'string'
+              example: >-
+                Transaction ID used to settle an authorized payment method
+                (cc or bank info then not required).
+            token:
+              type: string
+              description: Use a saved payment token (cc or bank info then not required)
+            ticket:
+              type: string
+              description: Ticket Number used by POS
+            email:
+              type: string
+              description: User email, will auto generate payment tokens
+            items:
+              type: array
+              description: List of items for receipt and level3 data.
+              items:
+                type: object
+                properties:
+                  id: { type: string }
+                  price: { type: string }
+                  description: { type: string }
+                  tax: { type: string }
+                  options: { type: string }
+            meta:
+              type: 'object'
+              description: Optional user defined object to be returned with future response
+            address1: { type: 'string', description: 'Address' }
+            address2: { type: 'string', description: 'Unit Number' }
+            city: { type: 'string', description: 'City' }
+            state: { type: 'string', description: 'State' }
+            zip: { type: 'string', description: 'Postal code (can be the only part of the address)' }
+
+            # Payment Method: ACH
+            accountNumber: { type: 'string', description: 'Bank Account Number' }
+            routingNumber: { type: 'string', description: 'Bank Routing Number' }
+            type: { enum: [ 'checking', 'savings' ], default: 'checking' }
+        - type: 'object'
+          required: [ 'amount', 'laneId', ]
+          properties:
+            amount:
+              type: 'string'
+              description: >-
+                The total transaction amount. This is the amount of funds to move on the card
+            id:
+              type: 'string'
+              example: >-
+                Transaction ID used to settle an authorized payment method
+                (cc or bank info then not required).
+            token:
+              type: string
+              description: Use a saved payment token (cc or bank info then not required)
+            ticket:
+              type: string
+              description: Ticket Number used by POS
+            email:
+              type: string
+              description: User email, will auto generate payment tokens
+            items:
+              type: array
+              description: List of items for receipt and level3 data.
+              items:
+                type: object
+                properties:
+                  id: { type: string }
+                  price: { type: string }
+                  description: { type: string }
+                  tax: { type: string }
+                  options: { type: string }
+            meta:
+              type: 'object'
+              description: Optional user defined object to be returned with future response
+            address1: { type: 'string', description: 'Address' }
+            address2: { type: 'string', description: 'Unit Number' }
+            city: { type: 'string', description: 'City' }
+            state: { type: 'string', description: 'State' }
+            zip: { type: 'string', description: 'Postal code (can be the only part of the address)' }
+
+            # Payment Method: Terminals
+            laneId: { type: 'string', description: 'Initiate a Credit Card terminal transaction by its laneId (assigned during creation)' }
+            printReceipt: { type: 'boolean', description: 'Prints a receipt of the transaction from the device' }
+
+    SettleRequest:
+      oneOf:
+        - title: 'Settle Request'
+          type: object
+          required: [ 'id' ]
+          properties:
+            id: { type: string, description: 'Transaction ID of charged event' }
+            ticket: { type: string, description: 'Ticket Number used by POS' }
+            meta:
+              type: object
+              additionalProperties: true
+              description: >-
+                Optional user defined object to be returned with future response
+
+        - title: 'Terminal Settle Request'
+          type: object
+          required: [ 'id', 'laneId' ]
+          properties:
+            id: { type: string, description: 'Transaction ID of charged event' }
+            laneId: { type: string, description: 'Initiate a Credit Card terminal settlement by its laneId' }
+            tip: { type: number, description: 'Preset tip amount to be sent to the terminal. Note: this overrides askForTip.' }
+            printReceipt: { type: 'boolean', description: 'Prints a receipt of the transaction from the device' }
+
+    RefundRequest:
+      type: object
+      required: [ 'id' ]
+      properties:
+        id: { type: string, description: 'Void/Refund a previous transaction by its ID' }
+        amount:
+          type: number
+          description: >-
+            Used if partial void/refund otherwise full amount
+            from previous transaction will be used.
+
+
+    MultipayRequest:
+      type: object
+      required: [ 'transaction_id' ]
+      properties:
+        transaction_id: { type: string, description: 'The previously authorized transaction by its ID' }
+        routing_number: { type: string, description: 'A routing number destination' }
+        account_number: { type: string, description: 'A account number destination' }
+        amount: { type: number, description: 'An amount to forward to the specified account/routing number' }
+
+    VoidRequest:
+      oneOf:
+        - title: 'Terminal Void Request'
+          type: object
+          properties:
+            laneId: { type: string, description: 'Void a terminal transaction by its laneId (assigned during creation)' }
+            id: { type: string, format: uuid, description: 'transaction id' }
+
+    TipAdjustRequest:
+      type: object
+      properties:
+        laneId: { type: string, description: 'Void a terminal transaction by its laneId (assigned during creation)' }
+        id: { type: string, format: uuid, description: 'transaction id' }
+        tip: { type: number, description: 'Tip amount.' }
+        printReceipt: { type: 'boolean', description: 'Prints a receipt of the transaction from the device' }
+
+    TerminalActivateRequest:
+      type: object
+      required: [ 'token', 'laneId' ]
+      properties:
+        token: { type: string, description: 'Activation code stored with the deactivated terminal' }
+        laneId: { type: string, description: 'New LaneID/name for terminal' }
+    TerminalDeactivateRequest:
+      type: object
+      required: [ 'token', 'laneId' ]
+      properties:
+        token: { type: string, description: 'Activation code stored with the deactivated terminal' }
+        laneId: { type: string, description: 'New LaneID/name for terminal' }
+
+    SubscriptionCreateRequest:
+      type: object
+      required: [ 'email', 'amount', 'start', 'interval', 'payment' ]
+      description: 'payment is the same object as for creating a charge'
+      properties:
+        email: { type: 'string', description: 'Subscribers email address' }
+        amount: { type: 'string', description: 'Amount charged per cycle.' }
+        start: { type: 'string', description: 'Start of subscription YYYY-MM-DD' }
+        end: { type: 'string', description: 'End of subscription. YYYY-MM-DD Empty means forever.' }
+        cycles: { type: 'string', description: 'Set number of iterations. end will be calculated for you.' }
+        interval: { type: 'string', description: 'daily, weekly, monthly, yearly' }
+        payment: *ChargeRequest
+    
+    EnrollRequest:
+      type: object
+      description: Enroll a new child merchant.
+      properties:
+        dba_name: { type: string, description: 'Doing Business As name. * Only field necessary for GET' }
+        email: { type: string, description: '' }
+        website: { type: string, description: '' }
+        fed_tx_id: { type: string, description: '' }
+        legal_name: { type: string, description: 'Legal Business Name' }
+        start_date: { type: string, description: 'Business Start Date' }
+        account_holder_name: { type: string, description: '' }
+        account_type: { type: string, description: '' }
+        account_number: { type: string, description: 'Bank Account to deposit transactions.' }
+        routing_number: { type: string, description: 'Bank Routing Number to deposit transactions.' }
+        stock_symbol: { type: string, description: '' }
+        ownership_type: { enum: ["Sole Proprietor", "C-Corp Private", "C-Corp Public", "S-Corp Private", "S-Corp Public", "LLC Private", "LLC Public", "Not For Profit", "Partnership Private", "Partnership", "Government Agency"] }
+        business_description: { type: string, description: '' }
+        business_phone_number: { type: string, description: '' }
+        business_address_1: { type: string, description: '' }
+        business_address_2: { type: string, description: '' }
+        business_city: { type: string, description: '' }
+        business_state_province: { type: string, description: '' }
+        business_postal_code: { type: string, description: '' }
+        principal_first_name: { type: string, description: 'Primary Owners First Name. Adding a number to the parameter allows for adding multiple principal owners. Example: 2principal_first_name' }
+        principal_last_name: { type: string, description: 'Primary Owners Last Name.' }
+        principal_ssn: { type: string, description: 'Primary Owners Social Security Number' }
+        principal_date_of_birth: { type: string, description: '' }
+        principal_address_line_1: { type: string, description: '' }
+        principal_address_line_2: { type: string, description: '' }
+        principal_city: { type: string, description: '' }
+        principal_state_province: { type: string, description: '' }
+        principal_postal_code: { type: string, description: '' }
+        principal_title: { type: string, description: '' }
+        principal_ownership_percentage: { type: string, description: '' }
+        principal_phone_number: { type: string, description: '' }
+
+
+  responses:
+    '200':
+      description: >-
+        OK - The request has succeeded. The client can read the result
+        of the request in the body and the headers of the response.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/StandardResponse'
+    '201':
+      description: >-
+        Created - The request has been fulfilled and resulted in a new
+        resource being created.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/StandardResponse'
+    '202':
+      description: >-
+        Accepted - The request has been accepted for processing, but the
+        processing has not been completed.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/StandardResponse'
+    '204':
+      description: >-
+        No Content - The request has succeeded but returns no message
+        body.
+    '304':
+      description: >-
+        Not Modified
+    '400':
+      description: >-
+        Bad Request - The request could not be understood by the server
+        due to malformed syntax. The message body will contain more information.
+        Just retrying the request should not change the outcome.
+    '401':
+      description: >-
+        Unauthorized - The request requires user authentication or, if
+        the request included authorization credentials, authorization has been refused
+        for those credentials.
+    '403':
+      description: >-
+        Forbidden - The server understood the request (and the included
+        credentials), but is refusing to fulfill it.
+    '404':
+      description: >-
+        Not Found - The requested resource could not be found. This error
+        can be due to a temporary or permanent condition.
+    '429':
+      description: >-
+        Too Many Requests - Rate limiting has been applied. The request
+        should be retried.
+    '500':
+      description: >-
+        Internal Server Error - You should not come across any of these.
+        Please report these to us by posting in the GitHub discussion.
+    '502':
+      description: >-
+        Bad Gateway - You should not come across any of these. This request
+        can be retried. The server was acting as a gateway or proxy and received
+        an invalid response from the upstream server.
+    '503':
+      description: >-
+        Service Unavailable - Again, you should not come across any of
+        these. The server is currently unable to handle the request due to a temporary
+        condition which will be alleviated after some delay. You can choose to resend
+        the request again. Please report these to us by posting in the GitHub discussion.
+
