@@ -199,6 +199,7 @@ TriplePlayClient.prototype.refund = function refund(request) {
 };
 
 // export the thing
+module.exports = TriplePlayClient
 module.exports.TriplePlayClient = TriplePlayClient
 
 // export shorthand for the thing

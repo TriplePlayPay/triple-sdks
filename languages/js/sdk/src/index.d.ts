@@ -1,78 +1,4 @@
-export type Options = {
-    baseUrl?: string;
-    bearerToken: string;
-    fetch?: (input: RequestInfo | URL, init?: RequestInit) => Promise<Response>;
-};
-export type ApiResponse = {
-    id: string;
-    status: string;
-    method: string;
-    message: any;
-};
-export type BankAccountRequest = {
-    routing_number: string;
-    account_number: string;
-    email?: string;
-};
-export type CardChargeRequest = {
-    amount: string;
-    id?: string;
-    token?: string;
-    email: string;
-    meta?: Record<string, any>;
-    address1?: string;
-    address2?: string;
-    city?: string;
-    state?: string;
-    zip?: string;
-    tip?: string;
-    cc: string;
-    mm: string;
-    yy: string;
-    cvv: string;
-};
-export type BankChargeRequest = {
-    amount: string;
-    id?: string;
-    token?: string;
-    email: string;
-    meta?: Record<string, any>;
-    address1?: string;
-    address2?: string;
-    city?: string;
-    state?: string;
-    zip?: string;
-    tip?: string;
-    account_number: string;
-    routing_number: string;
-    type?: string;
-};
-export type TerminalChargeRequest = {
-    amount: string;
-    id?: string;
-    token?: string;
-    email: string;
-    meta?: Record<string, any>;
-    address1?: string;
-    address2?: string;
-    city?: string;
-    state?: string;
-    zip?: string;
-    tip?: string;
-    laneId: string;
-    surcharge: string;
-};
-export type ChargeRequest = CardChargeRequest | BankChargeRequest | TerminalChargeRequest;
-export type CreditCardRequest = {
-    cc?: string;
-    cvv: string;
-    mm: string;
-    yy: string;
-    email?: string;
-};
-export type RefundRequest = {
-    id: string;
-};
+export = TriplePlayClient;
 /**
  * @typedef {{
  *     baseUrl? : string,
@@ -97,8 +23,8 @@ export type RefundRequest = {
  * @param {Options} options
  * @constructor
  */
-export function TriplePlayClient(options: Options): TriplePlayClient;
-export class TriplePlayClient {
+declare function TriplePlayClient(options: Options): import(".");
+declare class TriplePlayClient {
     /**
      * @typedef {{
      *     baseUrl? : string,
@@ -233,4 +159,81 @@ export class TriplePlayClient {
      */
     refund(request: RefundRequest): Promise<ApiResponse>;
 }
-export { TriplePlayClient as client };
+declare namespace TriplePlayClient {
+    export { TriplePlayClient, TriplePlayClient as client, Options, ApiResponse, BankAccountRequest, CardChargeRequest, BankChargeRequest, TerminalChargeRequest, ChargeRequest, CreditCardRequest, RefundRequest };
+}
+type Options = {
+    baseUrl?: string;
+    bearerToken: string;
+    fetch?: (input: RequestInfo | URL, init?: RequestInit) => Promise<Response>;
+};
+type ApiResponse = {
+    id: string;
+    status: string;
+    method: string;
+    message: any;
+};
+type BankAccountRequest = {
+    routing_number: string;
+    account_number: string;
+    email?: string;
+};
+type CardChargeRequest = {
+    amount: string;
+    id?: string;
+    token?: string;
+    email: string;
+    meta?: Record<string, any>;
+    address1?: string;
+    address2?: string;
+    city?: string;
+    state?: string;
+    zip?: string;
+    tip?: string;
+    cc: string;
+    mm: string;
+    yy: string;
+    cvv: string;
+};
+type BankChargeRequest = {
+    amount: string;
+    id?: string;
+    token?: string;
+    email: string;
+    meta?: Record<string, any>;
+    address1?: string;
+    address2?: string;
+    city?: string;
+    state?: string;
+    zip?: string;
+    tip?: string;
+    account_number: string;
+    routing_number: string;
+    type?: string;
+};
+type TerminalChargeRequest = {
+    amount: string;
+    id?: string;
+    token?: string;
+    email: string;
+    meta?: Record<string, any>;
+    address1?: string;
+    address2?: string;
+    city?: string;
+    state?: string;
+    zip?: string;
+    tip?: string;
+    laneId: string;
+    surcharge: string;
+};
+type ChargeRequest = CardChargeRequest | BankChargeRequest | TerminalChargeRequest;
+type CreditCardRequest = {
+    cc?: string;
+    cvv: string;
+    mm: string;
+    yy: string;
+    email?: string;
+};
+type RefundRequest = {
+    id: string;
+};
