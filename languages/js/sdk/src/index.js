@@ -101,7 +101,7 @@ TriplePlayClient.prototype.createBankAccount = function createBankAccount(reques
  *     amount : string
  *     id? : string
  *     token? : string
- *     email : string
+ *     email? : string
  *     meta? : Record<string, any>
  *     address1? : string
  *     address2? : string
@@ -121,7 +121,7 @@ TriplePlayClient.prototype.createBankAccount = function createBankAccount(reques
  *     amount : string
  *     id? : string
  *     token? : string
- *     email : string
+ *     email? : string
  *     meta? : Record<string, any>
  *     address1? : string
  *     address2? : string
@@ -140,7 +140,7 @@ TriplePlayClient.prototype.createBankAccount = function createBankAccount(reques
  *     amount : string
  *     id? : string
  *     token? : string
- *     email : string
+ *     email? : string
  *     meta? : Record<string, any>
  *     address1? : string
  *     address2? : string
@@ -168,8 +168,8 @@ TriplePlayClient.prototype.charge = function charge(request) {
 
 /**
  * @typedef {{
- *     cc? : string
- *     cvv : string
+ *     cc : string
+ *     cvv? : string
  *     mm : string
  *     yy : string
  *     email? : string

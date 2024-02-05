@@ -76,7 +76,7 @@ declare class TriplePlayClient {
      *     amount : string
      *     id? : string
      *     token? : string
-     *     email : string
+     *     email? : string
      *     meta? : Record<string, any>
      *     address1? : string
      *     address2? : string
@@ -95,7 +95,7 @@ declare class TriplePlayClient {
      *     amount : string
      *     id? : string
      *     token? : string
-     *     email : string
+     *     email? : string
      *     meta? : Record<string, any>
      *     address1? : string
      *     address2? : string
@@ -113,7 +113,7 @@ declare class TriplePlayClient {
      *     amount : string
      *     id? : string
      *     token? : string
-     *     email : string
+     *     email? : string
      *     meta? : Record<string, any>
      *     address1? : string
      *     address2? : string
@@ -136,8 +136,8 @@ declare class TriplePlayClient {
     charge(request: ChargeRequest): Promise<ApiResponse>;
     /**
      * @typedef {{
-     *     cc? : string
-     *     cvv : string
+     *     cc : string
+     *     cvv? : string
      *     mm : string
      *     yy : string
      *     email? : string
@@ -182,7 +182,7 @@ type CardChargeRequest = {
     amount: string;
     id?: string;
     token?: string;
-    email: string;
+    email?: string;
     meta?: Record<string, any>;
     address1?: string;
     address2?: string;
@@ -199,7 +199,7 @@ type BankChargeRequest = {
     amount: string;
     id?: string;
     token?: string;
-    email: string;
+    email?: string;
     meta?: Record<string, any>;
     address1?: string;
     address2?: string;
@@ -215,7 +215,7 @@ type TerminalChargeRequest = {
     amount: string;
     id?: string;
     token?: string;
-    email: string;
+    email?: string;
     meta?: Record<string, any>;
     address1?: string;
     address2?: string;
@@ -228,8 +228,8 @@ type TerminalChargeRequest = {
 };
 type ChargeRequest = CardChargeRequest | BankChargeRequest | TerminalChargeRequest;
 type CreditCardRequest = {
-    cc?: string;
-    cvv: string;
+    cc: string;
+    cvv?: string;
     mm: string;
     yy: string;
     email?: string;
