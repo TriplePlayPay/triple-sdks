@@ -1,71 +1,77 @@
-export namespace TriplePlayPayApi {
-    export { TriplePlayClient as ApiApi };
-}
 export type Options = {
     baseUrl?: string;
     bearerToken: string;
     fetch?: (input: RequestInfo | URL, init?: RequestInit) => Promise<Response>;
 };
 export type ApiResponse = {
-    baseUrl: string;
-    bearerToken: string;
-    fetch?: (input: RequestInfo | URL, init?: RequestInit) => Promise<Response>;
+    id: string;
+    status: string;
+    method: string;
+    message: any;
 };
-export type AuthorizeRequest = {
-    amount: string;
-    cc: string;
-    mm: string;
-    yy: string;
-    cvv: string;
-    zip: string;
-    ticket: string;
-    meta: string;
-};
-export type ChargeRequest = {
-    amount: string;
-    terminal: number;
-    id?: string;
-    cc: string;
-    mm: string;
-    yy: string;
-    cvv: string;
-    zip?: string;
-    accountNumber: string;
-    routingNumber: string;
-    type: string;
-    ticket?: string;
-    items?: any[];
-    meta: Record<string, any>;
-};
-export type ClientRequest = {
-    timezone?: string;
+export type BankAccountRequest = {
+    routing_number: string;
+    account_number: string;
     email?: string;
-    callback?: string;
-    tax?: string;
 };
-export type EnrollRequest = {
-    a: true;
+export type CardChargeRequest = {
+    amount: string;
+    id?: string;
+    token?: string;
+    email: string;
+    meta?: Record<string, any>;
+    address1?: string;
+    address2?: string;
+    city?: string;
+    state?: string;
+    zip?: string;
+    tip?: string;
+    cc: string;
+    mm: string;
+    yy: string;
+    cvv: string;
+};
+export type BankChargeRequest = {
+    amount: string;
+    id?: string;
+    token?: string;
+    email: string;
+    meta?: Record<string, any>;
+    address1?: string;
+    address2?: string;
+    city?: string;
+    state?: string;
+    zip?: string;
+    tip?: string;
+    account_number: string;
+    routing_number: string;
+    type?: string;
+};
+export type TerminalChargeRequest = {
+    amount: string;
+    id?: string;
+    token?: string;
+    email: string;
+    meta?: Record<string, any>;
+    address1?: string;
+    address2?: string;
+    city?: string;
+    state?: string;
+    zip?: string;
+    tip?: string;
+    laneId: string;
+    surcharge: string;
+};
+export type ChargeRequest = CardChargeRequest | BankChargeRequest | TerminalChargeRequest;
+export type CreditCardRequest = {
+    cc?: string;
+    cvv: string;
+    mm: string;
+    yy: string;
+    email?: string;
 };
 export type RefundRequest = {
-    a: true;
-};
-export type ReportRequest = {
-    a: true;
-};
-export type SettleRequest = {
-    a: true;
-};
-export type SubscriptionRequest = {
-    a: true;
-};
-export type TerminalRequest = {
-    a: true;
-};
-export type TokenizeRequest = {
-    a: true;
-};
-export type VoidRequest = {
-    a: true;
+    id: string;
 };
 /**
  * @typedef {{
@@ -75,9 +81,10 @@ export type VoidRequest = {
  * }} Options
 
  * @typedef {{
- *     baseUrl : string,
- *     bearerToken : string,
- *     fetch? : (input: RequestInfo | URL, init?: RequestInit) => Promise<Response>,
+ *     id : string,
+ *     status : string,
+ *     method : string,
+ *     message : any,
  * }} ApiResponse
  */
 /**
@@ -100,9 +107,10 @@ export class TriplePlayClient {
      * }} Options
     
      * @typedef {{
-     *     baseUrl : string,
-     *     bearerToken : string,
-     *     fetch? : (input: RequestInfo | URL, init?: RequestInit) => Promise<Response>,
+     *     id : string,
+     *     status : string,
+     *     method : string,
+     *     message : any,
      * }} ApiResponse
      */
     /**
@@ -127,38 +135,72 @@ export class TriplePlayClient {
     postOptions: RequestInit;
     /**
      * @typedef {{
-     *     amount : string,
-     *     cc : string,
-     *     mm : string,
-     *     yy : string,
-     *     cvv : string,
-     *     zip : string,
-     *     ticket : string,
-     *     meta : string,
-     * }} AuthorizeRequest
+     *     routing_number : string,
+     *     account_number : string,
+     *     email? : string,
+     * }} BankAccountRequest
      */
     /**
-     * @param {AuthorizeRequest} request
-     * @return {Promise<any>}
+     * @param {BankAccountRequest} request
+     * @return {Promise<ApiResponse>}
      */
-    authorize(request: AuthorizeRequest): Promise<any>;
+    createBankAccount(request: BankAccountRequest): Promise<ApiResponse>;
     /**
      * @typedef {{
-     *     amount : string,
-     *     terminal : number,
-     *     id? : string,
-     *     cc : string,
-     *     mm : string,
-     *     yy : string,
-     *     cvv : string,
-     *     zip? : string,
-     *     accountNumber : string,
-     *     routingNumber : string,
-     *     type : string,
-     *     ticket? : string,
-     *     items? : Array,
-     *     meta : Record<string, any>,
-     * }} ChargeRequest
+     *     amount : string
+     *     id? : string
+     *     token? : string
+     *     email : string
+     *     meta? : Record<string, any>
+     *     address1? : string
+     *     address2? : string
+     *     city? : string
+     *     state? : string
+     *     zip? : string
+     *     tip? : string
+     *     cc : string
+     *     mm : string
+     *     yy : string
+     *     cvv : string
+     * }} CardChargeRequest
+     */
+    /**
+     * @typedef {{
+     *     amount : string
+     *     id? : string
+     *     token? : string
+     *     email : string
+     *     meta? : Record<string, any>
+     *     address1? : string
+     *     address2? : string
+     *     city? : string
+     *     state? : string
+     *     zip? : string
+     *     tip? : string
+     *     account_number : string
+     *     routing_number : string
+     *     type? : string
+     * }} BankChargeRequest
+     */
+    /**
+     * @typedef {{
+     *     amount : string
+     *     id? : string
+     *     token? : string
+     *     email : string
+     *     meta? : Record<string, any>
+     *     address1? : string
+     *     address2? : string
+     *     city? : string
+     *     state? : string
+     *     zip? : string
+     *     tip? : string
+     *     laneId : string
+     *     surcharge : string
+     * }} TerminalChargeRequest
+     */
+    /**
+     * @typedef {CardChargeRequest | BankChargeRequest | TerminalChargeRequest} ChargeRequest
      */
     /**
      *
@@ -168,80 +210,27 @@ export class TriplePlayClient {
     charge(request: ChargeRequest): Promise<ApiResponse>;
     /**
      * @typedef {{
-     *     timezone? : string,
-     *     email? : string,
-     *     callback? : string,
-     *     tax? : string,
-     * }} ClientRequest
+     *     cc? : string
+     *     cvv : string
+     *     mm : string
+     *     yy : string
+     *     email? : string
+     * }} CreditCardRequest
      */
     /**
-     * @param {ClientRequest} request
+     * @param {CreditCardRequest} request
      * @return {Promise<ApiResponse>}
      */
-    client(request: ClientRequest): Promise<ApiResponse>;
+    createCreditCard(request: CreditCardRequest): Promise<ApiResponse>;
     /**
-     * @typedef {{ a : true }} EnrollRequest
-     */
-    /**
-     * @param {EnrollRequest} request
-     * @return {Promise<ApiResponse>}
-     */
-    enroll(request: EnrollRequest): Promise<ApiResponse>;
-    /**
-     * @typedef {{ a : true }} RefundRequest
+     * @typedef {{
+     *     id : string
+     * }} RefundRequest
      */
     /**
      * @param {RefundRequest} request
      * @return {Promise<ApiResponse>}
      */
     refund(request: RefundRequest): Promise<ApiResponse>;
-    /**
-     * @typedef {{ a : true }} ReportRequest
-     */
-    /**
-     * @param {ReportRequest} request
-     * @return {Promise<ApiResponse>}
-     */
-    report(request: ReportRequest): Promise<ApiResponse>;
-    /**
-     * @typedef {{ a : true }} SettleRequest
-     */
-    /**
-     * @param {SettleRequest} request
-     * @return {Promise<ApiResponse>}
-     */
-    settle(request: SettleRequest): Promise<ApiResponse>;
-    /**
-     * @typedef {{ a : true }} SubscriptionRequest
-     */
-    /**
-     * @param {SubscriptionRequest} request
-     * @return {Promise<ApiResponse>}
-     */
-    subscription(request: SubscriptionRequest): Promise<ApiResponse>;
-    /**
-     * @typedef {{ a : true }} TerminalRequest
-     */
-    /**
-     * @param {TerminalRequest} request
-     * @return {Promise<ApiResponse>}
-     */
-    terminal(request: TerminalRequest): Promise<ApiResponse>;
-    /**
-     * @typedef {{ a : true }} TokenizeRequest
-     */
-    /**
-     * @param {TokenizeRequest} request
-     * @return {Promise<ApiResponse>}
-     */
-    tokenize(request: TokenizeRequest): Promise<ApiResponse>;
-    /**
-     * @typedef {{ a : true }} VoidRequest
-     */
-    /**
-     * @param {VoidRequest} request
-     * @return {Promise<ApiResponse>}
-     */
-    callVoid(request: VoidRequest): Promise<ApiResponse>;
 }
 export { TriplePlayClient as client };

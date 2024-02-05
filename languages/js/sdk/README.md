@@ -5,23 +5,19 @@
 ```javascript
 let triple = require('@tripleplaypay/sdk')
 let client = triple.client({ bearerToken: 'token' });
-let response = await client.authorize({
-    amount: '',
+let response = await client.createCreditCard({
     cc: '',
+    cvv: '',
     mm: '',
     yy: '',
-    cvv: '',
-    zip: '',
-    ticket: '',
-    meta: '',
+    email: '',
 });
 ```
 
-for all usages, see [Documentation](./DOCUMENTATION.md).
 
 ## API docs
 
-for api docs, see [API Docs](../../../openapi/API-docs.md).
+for all possible api usage, see [API Docs](../../../openapi/API-docs.md).
 
 ## Packaging
 

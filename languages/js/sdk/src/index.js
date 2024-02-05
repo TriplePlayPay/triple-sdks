@@ -6,9 +6,10 @@
  * }} Options
 
  * @typedef {{
- *     baseUrl : string,
- *     bearerToken : string,
- *     fetch? : (input: RequestInfo | URL, init?: RequestInit) => Promise<Response>,
+ *     id : string,
+ *     status : string,
+ *     method : string,
+ *     message : any,
  * }} ApiResponse
  */
 
@@ -26,7 +27,7 @@ function TriplePlayClient(options) {
     if (!(this instanceof TriplePlayClient)) return new TriplePlayClient(options);
 
     this.options = options;
-    this.options.baseUrl = this.options.baseUrl || 'https://www.tripleplaypay.com';
+    this.options.baseUrl = this.options.baseUrl || 'https://tripleplaypay.com';
     this.options.fetch = this.options.fetch || globalThis.fetch;
 
     if (!this.options.fetch)
@@ -80,52 +81,80 @@ function _thenJson(response) {
 }
 
 /**
- * @param {Record<string, any>} object
- * @return string
- * @private
- */
-function _qs(object) {
-    return new URLSearchParams(Object.entries(object)).toString()
-}
-
-/**
  * @typedef {{
- *     amount : string,
- *     cc : string,
- *     mm : string,
- *     yy : string,
- *     cvv : string,
- *     zip : string,
- *     ticket : string,
- *     meta : string,
- * }} AuthorizeRequest
+ *     routing_number : string,
+ *     account_number : string,
+ *     email? : string,
+ * }} BankAccountRequest
  */
 
 /**
- * @param {AuthorizeRequest} request
- * @return {Promise<any>}
+ * @param {BankAccountRequest} request
+ * @return {Promise<ApiResponse>}
  */
-TriplePlayClient.prototype.authorize = function authorize(request) {
-    return this.options.fetch('/api/authorize', { ...this.options, body: _qs(request) }).then(_verifyResponseOk).then(_thenJson);
+TriplePlayClient.prototype.createBankAccount = function createBankAccount(request) {
+    return this.options.fetch('/api/bankaccount', { ...this.postOptions, body: JSON.stringify(request) }).then(_verifyResponseOk).then(_thenJson);
 };
 
 /**
  * @typedef {{
- *     amount : string,
- *     terminal : number,
- *     id? : string,
- *     cc : string,
- *     mm : string,
- *     yy : string,
- *     cvv : string,
- *     zip? : string,
- *     accountNumber : string,
- *     routingNumber : string,
- *     type : string,
- *     ticket? : string,
- *     items? : Array,
- *     meta : Record<string, any>,
- * }} ChargeRequest
+ *     amount : string
+ *     id? : string
+ *     token? : string
+ *     email : string
+ *     meta? : Record<string, any>
+ *     address1? : string
+ *     address2? : string
+ *     city? : string
+ *     state? : string
+ *     zip? : string
+ *     tip? : string
+ *     cc : string
+ *     mm : string
+ *     yy : string
+ *     cvv : string
+ * }} CardChargeRequest
+ */
+
+/**
+ * @typedef {{
+ *     amount : string
+ *     id? : string
+ *     token? : string
+ *     email : string
+ *     meta? : Record<string, any>
+ *     address1? : string
+ *     address2? : string
+ *     city? : string
+ *     state? : string
+ *     zip? : string
+ *     tip? : string
+ *     account_number : string
+ *     routing_number : string
+ *     type? : string
+ * }} BankChargeRequest
+ */
+
+/**
+ * @typedef {{
+ *     amount : string
+ *     id? : string
+ *     token? : string
+ *     email : string
+ *     meta? : Record<string, any>
+ *     address1? : string
+ *     address2? : string
+ *     city? : string
+ *     state? : string
+ *     zip? : string
+ *     tip? : string
+ *     laneId : string
+ *     surcharge : string
+ * }} TerminalChargeRequest
+ */
+
+/**
+ * @typedef {CardChargeRequest | BankChargeRequest | TerminalChargeRequest} ChargeRequest
  */
 
 /**
@@ -134,40 +163,31 @@ TriplePlayClient.prototype.authorize = function authorize(request) {
  * @return {Promise<ApiResponse>}
  */
 TriplePlayClient.prototype.charge = function charge(request) {
-    return this.options.fetch('/api/charge', { ...this.postOptions, body: _qs(request) }).then(_verifyResponseOk).then(_thenJson);
+    return this.options.fetch('/api/charge', { ...this.postOptions, body: JSON.stringify(request) }).then(_verifyResponseOk).then(_thenJson);
 };
 
 /**
  * @typedef {{
- *     timezone? : string,
- *     email? : string,
- *     callback? : string,
- *     tax? : string,
- * }} ClientRequest
+ *     cc? : string
+ *     cvv : string
+ *     mm : string
+ *     yy : string
+ *     email? : string
+ * }} CreditCardRequest
  */
 
 /**
- * @param {ClientRequest} request
+ * @param {CreditCardRequest} request
  * @return {Promise<ApiResponse>}
  */
-TriplePlayClient.prototype.client = function client(request) {
-    return this.options.fetch('/api/client', { ...this.postOptions, body: _qs(request) }).then(_verifyResponseOk).then(_thenJson);
+TriplePlayClient.prototype.createCreditCard = function createCreditCard(request) {
+    return this.options.fetch('/api/card', { ...this.postOptions, body: JSON.stringify(request) }).then(_verifyResponseOk).then(_thenJson);
 };
 
 /**
- * @typedef {{ a : true }} EnrollRequest
- */
-
-/**
- * @param {EnrollRequest} request
- * @return {Promise<ApiResponse>}
- */
-TriplePlayClient.prototype.enroll = function enroll(request) {
-    return this.options.fetch('/api/enroll', { ...this.postOptions, body: _qs(request) }).then(_verifyResponseOk).then(_thenJson);
-};
-
-/**
- * @typedef {{ a : true }} RefundRequest
+ * @typedef {{
+ *     id : string
+ * }} RefundRequest
  */
 
 /**
@@ -175,79 +195,7 @@ TriplePlayClient.prototype.enroll = function enroll(request) {
  * @return {Promise<ApiResponse>}
  */
 TriplePlayClient.prototype.refund = function refund(request) {
-    return this.options.fetch('/api/refund', { ...this.postOptions, body: _qs(request) }).then(_verifyResponseOk).then(_thenJson);
-};
-
-/**
- * @typedef {{ a : true }} ReportRequest
- */
-
-/**
- * @param {ReportRequest} request
- * @return {Promise<ApiResponse>}
- */
-TriplePlayClient.prototype.report = function report(request) {
-    return this.options.fetch('/api/report', { ...this.postOptions, body: _qs(request) }).then(_verifyResponseOk).then(_thenJson);
-};
-
-/**
- * @typedef {{ a : true }} SettleRequest
- */
-
-/**
- * @param {SettleRequest} request
- * @return {Promise<ApiResponse>}
- */
-TriplePlayClient.prototype.settle = function settle(request) {
-    return this.options.fetch('/api/settle', { ...this.postOptions, body: _qs(request) }).then(_verifyResponseOk).then(_thenJson);
-};
-
-/**
- * @typedef {{ a : true }} SubscriptionRequest
- */
-
-/**
- * @param {SubscriptionRequest} request
- * @return {Promise<ApiResponse>}
- */
-TriplePlayClient.prototype.subscription = function subscription(request) {
-    return this.options.fetch('/api/subscription', { ...this.postOptions, body: _qs(request) }).then(_verifyResponseOk).then(_thenJson);
-};
-
-/**
- * @typedef {{ a : true }} TerminalRequest
- */
-
-/**
- * @param {TerminalRequest} request
- * @return {Promise<ApiResponse>}
- */
-TriplePlayClient.prototype.terminal = function terminal(request) {
-    return this.options.fetch('/api/terminal', { ...this.postOptions, body: _qs(request) }).then(_verifyResponseOk).then(_thenJson);
-};
-
-/**
- * @typedef {{ a : true }} TokenizeRequest
- */
-
-/**
- * @param {TokenizeRequest} request
- * @return {Promise<ApiResponse>}
- */
-TriplePlayClient.prototype.tokenize = function tokenize(request) {
-    return this.options.fetch('/api/tokenize', { ...this.postOptions, body: _qs(request) }).then(_verifyResponseOk).then(_thenJson);
-};
-
-/**
- * @typedef {{ a : true }} VoidRequest
- */
-
-/**
- * @param {VoidRequest} request
- * @return {Promise<ApiResponse>}
- */
-TriplePlayClient.prototype.callVoid = function callVoid(request) {
-    return this.options.fetch('/api/void', { ...this.postOptions, body: _qs(request) }).then(_verifyResponseOk).then(_thenJson);
+    return this.options.fetch('/api/refund', { ...this.postOptions, body: JSON.stringify(request) }).then(_verifyResponseOk).then(_thenJson);
 };
 
 // export the thing
@@ -255,8 +203,3 @@ module.exports.TriplePlayClient = TriplePlayClient
 
 // export shorthand for the thing
 module.exports.client = TriplePlayClient
-
-/**
- * for backwards compatibility:
- */
-module.exports.TriplePlayPayApi = { ApiApi: TriplePlayClient };
