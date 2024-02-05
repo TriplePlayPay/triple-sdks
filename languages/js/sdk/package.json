@@ -15,7 +15,7 @@
     "url": "https://github.com/TriplePlayPay/triple-sdks/issues"
   },
   "license": "Apache-2.0",
-  "homepage": "https://github.com/TriplePlayPay/triple-sdks/tree/test/languages/js",
+  "homepage": "https://github.com/TriplePlayPay/triple-sdks/tree/main/languages/js/sdk",
   "repository": {
     "type": "git",
     "url": "https://github.com/TriplePlayPay/triple-sdks.git"
