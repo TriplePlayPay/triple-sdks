@@ -12,8 +12,29 @@ info:
   license:
     name: 'Apache 2.0'
     url: 'https://www.apache.org/licenses/LICENSE-2.0.html'
+tags:
+  - name: minimal
+    description: core set of SDK functionality
 
 paths:
+  /bankaccount:
+    post:
+      summary: '/bankaccount'
+      operationId: 'bankaccount'
+      description: bank account creation
+      requestBody:
+        $ref: '#/components/requestBodies/BankAccountRequestBody'
+      responses: { '200': { $ref: '#/components/responses/200' }, '201': { $ref: '#/components/responses/201' }, '202': { $ref: '#/components/responses/202' }, '204': { $ref: '#/components/responses/204' }, '304': { $ref: '#/components/responses/304' }, '400': { $ref: '#/components/responses/400' }, '401': { $ref: '#/components/responses/401' }, '403': { $ref: '#/components/responses/403' }, '404': { $ref: '#/components/responses/404' }, '429': { $ref: '#/components/responses/429' }, '500': { $ref: '#/components/responses/500' }, '502': { $ref: '#/components/responses/502' }, '503': { $ref: '#/components/responses/503' }, }
+
+  /card:
+    post:
+      summary: '/card'
+      operationId: 'card'
+      description: credit card creation, same as bank account
+      requestBody:
+        $ref: '#/components/requestBodies/CardRequestBody'
+      responses: { '200': { $ref: '#/components/responses/200' }, '201': { $ref: '#/components/responses/201' }, '202': { $ref: '#/components/responses/202' }, '204': { $ref: '#/components/responses/204' }, '304': { $ref: '#/components/responses/304' }, '400': { $ref: '#/components/responses/400' }, '401': { $ref: '#/components/responses/401' }, '403': { $ref: '#/components/responses/403' }, '404': { $ref: '#/components/responses/404' }, '429': { $ref: '#/components/responses/429' }, '500': { $ref: '#/components/responses/500' }, '502': { $ref: '#/components/responses/502' }, '503': { $ref: '#/components/responses/503' }, }
+
   /charge:
     post:
       summary: '/charge'
@@ -144,6 +165,8 @@ paths:
 
 components:
   requestBodies:
+    BankAccountRequestBody: { content: { 'application/json': { schema: { $ref: '#/components/schemas/BankAccountRequest' } } } }
+    CardRequestBody: { content: { 'application/json': { schema: { $ref: '#/components/schemas/CardRequest' } } } }
     ChargeRequestBody: { content: { 'application/json': { schema: { $ref: '#/components/schemas/ChargeRequest' } } } }
     AuthorizeRequestBody: { content: { 'application/json': { schema: { $ref: '#/components/schemas/AuthorizeRequest' } } } }
     SettleRequestBody: { content: { 'application/json': { schema: { $ref: '#/components/schemas/SettleRequest' } } } }
@@ -170,6 +193,29 @@ components:
         method:
           type: string
           description: 'endpoint called'
+
+    BankAccountRequest:
+      type: object
+      required:
+        - routing_number
+        - account_number
+      properties:
+        routing_number:
+          type: string
+        account_number:
+          type: boolean
+        email:
+          type: string
+
+    CardRequest:
+      type: object
+      required: [ 'cc', 'mm', 'yy' ]
+      properties:
+        cc: { type: string, description: 'The number of the credit card to be charged.' }
+        cvv: { type: string, description: 'This is a unique code printed on cards to authorize payments.' }
+        mm: { type: string, description: 'A two-digit month value for the expiration of the card.' }
+        yy: { type: string, description: 'A two-digit month value for the expiration of the card.' }
+        email: { type: string, description: '(Optional) A valid email address representing a customer.' }
 
     ChargeRequest: &ChargeRequest
       oneOf:
@@ -210,7 +256,7 @@ components:
 
         - type: 'object'
           title: 'Bank Charge Request'
-          required: [ 'amount', 'accountNumber', 'routingNumber' ]
+          required: [ 'amount', 'account_number', 'routing_number' ]
           properties:
             amount:
               type: 'string'
@@ -238,8 +284,8 @@ components:
             tip: { type: 'string', description: 'Add a tip to the transaction, `amount` should be total including tip.' }
 
             # Payment Method: ACH
-            accountNumber: { type: 'string', description: 'Bank Account Number' }
-            routingNumber: { type: 'string', description: 'Bank Routing Number' }
+            account_number: { type: 'string', description: 'Bank Account Number' }
+            routing_number: { type: 'string', description: 'Bank Routing Number' }
             type: { enum: [ 'checking', 'savings' ], default: 'checking' }
 
         - type: 'object'
