@@ -5,6 +5,7 @@
   "main": "src/index.js",
   "type": "commonjs",
   "types": "src/index.d.ts",
+  "files": ["src"],
   "scripts": {
     "test": "jasmine --config=jasmine.json",
     "prepare": "tsc --declaration --emitDeclarationOnly src/index.js --allowJs",

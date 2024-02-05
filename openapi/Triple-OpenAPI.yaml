@@ -13,12 +13,13 @@ info:
     name: 'Apache 2.0'
     url: 'https://www.apache.org/licenses/LICENSE-2.0.html'
 tags:
-  - name: minimal
+  - name: sdk-v1.0.0
     description: core set of SDK functionality
 
 paths:
   /bankaccount:
     post:
+      tags: [ 'sdk-v1.0.0' ]
       summary: '/bankaccount'
       operationId: 'bankaccount'
       description: bank account creation
@@ -28,6 +29,7 @@ paths:
 
   /card:
     post:
+      tags: [ 'sdk-v1.0.0' ]
       summary: '/card'
       operationId: 'card'
       description: credit card creation, same as bank account
@@ -37,6 +39,7 @@ paths:
 
   /charge:
     post:
+      tags: [ 'sdk-v1.0.0' ]
       summary: '/charge'
       operationId: 'charge'
       description: >-
@@ -65,6 +68,7 @@ paths:
       responses: { '200': { $ref: '#/components/responses/200' }, '201': { $ref: '#/components/responses/201' }, '202': { $ref: '#/components/responses/202' }, '204': { $ref: '#/components/responses/204' }, '304': { $ref: '#/components/responses/304' }, '400': { $ref: '#/components/responses/400' }, '401': { $ref: '#/components/responses/401' }, '403': { $ref: '#/components/responses/403' }, '404': { $ref: '#/components/responses/404' }, '429': { $ref: '#/components/responses/429' }, '500': { $ref: '#/components/responses/500' }, '502': { $ref: '#/components/responses/502' }, '503': { $ref: '#/components/responses/503' }, }
   /refund:
     post:
+      tags: [ 'sdk-v1.0.0' ]
       summary: '/refund'
       operationId: 'refund'
       description: |

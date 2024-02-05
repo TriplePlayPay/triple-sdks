@@ -17,7 +17,9 @@ let response = await client.createCreditCard({
 
 ## API docs
 
-for all possible api usage, see [API Docs](../../../openapi/API-docs.md).
+for all possible api usage, see [the OpenAPI spec](../../../openapi/Triple-OpenAPI.yaml).
+
+You can access the latest version of it here: https://github.com/TriplePlayPay/triple-sdks/blob/main/openapi/Triple-OpenAPI.yaml
 
 ## Packaging
 
