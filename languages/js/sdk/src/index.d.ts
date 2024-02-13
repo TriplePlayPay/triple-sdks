@@ -74,8 +74,11 @@ declare class TriplePlayClient {
     /**
      * @typedef {{
      *     amount : string
+<<<<<<< HEAD
      *     id? : string
      *     token? : string
+=======
+>>>>>>> bolin/mods
      *     email? : string
      *     meta? : Record<string, any>
      *     address1? : string
@@ -87,15 +90,19 @@ declare class TriplePlayClient {
      *     cc : string
      *     mm : string
      *     yy : string
-     *     cvv : string
+     *     cvv? : string
      * }} CardChargeRequest
      */
     /**
      * @typedef {{
      *     amount : string
+<<<<<<< HEAD
      *     id? : string
      *     token? : string
      *     email? : string
+=======
+     *     email : string
+>>>>>>> bolin/mods
      *     meta? : Record<string, any>
      *     address1? : string
      *     address2? : string
@@ -111,7 +118,6 @@ declare class TriplePlayClient {
     /**
      * @typedef {{
      *     amount : string
-     *     id? : string
      *     token? : string
      *     email? : string
      *     meta? : Record<string, any>
@@ -122,11 +128,26 @@ declare class TriplePlayClient {
      *     zip? : string
      *     tip? : string
      *     laneId : string
-     *     surcharge : string
+     *     surcharge? : string
      * }} TerminalChargeRequest
      */
     /**
-     * @typedef {CardChargeRequest | BankChargeRequest | TerminalChargeRequest} ChargeRequest
+     * @typedef {{
+     *     amount : string
+     *     token : string
+     *     email? : string
+     *     meta? : Record<string, any>
+     *     address1? : string
+     *     address2? : string
+     *     city? : string
+     *     state? : string
+     *     zip? : string
+     *     tip? : string
+     *     surcharge? : string
+     * }} TokenChargeRequest
+     */
+    /**
+     * @typedef {CardChargeRequest | BankChargeRequest | TerminalChargeRequest | TokenChargeRequest} ChargeRequest
      */
     /**
      *
@@ -160,7 +181,7 @@ declare class TriplePlayClient {
     refund(request: RefundRequest): Promise<ApiResponse>;
 }
 declare namespace TriplePlayClient {
-    export { TriplePlayClient, TriplePlayClient as client, Options, ApiResponse, BankAccountRequest, CardChargeRequest, BankChargeRequest, TerminalChargeRequest, ChargeRequest, CreditCardRequest, RefundRequest };
+    export { TriplePlayClient, TriplePlayClient as client, Options, ApiResponse, BankAccountRequest, CardChargeRequest, BankChargeRequest, TerminalChargeRequest, TokenChargeRequest, ChargeRequest, CreditCardRequest, RefundRequest };
 }
 type Options = {
     baseUrl?: string;
@@ -190,10 +211,11 @@ type CardChargeRequest = {
     state?: string;
     zip?: string;
     tip?: string;
+    surcharge?: string;
     cc: string;
     mm: string;
     yy: string;
-    cvv: string;
+    cvv?: string;
 };
 type BankChargeRequest = {
     amount: string;
@@ -214,7 +236,10 @@ type BankChargeRequest = {
 type TerminalChargeRequest = {
     amount: string;
     id?: string;
+<<<<<<< HEAD
     token?: string;
+=======
+>>>>>>> bolin/mods
     email?: string;
     meta?: Record<string, any>;
     address1?: string;
@@ -224,9 +249,23 @@ type TerminalChargeRequest = {
     zip?: string;
     tip?: string;
     laneId: string;
-    surcharge: string;
+    surcharge?: string;
 };
-type ChargeRequest = CardChargeRequest | BankChargeRequest | TerminalChargeRequest;
+type TokenChargeRequest = {
+    amount: string;
+    token: string;
+    id?: string;
+    email?: string;
+    meta?: Record<string, any>;
+    address1?: string;
+    address2?: string;
+    city?: string;
+    state?: string;
+    zip?: string;
+    tip?: string;
+    surcharge?: string;
+}
+type ChargeRequest = CardChargeRequest | BankChargeRequest | TerminalChargeRequest | TokenChargeRequest;
 type CreditCardRequest = {
     cc: string;
     cvv?: string;
