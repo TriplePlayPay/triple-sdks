@@ -74,11 +74,6 @@ declare class TriplePlayClient {
     /**
      * @typedef {{
      *     amount : string
-<<<<<<< HEAD
-     *     id? : string
-     *     token? : string
-=======
->>>>>>> bolin/mods
      *     email? : string
      *     meta? : Record<string, any>
      *     address1? : string
@@ -96,13 +91,7 @@ declare class TriplePlayClient {
     /**
      * @typedef {{
      *     amount : string
-<<<<<<< HEAD
-     *     id? : string
-     *     token? : string
      *     email? : string
-=======
-     *     email : string
->>>>>>> bolin/mods
      *     meta? : Record<string, any>
      *     address1? : string
      *     address2? : string
@@ -118,7 +107,6 @@ declare class TriplePlayClient {
     /**
      * @typedef {{
      *     amount : string
-     *     token? : string
      *     email? : string
      *     meta? : Record<string, any>
      *     address1? : string
@@ -201,8 +189,6 @@ type BankAccountRequest = {
 };
 type CardChargeRequest = {
     amount: string;
-    id?: string;
-    token?: string;
     email?: string;
     meta?: Record<string, any>;
     address1?: string;
@@ -211,7 +197,6 @@ type CardChargeRequest = {
     state?: string;
     zip?: string;
     tip?: string;
-    surcharge?: string;
     cc: string;
     mm: string;
     yy: string;
@@ -219,8 +204,6 @@ type CardChargeRequest = {
 };
 type BankChargeRequest = {
     amount: string;
-    id?: string;
-    token?: string;
     email?: string;
     meta?: Record<string, any>;
     address1?: string;
@@ -235,11 +218,6 @@ type BankChargeRequest = {
 };
 type TerminalChargeRequest = {
     amount: string;
-    id?: string;
-<<<<<<< HEAD
-    token?: string;
-=======
->>>>>>> bolin/mods
     email?: string;
     meta?: Record<string, any>;
     address1?: string;
@@ -254,7 +232,6 @@ type TerminalChargeRequest = {
 type TokenChargeRequest = {
     amount: string;
     token: string;
-    id?: string;
     email?: string;
     meta?: Record<string, any>;
     address1?: string;
@@ -264,7 +241,7 @@ type TokenChargeRequest = {
     zip?: string;
     tip?: string;
     surcharge?: string;
-}
+};
 type ChargeRequest = CardChargeRequest | BankChargeRequest | TerminalChargeRequest | TokenChargeRequest;
 type CreditCardRequest = {
     cc: string;
