@@ -93,7 +93,7 @@ function _thenJson(response) {
  * @return {Promise<ApiResponse>}
  */
 TriplePlayClient.prototype.createBankAccount = function createBankAccount(request) {
-    return this.options.fetch('/api/bankaccount', { ...this.postOptions, body: JSON.stringify(request) }).then(_verifyResponseOk).then(_thenJson);
+    return this.options.fetch(this.options.baseUrl + '/api/bankaccount', { ...this.postOptions, body: JSON.stringify(request) }).then(_verifyResponseOk).then(_thenJson);
 };
 
 /**
@@ -173,7 +173,7 @@ TriplePlayClient.prototype.createBankAccount = function createBankAccount(reques
  * @return {Promise<ApiResponse>}
  */
 TriplePlayClient.prototype.charge = function charge(request) {
-    return this.options.fetch('/api/charge', { ...this.postOptions, body: JSON.stringify(request) }).then(_verifyResponseOk).then(_thenJson);
+    return this.options.fetch(this.options.baseUrl + '/api/charge', { ...this.postOptions, body: JSON.stringify(request) }).then(_verifyResponseOk).then(_thenJson);
 };
 
 /**
@@ -191,7 +191,7 @@ TriplePlayClient.prototype.charge = function charge(request) {
  * @return {Promise<ApiResponse>}
  */
 TriplePlayClient.prototype.createCreditCard = function createCreditCard(request) {
-    return this.options.fetch('/api/card', { ...this.postOptions, body: JSON.stringify(request) }).then(_verifyResponseOk).then(_thenJson);
+    return this.options.fetch(this.options.baseUrl + '/api/card', { ...this.postOptions, body: JSON.stringify(request) }).then(_verifyResponseOk).then(_thenJson);
 };
 
 /**
@@ -205,7 +205,7 @@ TriplePlayClient.prototype.createCreditCard = function createCreditCard(request)
  * @return {Promise<ApiResponse>}
  */
 TriplePlayClient.prototype.refund = function refund(request) {
-    return this.options.fetch('/api/refund', { ...this.postOptions, body: JSON.stringify(request) }).then(_verifyResponseOk).then(_thenJson);
+    return this.options.fetch(this.options.baseUrl + '/api/refund', { ...this.postOptions, body: JSON.stringify(request) }).then(_verifyResponseOk).then(_thenJson);
 };
 
 // export the thing
