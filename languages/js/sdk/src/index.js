@@ -118,7 +118,6 @@ TriplePlayClient.prototype.createBankAccount = function createBankAccount(reques
 /**
  * @typedef {{
  *     amount : string
- *     token? : string
  *     email? : string
  *     meta? : Record<string, any>
  *     address1? : string
