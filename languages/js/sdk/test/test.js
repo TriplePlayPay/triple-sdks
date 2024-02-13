@@ -19,3 +19,43 @@ describe('TriplePlayClient.config', () => {
         expect(() => client({ fetch: () => {}, bearerToken: '' })).to.throw();
     });
 });
+
+describe('TriplePlayClient requests work', () => {
+    it('create credit card works', async () => {
+        /** @type {{url: string, options: RequestInit}[]} */
+        let requests = [];
+
+        /** @type {Response[]} */
+        let responses = [];
+
+        /**
+         * @param {string} url
+         * @param {RequestInit} options
+         * @return {*}
+         */
+        async function fetch(url, options) {
+            requests.push({ url, options });
+            return responses.pop();
+        }
+        let c = client({ bearerToken: 'b', fetch })
+
+        responses.push(new Response('{}', { headers: { 'content-type': 'application/json' } }));
+
+        await c.createCreditCard({
+            cc: 'cc',
+            mm: 'mm',
+            yy: 'yy',
+        });
+
+        expect(requests).has.length(1);
+
+        let request = requests.pop();
+
+        expect(request.url).to.eql('https://tripleplaypay.com/api/card');
+        expect(request.options.method).to.eql('POST');
+        expect(request.options.headers).to.eql({
+            'content-type': 'application/json',
+            'authorization': 'bearer b',
+        });
+    })
+});
