@@ -99,6 +99,7 @@ TriplePlayClient.prototype.createBankAccount = function createBankAccount(reques
 /**
  * @typedef {{
  *     amount : string
+ *     surcharge? : string
  *     email? : string
  *     meta? : Record<string, any>
  *     address1? : string
@@ -107,6 +108,9 @@ TriplePlayClient.prototype.createBankAccount = function createBankAccount(reques
  *     state? : string
  *     zip? : string
  *     tip? : string
+ * }} BaseCharge
+ *
+ * @typedef {BaseCharge & {
  *     cc : string
  *     mm : string
  *     yy : string
@@ -115,16 +119,7 @@ TriplePlayClient.prototype.createBankAccount = function createBankAccount(reques
  */
 
 /**
- * @typedef {{
- *     amount : string
- *     email? : string
- *     meta? : Record<string, any>
- *     address1? : string
- *     address2? : string
- *     city? : string
- *     state? : string
- *     zip? : string
- *     tip? : string
+ * @typedef {BaseCharge & {
  *     account_number : string
  *     routing_number : string
  *     type? : string
@@ -132,34 +127,14 @@ TriplePlayClient.prototype.createBankAccount = function createBankAccount(reques
  */
 
 /**
- * @typedef {{
- *     amount : string
- *     email? : string
- *     meta? : Record<string, any>
- *     address1? : string
- *     address2? : string
- *     city? : string
- *     state? : string
- *     zip? : string
- *     tip? : string
+ * @typedef {BaseCharge & {
  *     laneId : string
- *     surcharge? : string
  * }} TerminalChargeRequest
  */
 
 /**
- * @typedef {{
- *     amount : string
+ * @typedef {BaseCharge & {
  *     token : string
- *     email? : string
- *     meta? : Record<string, any>
- *     address1? : string
- *     address2? : string
- *     city? : string
- *     state? : string
- *     zip? : string
- *     tip? : string
- *     surcharge? : string
  * }} TokenChargeRequest
  */
 

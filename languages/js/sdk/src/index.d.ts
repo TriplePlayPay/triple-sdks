@@ -74,6 +74,7 @@ declare class TriplePlayClient {
     /**
      * @typedef {{
      *     amount : string
+     *     surcharge? : string
      *     email? : string
      *     meta? : Record<string, any>
      *     address1? : string
@@ -82,6 +83,9 @@ declare class TriplePlayClient {
      *     state? : string
      *     zip? : string
      *     tip? : string
+     * }} BaseCharge
+     *
+     * @typedef {BaseCharge & {
      *     cc : string
      *     mm : string
      *     yy : string
@@ -89,49 +93,20 @@ declare class TriplePlayClient {
      * }} CardChargeRequest
      */
     /**
-     * @typedef {{
-     *     amount : string
-     *     email? : string
-     *     meta? : Record<string, any>
-     *     address1? : string
-     *     address2? : string
-     *     city? : string
-     *     state? : string
-     *     zip? : string
-     *     tip? : string
+     * @typedef {BaseCharge & {
      *     account_number : string
      *     routing_number : string
      *     type? : string
      * }} BankChargeRequest
      */
     /**
-     * @typedef {{
-     *     amount : string
-     *     email? : string
-     *     meta? : Record<string, any>
-     *     address1? : string
-     *     address2? : string
-     *     city? : string
-     *     state? : string
-     *     zip? : string
-     *     tip? : string
+     * @typedef {BaseCharge & {
      *     laneId : string
-     *     surcharge? : string
      * }} TerminalChargeRequest
      */
     /**
-     * @typedef {{
-     *     amount : string
+     * @typedef {BaseCharge & {
      *     token : string
-     *     email? : string
-     *     meta? : Record<string, any>
-     *     address1? : string
-     *     address2? : string
-     *     city? : string
-     *     state? : string
-     *     zip? : string
-     *     tip? : string
-     *     surcharge? : string
      * }} TokenChargeRequest
      */
     /**
@@ -169,7 +144,7 @@ declare class TriplePlayClient {
     refund(request: RefundRequest): Promise<ApiResponse>;
 }
 declare namespace TriplePlayClient {
-    export { TriplePlayClient, TriplePlayClient as client, Options, ApiResponse, BankAccountRequest, CardChargeRequest, BankChargeRequest, TerminalChargeRequest, TokenChargeRequest, ChargeRequest, CreditCardRequest, RefundRequest };
+    export { TriplePlayClient, TriplePlayClient as client, Options, ApiResponse, BankAccountRequest, BaseCharge, CardChargeRequest, BankChargeRequest, TerminalChargeRequest, TokenChargeRequest, ChargeRequest, CreditCardRequest, RefundRequest };
 }
 type Options = {
     baseUrl?: string;
@@ -187,8 +162,9 @@ type BankAccountRequest = {
     account_number: string;
     email?: string;
 };
-type CardChargeRequest = {
+type BaseCharge = {
     amount: string;
+    surcharge?: string;
     email?: string;
     meta?: Record<string, any>;
     address1?: string;
@@ -197,50 +173,23 @@ type CardChargeRequest = {
     state?: string;
     zip?: string;
     tip?: string;
+};
+type CardChargeRequest = BaseCharge & {
     cc: string;
     mm: string;
     yy: string;
     cvv?: string;
 };
-type BankChargeRequest = {
-    amount: string;
-    email?: string;
-    meta?: Record<string, any>;
-    address1?: string;
-    address2?: string;
-    city?: string;
-    state?: string;
-    zip?: string;
-    tip?: string;
+type BankChargeRequest = BaseCharge & {
     account_number: string;
     routing_number: string;
     type?: string;
 };
-type TerminalChargeRequest = {
-    amount: string;
-    email?: string;
-    meta?: Record<string, any>;
-    address1?: string;
-    address2?: string;
-    city?: string;
-    state?: string;
-    zip?: string;
-    tip?: string;
+type TerminalChargeRequest = BaseCharge & {
     laneId: string;
-    surcharge?: string;
 };
-type TokenChargeRequest = {
-    amount: string;
+type TokenChargeRequest = BaseCharge & {
     token: string;
-    email?: string;
-    meta?: Record<string, any>;
-    address1?: string;
-    address2?: string;
-    city?: string;
-    state?: string;
-    zip?: string;
-    tip?: string;
-    surcharge?: string;
 };
 type ChargeRequest = CardChargeRequest | BankChargeRequest | TerminalChargeRequest | TokenChargeRequest;
 type CreditCardRequest = {
