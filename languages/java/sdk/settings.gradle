@@ -1,1 +1,6 @@
 rootProject.name = 'triple-java-sdk'
+includeBuild 'buildPlugins'
+include 'triple-java-sdk-core'
+include 'triple-java-sdk-starter'
+include 'examples:example-plain'
+include 'examples:example-spring-boot'

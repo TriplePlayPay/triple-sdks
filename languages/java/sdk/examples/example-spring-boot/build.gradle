@@ -1,0 +1,21 @@
+plugins {
+    id 'java'
+}
+
+repositories.mavenCentral()
+
+dependencies {
+    implementation platform('org.springframework.boot:spring-boot-dependencies:3.2.2')
+    annotationProcessor platform('org.springframework.boot:spring-boot-dependencies:3.2.2')
+
+    implementation 'org.springframework.boot:spring-boot-starter-json'
+
+    implementation project(':triple-java-sdk-starter')
+}
+
+tasks.register('runExample', JavaExec) {
+    group 'build'
+    description 'run the example'
+    classpath sourceSets.main.runtimeClasspath
+    mainClass.set 'org.example.tpp.sdk.boot.SpringBootExampleApp'
+}

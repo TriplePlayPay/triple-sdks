@@ -1,0 +1,16 @@
+// file:noinspection VulnerableLibrariesLocal
+plugins {
+    id 'triple-java-sdk-conventions'
+}
+
+dependencies {
+    implementation platform('org.springframework.boot:spring-boot-dependencies:3.2.2')
+    annotationProcessor platform('org.springframework.boot:spring-boot-dependencies:3.2.2')
+
+    implementation 'org.springframework.boot:spring-boot'
+    implementation 'org.springframework.boot:spring-boot-autoconfigure'
+    implementation 'org.springframework:spring-webflux'
+    implementation 'io.projectreactor.netty:reactor-netty'
+
+    implementation project(':triple-java-sdk-core')
+}

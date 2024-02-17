@@ -1,0 +1,68 @@
+plugins {
+    id 'triple-java-sdk-conventions'
+}
+
+def proj = project
+project.afterEvaluate {
+    signing.sign publishing.publications.maven
+
+    publishing {
+        publications {
+            named('maven', MavenPublication.class) {
+                from proj.components.named('java').get()
+                pom {
+                    name.set("${proj.group}:${proj.name}")
+                    description.set "Triple Play SDK " +
+                            "for implementing Triple Play Pay API clients in java" +
+                            ": ${proj.name} component"
+                    url.set 'https://github.com/TriplePlayPay/triple-sdks'
+                    licenses {
+                        license {
+                            name.set 'The Apache License, Version 2.0'
+                            description.set 'https://www.apache.org/licenses/LICENSE-2.0.txt'
+                        }
+                    }
+                    developers {
+                        developer {
+                            name.set 'David Ankin'
+                            email.set 'daveankin@gmail.com'
+                            organization.set 'triple-play-pay'
+                            organizationUrl.set 'https://tripleplaypay.com'
+                        }
+                        developer {
+                            name.set 'Jeremy Bolin'
+                            email.set 'jeremymbolin@gmail.com'
+                            organization.set 'triple-play-pay'
+                            organizationUrl.set 'https://tripleplaypay.com'
+                        }
+                        developer {
+                            name.set 'Gabe Garrett'
+                            email.set 'info@tripleplaypay.com'
+                            organization.set 'triple-play-pay'
+                            organizationUrl.set 'https://tripleplaypay.com'
+                        }
+                        developer {
+                            name.set 'Parker Brooks'
+                            email.set 'info@tripleplaypay.com'
+                            organization.set 'triple-play-pay'
+                            organizationUrl.set 'https://tripleplaypay.com'
+                        }
+                    }
+                    scm {
+                        connection.set 'scm:git:git@github.com:TriplePlayPay/triple-sdks.git'
+                        developerConnection.set 'scm:git:git@github.com:TriplePlayPay/triple-sdks.git'
+                        url.set 'https://github.com/TriplePlayPay/triple-sdks/tree/main'
+                    }
+                }
+            }
+        }
+    }
+}
+
+publishing.publications.create('maven', MavenPublication)
+
+dependencies {
+    implementation 'com.fasterxml.jackson.core:jackson-annotations:[2.14,3)!!2.16.1'
+    // implementation 'jakarta.annotation:jakarta.annotation-api:[2,4)!!2.1.1'
+    implementation 'jakarta.validation:jakarta.validation-api:[3,4)!!3.0.2'
+}
