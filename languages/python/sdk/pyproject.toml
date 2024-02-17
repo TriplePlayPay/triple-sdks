@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "tripleplaypay-sdk"
+version = "0.1.0"
+description = "SDK for implementing Triple Play Pay clients in Python"
+authors = ["David Ankin <daveankin@gmail.com>"]
+license = "Apache-2.0"
+readme = "README.md"
+packages = [{include = "tripleplaypay_sdk"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+httpx = "^0.26.0"
+pydantic = "^2.6.1"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.0.0"
+pytest-httpx = "^0.29.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
