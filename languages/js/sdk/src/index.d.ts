@@ -60,6 +60,10 @@ declare class TriplePlayClient {
      */
     postOptions: RequestInit;
     /**
+     * @type {RequestInit}
+     */
+    getOptions: RequestInit;
+    /**
      * @typedef {{
      *     routing_number : string,
      *     account_number : string,
@@ -167,9 +171,20 @@ declare class TriplePlayClient {
      * @return {Promise<ApiResponse>}
      */
     refund(request: RefundRequest): Promise<ApiResponse>;
+    /**
+     * @typedef {{
+     *     start : string,
+     *     end : string,
+     * }} ReportRequest
+     */
+    /**
+     * @param {ReportRequest} request
+     * @return {Promise<ApiResponse>}
+     */
+    report(request: ReportRequest): Promise<ApiResponse>;
 }
 declare namespace TriplePlayClient {
-    export { TriplePlayClient, TriplePlayClient as client, Options, ApiResponse, BankAccountRequest, CardChargeRequest, BankChargeRequest, TerminalChargeRequest, TokenChargeRequest, ChargeRequest, CreditCardRequest, RefundRequest };
+    export { TriplePlayClient, TriplePlayClient as client, Options, ApiResponse, BankAccountRequest, CardChargeRequest, BankChargeRequest, TerminalChargeRequest, TokenChargeRequest, ChargeRequest, CreditCardRequest, RefundRequest, ReportRequest };
 }
 type Options = {
     baseUrl?: string;
@@ -252,4 +267,8 @@ type CreditCardRequest = {
 };
 type RefundRequest = {
     id: string;
+};
+type ReportRequest = {
+    start: string;
+    end: string;
 };

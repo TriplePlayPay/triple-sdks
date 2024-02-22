@@ -52,6 +52,11 @@ function TriplePlayClient(options) {
      * @type {RequestInit}
      */
     this.postOptions = { method: 'POST', headers: this.headers };
+
+    /**
+     * @type {RequestInit}
+     */
+    this.getOptions = { method: 'GET', headers: this.headers };
 }
 
 /**
@@ -206,6 +211,22 @@ TriplePlayClient.prototype.createCreditCard = function createCreditCard(request)
  */
 TriplePlayClient.prototype.refund = function refund(request) {
     return this.options.fetch(this.options.baseUrl + '/api/refund', { ...this.postOptions, body: JSON.stringify(request) }).then(_verifyResponseOk).then(_thenJson);
+};
+
+
+/**
+ * @typedef {{
+ *     start : string,
+ *     end : string,
+ * }} ReportRequest
+ */
+
+/**
+ * @param {ReportRequest} request
+ * @return {Promise<ApiResponse>}
+ */
+TriplePlayClient.prototype.report = function report(request) {
+    return this.options.fetch(this.options.baseUrl + '/api/report?' + new URLSearchParams(request), { ...this.getOptions }).then(_verifyResponseOk).then(_thenJson);
 };
 
 // export the thing

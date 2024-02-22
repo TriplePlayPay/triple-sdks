@@ -58,4 +58,41 @@ describe('TriplePlayClient requests work', () => {
             'authorization': 'bearer b',
         });
     })
+
+    it('report calling works', async () => {
+        /** @type {{url: string, options: RequestInit}[]} */
+        let requests = [];
+
+        /** @type {Response[]} */
+        let responses = [];
+
+        /**
+         * @param {string} url
+         * @param {RequestInit} options
+         * @return {*}
+         */
+        async function fetch(url, options) {
+            requests.push({ url, options });
+            return responses.pop();
+        }
+        let c = client({ bearerToken: 'b', fetch })
+
+        responses.push(new Response('{}', { headers: { 'content-type': 'application/json' } }));
+
+        await c.report({
+            start: '2024-01-20',
+            end: '2024-02-20',
+        });
+
+        expect(requests).has.length(1);
+
+        let request = requests.pop();
+
+        expect(request.url).to.eql('https://tripleplaypay.com/api/report?start=2024-01-20&end=2024-02-20');
+        expect(request.options.method).to.eql('GET');
+        expect(request.options.headers).to.eql({
+            'content-type': 'application/json',
+            'authorization': 'bearer b',
+        });
+    })
 });
