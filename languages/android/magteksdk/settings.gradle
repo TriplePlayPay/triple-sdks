@@ -15,3 +15,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "MagTekSDK"
 include ':lib'
+include ':example'
