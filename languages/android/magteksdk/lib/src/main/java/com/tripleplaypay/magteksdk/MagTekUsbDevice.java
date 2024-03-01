@@ -7,7 +7,9 @@ import android.hardware.usb.UsbManager;
 import android.os.Message;
 import android.os.Handler;
 import android.os.Handler.Callback;
+import android.util.Log;
 
+import androidx.annotation.Discouraged;
 import androidx.annotation.NonNull;
 
 import com.magtek.mobile.android.mtlib.MTConnectionState;
@@ -15,6 +17,7 @@ import com.magtek.mobile.android.mtlib.MTConnectionType;
 import com.magtek.mobile.android.mtlib.MTSCRA;
 import com.magtek.mobile.android.mtlib.MTSCRAEvent;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,14 +38,13 @@ public class MagTekUsbDevice {
         this.onDisconnectingListener = onDisconnectingListener;
     }
 
-    private boolean isActiveTransaction = false;
 
+    private MagTekTransactionState transactionState;
     private MTSCRA cardReader;
-    private Context context;
     private String apiKey; // this will be needed at some point
+    private int defaultTimeLimit = 60;
 
     public MagTekUsbDevice(Context context, String apiKey) {
-        this.context = context;
         this.apiKey = apiKey;
 
         cardReader = new MTSCRA(context, new Handler(message -> {
@@ -73,8 +75,8 @@ public class MagTekUsbDevice {
         return devices.toArray(new String[0]);
     }
 
-    public boolean startUsbConnection() {
-        String[] devices = getUsbDevices(this.context);
+    public boolean startUsbConnection(Context context) {
+        String[] devices = getUsbDevices(context);
         if (devices.length > 0) {
             startUsbConnectionWithAddress(devices[0]);
             return true;
@@ -95,13 +97,25 @@ public class MagTekUsbDevice {
         }
     }
 
-    public void beginTransaction(float amount, MagTekTransactionType transactionType) {
-        isActiveTransaction = true;
+    public String beginTransaction(String amount) {
+        int amountLength = amount.length();
+        if (amountLength > 12 || amountLength == 0)
+            return "";
+        // input string must ONLY have numeric
+        // values. the dollar amount is generated
+        // by placing a decimal point at
+        byte[] amountBytes = new byte[6];
+        for (int i = 0; i < 12; i+=2) {
+            char l = amount.charAt(i);
+            char r = amount.charAt(i + 1);
+            byte b = (byte) Integer.parseInt(String.format("%d%d", l, r));
+            amountBytes[i / 2] = b;
+        }
+
+        return new BigInteger(1, amountBytes).toString(16);
     }
 
-    public void clearTransaction() {
-        isActiveTransaction = false;
-    }
+    public void clearTransaction() {}
 
     private void handleDeviceConnectionStateChanged(MTConnectionState connectionState) {
         // yeah i know the error string is just a simple static thing right now, no
@@ -109,16 +123,12 @@ public class MagTekUsbDevice {
         // will be more info to create a meaningful error message
         switch (connectionState) {
             case Connected:
-                this.onConnectingListener.onConnecting(true);
-                break;
             case Connecting:
-                this.onConnectingListener.onConnecting(false);
-                break;
-            case Disconnecting:
-                this.onDisconnectingListener.onDisconnecting(false);
+                this.onConnectingListener.onConnecting(connectionState == MTConnectionState.Connected);
                 break;
             case Disconnected:
-                this.onDisconnectingListener.onDisconnecting(true);
+            case Disconnecting:
+                this.onDisconnectingListener.onDisconnecting(connectionState == MTConnectionState.Disconnected);
                 break;
             case Error:
             default:
