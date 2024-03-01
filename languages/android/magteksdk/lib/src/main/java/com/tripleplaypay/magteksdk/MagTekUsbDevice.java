@@ -113,8 +113,10 @@ public class MagTekUsbDevice {
                 break;
             case Connecting:
                 this.onConnectingListener.onConnecting(false);
+                break;
             case Disconnecting:
                 this.onDisconnectingListener.onDisconnecting(false);
+                break;
             case Disconnected:
                 this.onDisconnectingListener.onDisconnecting(true);
                 break;
