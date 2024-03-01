@@ -7,17 +7,28 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.tripleplaypay.magteksdk.MagTekUsbDevice;
-import com.tripleplaypay.magteksdk.MagTekUsbDevice.MagTekUsbConnection;
-import com.tripleplaypay.magteksdk.MagTekUsbDevice.MagTekConnectionState;
 
 public class MainActivity extends AppCompatActivity {
 
-    public Button testConnectionButton;
-    public TextView connectionStateText;
+    public Button connectButton, transactionButton;
+    public TextView connectionStateText, transactionStateText;
 
     private void setupViews() {
-        testConnectionButton = findViewById(R.id.test_button);
-        connectionStateText = findViewById(R.id.text);
+        connectButton = findViewById(R.id.connect_button);
+        connectionStateText = findViewById(R.id.connection_state);
+
+        transactionButton = findViewById(R.id.transaction_button);
+        transactionStateText = findViewById(R.id.transaction_state);
+    }
+
+    private void lockInput(boolean state) {
+        connectButton.setEnabled(state);
+        transactionButton.setEnabled(state);
+    }
+
+    private void clearViews() {
+        connectButton.setText(R.string.default_text);
+        transactionButton.setEnabled(false);
     }
 
     @Override
@@ -28,23 +39,20 @@ public class MainActivity extends AppCompatActivity {
 
         MagTekUsbDevice device = new MagTekUsbDevice(this, "testapikey");
 
-        device.setConnectionListener(new MagTekUsbConnection() {
-            @Override
-            public void connectionStateChanged(MagTekConnectionState connectionState) {
-                connectionStateText.setText(connectionState.name());
-            }
-
-            @Override
-            public void connectionError(String errorMessage) {
-                // should ask the user to try again or something
-                connectionStateText.setText(errorMessage);
+        device.setOnConnecting(isConnected -> {
+            if (isConnected) {
+                lockInput(false);
+                connectionStateText.setText("Connected to device");
+            } else {
+                lockInput(true);
+                connectionStateText.setText("Connecting...");
             }
         });
 
-        testConnectionButton.setOnClickListener(view -> {
-            String usbDevice = MagTekUsbDevice.getFirstUsbDevice(this);
-            if (usbDevice != null)
-                device.startConnection(usbDevice);
+        connectButton.setOnClickListener(view -> {
+            if (! device.startUsbConnection()) {
+                connectionStateText.setText("No USB devices found");
+            }
         });
     }
 }

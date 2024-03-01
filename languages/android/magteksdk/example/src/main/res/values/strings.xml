@@ -1,6 +1,10 @@
 <resources>
     <string name="app_name">Example</string>
     <string name="title_activity_main">MainActivity</string>
-    <string name="disconnected_button">Connect</string>
-    <string name="connected_button">Start Transaction</string>
+    <string name="disconnected_button">Connect to device</string>
+    <string name="transaction_button">Start transaction</string>
+    <string name="connection_state">Connection Status</string>
+    <string name="transaction_state">Transaction Message</string>
+    <string name="this_is_not_a_test">This is a test application</string>
+    <string name="default_text">default text</string>
 </resources>
