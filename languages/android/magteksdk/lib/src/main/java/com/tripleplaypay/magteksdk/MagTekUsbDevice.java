@@ -42,7 +42,7 @@ public class MagTekUsbDevice {
     private MagTekTransactionState transactionState;
     private MTSCRA cardReader;
     private String apiKey; // this will be needed at some point
-    private int defaultTimeLimit = 60;
+    private int timeLimit = 60; // in seconds
 
     public MagTekUsbDevice(Context context, String apiKey) {
         this.apiKey = apiKey;
@@ -98,6 +98,10 @@ public class MagTekUsbDevice {
     }
 
     public String beginTransaction(String amount) {
+        return beginTransaction(amount, 60);
+    }
+
+    public String beginTransaction(String amount, int timeLimit) {
         int amountLength = amount.length();
         if (amountLength > 12 || amountLength == 0)
             return "";
@@ -124,11 +128,11 @@ public class MagTekUsbDevice {
         switch (connectionState) {
             case Connected:
             case Connecting:
-                this.onConnectingListener.onConnecting(connectionState == MTConnectionState.Connected);
+                onConnectingListener.onConnecting(connectionState == MTConnectionState.Connected);
                 break;
             case Disconnected:
             case Disconnecting:
-                this.onDisconnectingListener.onDisconnecting(connectionState == MTConnectionState.Disconnected);
+                onDisconnectingListener.onDisconnecting(connectionState == MTConnectionState.Disconnected);
                 break;
             case Error:
             default:
