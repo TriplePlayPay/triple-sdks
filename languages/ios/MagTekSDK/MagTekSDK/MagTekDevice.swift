@@ -1,10 +1,3 @@
-//
-//  MagTekDevice.swift
-//  MagTekSDK
-//
-//  Created by Parker on 3/8/24.
-//
-
 import Foundation
 
 public class MagTekDevice: NSObject, MTSCRAEventDelegate {
@@ -19,7 +12,7 @@ public class MagTekDevice: NSObject, MTSCRAEventDelegate {
     private var devicesScanned: Bool = false
     
     // Start the device with an API key tied to it
-    init(_ key: String) {
+    public init(_ key: String) {
         self.key = key
 
         // configure the SCRA lib for a bluetooth tDynamo
@@ -35,16 +28,14 @@ public class MagTekDevice: NSObject, MTSCRAEventDelegate {
     // scan for a time limit then return the discovered names
     public func scan(timeout: TimeInterval) -> [String] {
         if (bluetoothReady) { // start the scan if we can
-            DispatchQueue.main.asyncAfter(deadline: .now(), execute: {
-                self.lib.startScanningForPeripherals() // turn on the scanner
-                var timeLeft = timeout;
-                while (!self.devicesScanned && timeout > 0.0) {
-                    timeLeft -= 0.1
-                    sleep(1000)
-                }
-                self.devicesScanned = false
-                self.lib.stopScanningForPeripherals() // turn off the scanner
-            })
+            lib.startScanningForPeripherals()
+            var timeLeft = timeout
+            while (!self.devicesScanned && timeout > 0.0) {
+                timeLeft -= 0.1
+                sleep(1000)
+            }
+            devicesScanned = false // devicesScanned MUST be true right now, so reset it
+            lib.stopScanningForPeripherals() // turn off the scanner
         } // devices.keys is empty if scanner not available
         return Array(devices.keys) // they just need the names, we'll handle the addressing
     }
@@ -64,7 +55,7 @@ public class MagTekDevice: NSObject, MTSCRAEventDelegate {
     
     // OVERRIDE: when the list of discovered devices is ready...
     public func onDeviceList(_ instance: Any!, connectionType: UInt, deviceList: [Any]!) {
-        // create the "discovered" table Name -> Address
+        // create the "discovered" table where name maps to address
         for device in (deviceList as! [MTDeviceInfo]) {
             devices[device.name] = device.address // we'll handle the addessing
         }

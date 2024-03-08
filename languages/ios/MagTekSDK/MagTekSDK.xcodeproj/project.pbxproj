@@ -9,18 +9,19 @@
 /* Begin PBXBuildFile section */
 		CE0415A02B9AF3BB005D1A8A /* MagTekSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = CE04159F2B9AF3BB005D1A8A /* MagTekSDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CE0415AA2B9AF41A005D1A8A /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = CE0415A92B9AF41A005D1A8A /* libc++.tbd */; };
-		CE0415AC2B9AF45F005D1A8A /* MTSCRA.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CE0415AB2B9AF45F005D1A8A /* MTSCRA.a */; };
 		CE0415AE2B9AF4A1005D1A8A /* MagTekDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0415AD2B9AF4A1005D1A8A /* MagTekDevice.swift */; };
 		CE0415B02B9AF595005D1A8A /* MTSCRA.h in Headers */ = {isa = PBXBuildFile; fileRef = CE0415AF2B9AF595005D1A8A /* MTSCRA.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		CE710F3E2B9B010B00C46A18 /* MTSCRA.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CE710F3D2B9B010B00C46A18 /* MTSCRA.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		CE04159C2B9AF3BB005D1A8A /* MagTekSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MagTekSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE04159F2B9AF3BB005D1A8A /* MagTekSDK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MagTekSDK.h; sourceTree = "<group>"; };
 		CE0415A92B9AF41A005D1A8A /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk/usr/lib/libc++.tbd"; sourceTree = DEVELOPER_DIR; };
-		CE0415AB2B9AF45F005D1A8A /* MTSCRA.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = MTSCRA.a; sourceTree = "<group>"; };
 		CE0415AD2B9AF4A1005D1A8A /* MagTekDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagTekDevice.swift; sourceTree = "<group>"; };
 		CE0415AF2B9AF595005D1A8A /* MTSCRA.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTSCRA.h; sourceTree = "<group>"; };
+		CE60F3002B9B71630055C47A /* build-xcframework.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "build-xcframework.sh"; sourceTree = "<group>"; };
+		CE710F3D2B9B010B00C46A18 /* MTSCRA.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = MTSCRA.a; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -28,7 +29,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CE0415AC2B9AF45F005D1A8A /* MTSCRA.a in Frameworks */,
+				CE710F3E2B9B010B00C46A18 /* MTSCRA.a in Frameworks */,
 				CE0415AA2B9AF41A005D1A8A /* libc++.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -39,6 +40,7 @@
 		CE0415922B9AF3BB005D1A8A = {
 			isa = PBXGroup;
 			children = (
+				CE60F3002B9B71630055C47A /* build-xcframework.sh */,
 				CE04159E2B9AF3BB005D1A8A /* MagTekSDK */,
 				CE04159D2B9AF3BB005D1A8A /* Products */,
 				CE0415A82B9AF41A005D1A8A /* Frameworks */,
@@ -66,7 +68,7 @@
 		CE0415A82B9AF41A005D1A8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				CE0415AB2B9AF45F005D1A8A /* MTSCRA.a */,
+				CE710F3D2B9B010B00C46A18 /* MTSCRA.a */,
 				CE0415A92B9AF41A005D1A8A /* libc++.tbd */,
 			);
 			name = Frameworks;
@@ -301,6 +303,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -315,7 +318,7 @@
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tripleplaypay.MagTekSDK;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SKIP_INSTALL = YES;
+				SKIP_INSTALL = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_INSTALL_OBJC_HEADER = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -340,6 +343,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -354,7 +358,7 @@
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tripleplaypay.MagTekSDK;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SKIP_INSTALL = YES;
+				SKIP_INSTALL = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_INSTALL_OBJC_HEADER = NO;
 				SWIFT_VERSION = 5.0;

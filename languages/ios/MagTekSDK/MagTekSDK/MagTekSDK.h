@@ -1,10 +1,3 @@
-//
-//  MagTekSDK.h
-//  MagTekSDK
-//
-//  Created by Parker on 3/8/24.
-//
-
 #import <Foundation/Foundation.h>
 
 //! Project version number for MagTekSDK.
