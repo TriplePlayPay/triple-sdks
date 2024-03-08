@@ -7,67 +7,67 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		CE9815ED2B9ACD78000DF0B1 /* MTSCRA.h in Headers */ = {isa = PBXBuildFile; fileRef = CE9815EC2B9ACD78000DF0B1 /* MTSCRA.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		CEF658692B9AB2F300760537 /* MagTekSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = CEF658682B9AB2F300760537 /* MagTekSDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		CEF658722B9AB36000760537 /* MagTekBLE.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF658712B9AB36000760537 /* MagTekBLE.swift */; };
-		CEF658752B9AB66B00760537 /* MTSCRA.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CEF658742B9AB66B00760537 /* MTSCRA.a */; };
-		CEF658772B9AB67400760537 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = CEF658762B9AB67400760537 /* libc++.tbd */; };
+		CE0415A02B9AF3BB005D1A8A /* MagTekSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = CE04159F2B9AF3BB005D1A8A /* MagTekSDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		CE0415AA2B9AF41A005D1A8A /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = CE0415A92B9AF41A005D1A8A /* libc++.tbd */; };
+		CE0415AC2B9AF45F005D1A8A /* MTSCRA.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CE0415AB2B9AF45F005D1A8A /* MTSCRA.a */; };
+		CE0415AE2B9AF4A1005D1A8A /* MagTekDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0415AD2B9AF4A1005D1A8A /* MagTekDevice.swift */; };
+		CE0415B02B9AF595005D1A8A /* MTSCRA.h in Headers */ = {isa = PBXBuildFile; fileRef = CE0415AF2B9AF595005D1A8A /* MTSCRA.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		CE9815EC2B9ACD78000DF0B1 /* MTSCRA.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTSCRA.h; sourceTree = "<group>"; };
-		CEF658652B9AB2F300760537 /* MagTekSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MagTekSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		CEF658682B9AB2F300760537 /* MagTekSDK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MagTekSDK.h; sourceTree = "<group>"; };
-		CEF658712B9AB36000760537 /* MagTekBLE.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagTekBLE.swift; sourceTree = "<group>"; };
-		CEF658742B9AB66B00760537 /* MTSCRA.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = MTSCRA.a; path = "../../../../../../../Downloads/99510111-146-Web/Lib/Release-iphoneos/MTSCRA.a"; sourceTree = "<group>"; };
-		CEF658762B9AB67400760537 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk/usr/lib/libc++.tbd"; sourceTree = DEVELOPER_DIR; };
+		CE04159C2B9AF3BB005D1A8A /* MagTekSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MagTekSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CE04159F2B9AF3BB005D1A8A /* MagTekSDK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MagTekSDK.h; sourceTree = "<group>"; };
+		CE0415A92B9AF41A005D1A8A /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk/usr/lib/libc++.tbd"; sourceTree = DEVELOPER_DIR; };
+		CE0415AB2B9AF45F005D1A8A /* MTSCRA.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = MTSCRA.a; sourceTree = "<group>"; };
+		CE0415AD2B9AF4A1005D1A8A /* MagTekDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagTekDevice.swift; sourceTree = "<group>"; };
+		CE0415AF2B9AF595005D1A8A /* MTSCRA.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTSCRA.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		CEF658622B9AB2F300760537 /* Frameworks */ = {
+		CE0415992B9AF3BB005D1A8A /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CEF658752B9AB66B00760537 /* MTSCRA.a in Frameworks */,
-				CEF658772B9AB67400760537 /* libc++.tbd in Frameworks */,
+				CE0415AC2B9AF45F005D1A8A /* MTSCRA.a in Frameworks */,
+				CE0415AA2B9AF41A005D1A8A /* libc++.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		CEF6585B2B9AB2F300760537 = {
+		CE0415922B9AF3BB005D1A8A = {
 			isa = PBXGroup;
 			children = (
-				CEF658672B9AB2F300760537 /* MagTekSDK */,
-				CEF658662B9AB2F300760537 /* Products */,
-				CEF658732B9AB66B00760537 /* Frameworks */,
+				CE04159E2B9AF3BB005D1A8A /* MagTekSDK */,
+				CE04159D2B9AF3BB005D1A8A /* Products */,
+				CE0415A82B9AF41A005D1A8A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
-		CEF658662B9AB2F300760537 /* Products */ = {
+		CE04159D2B9AF3BB005D1A8A /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				CEF658652B9AB2F300760537 /* MagTekSDK.framework */,
+				CE04159C2B9AF3BB005D1A8A /* MagTekSDK.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		CEF658672B9AB2F300760537 /* MagTekSDK */ = {
+		CE04159E2B9AF3BB005D1A8A /* MagTekSDK */ = {
 			isa = PBXGroup;
 			children = (
-				CE9815EC2B9ACD78000DF0B1 /* MTSCRA.h */,
-				CEF658682B9AB2F300760537 /* MagTekSDK.h */,
-				CEF658712B9AB36000760537 /* MagTekBLE.swift */,
+				CE0415AF2B9AF595005D1A8A /* MTSCRA.h */,
+				CE04159F2B9AF3BB005D1A8A /* MagTekSDK.h */,
+				CE0415AD2B9AF4A1005D1A8A /* MagTekDevice.swift */,
 			);
 			path = MagTekSDK;
 			sourceTree = "<group>";
 		};
-		CEF658732B9AB66B00760537 /* Frameworks */ = {
+		CE0415A82B9AF41A005D1A8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				CEF658742B9AB66B00760537 /* MTSCRA.a */,
-				CEF658762B9AB67400760537 /* libc++.tbd */,
+				CE0415AB2B9AF45F005D1A8A /* MTSCRA.a */,
+				CE0415A92B9AF41A005D1A8A /* libc++.tbd */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -75,26 +75,26 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		CEF658602B9AB2F300760537 /* Headers */ = {
+		CE0415972B9AF3BB005D1A8A /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CEF658692B9AB2F300760537 /* MagTekSDK.h in Headers */,
-				CE9815ED2B9ACD78000DF0B1 /* MTSCRA.h in Headers */,
+				CE0415A02B9AF3BB005D1A8A /* MagTekSDK.h in Headers */,
+				CE0415B02B9AF595005D1A8A /* MTSCRA.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		CEF658642B9AB2F300760537 /* MagTekSDK */ = {
+		CE04159B2B9AF3BB005D1A8A /* MagTekSDK */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = CEF6586C2B9AB2F300760537 /* Build configuration list for PBXNativeTarget "MagTekSDK" */;
+			buildConfigurationList = CE0415A32B9AF3BB005D1A8A /* Build configuration list for PBXNativeTarget "MagTekSDK" */;
 			buildPhases = (
-				CEF658602B9AB2F300760537 /* Headers */,
-				CEF658612B9AB2F300760537 /* Sources */,
-				CEF658622B9AB2F300760537 /* Frameworks */,
-				CEF658632B9AB2F300760537 /* Resources */,
+				CE0415972B9AF3BB005D1A8A /* Headers */,
+				CE0415982B9AF3BB005D1A8A /* Sources */,
+				CE0415992B9AF3BB005D1A8A /* Frameworks */,
+				CE04159A2B9AF3BB005D1A8A /* Resources */,
 			);
 			buildRules = (
 			);
@@ -102,25 +102,25 @@
 			);
 			name = MagTekSDK;
 			productName = MagTekSDK;
-			productReference = CEF658652B9AB2F300760537 /* MagTekSDK.framework */;
+			productReference = CE04159C2B9AF3BB005D1A8A /* MagTekSDK.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		CEF6585C2B9AB2F300760537 /* Project object */ = {
+		CE0415932B9AF3BB005D1A8A /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastUpgradeCheck = 1530;
 				TargetAttributes = {
-					CEF658642B9AB2F300760537 = {
+					CE04159B2B9AF3BB005D1A8A = {
 						CreatedOnToolsVersion = 15.3;
 						LastSwiftMigration = 1530;
 					};
 				};
 			};
-			buildConfigurationList = CEF6585F2B9AB2F300760537 /* Build configuration list for PBXProject "MagTekSDK" */;
+			buildConfigurationList = CE0415962B9AF3BB005D1A8A /* Build configuration list for PBXProject "MagTekSDK" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -128,18 +128,18 @@
 				en,
 				Base,
 			);
-			mainGroup = CEF6585B2B9AB2F300760537;
-			productRefGroup = CEF658662B9AB2F300760537 /* Products */;
+			mainGroup = CE0415922B9AF3BB005D1A8A;
+			productRefGroup = CE04159D2B9AF3BB005D1A8A /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				CEF658642B9AB2F300760537 /* MagTekSDK */,
+				CE04159B2B9AF3BB005D1A8A /* MagTekSDK */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		CEF658632B9AB2F300760537 /* Resources */ = {
+		CE04159A2B9AF3BB005D1A8A /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -149,18 +149,18 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		CEF658612B9AB2F300760537 /* Sources */ = {
+		CE0415982B9AF3BB005D1A8A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CEF658722B9AB36000760537 /* MagTekBLE.swift in Sources */,
+				CE0415AE2B9AF4A1005D1A8A /* MagTekDevice.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
-		CEF6586A2B9AB2F300760537 /* Debug */ = {
+		CE0415A12B9AF3BB005D1A8A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -226,7 +226,7 @@
 			};
 			name = Debug;
 		};
-		CEF6586B2B9AB2F300760537 /* Release */ = {
+		CE0415A22B9AF3BB005D1A8A /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -285,7 +285,7 @@
 			};
 			name = Release;
 		};
-		CEF6586D2B9AB2F300760537 /* Debug */ = {
+		CE0415A42B9AF3BB005D1A8A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
@@ -306,6 +306,10 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				MARKETING_VERSION = 1.0;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
@@ -320,7 +324,7 @@
 			};
 			name = Debug;
 		};
-		CEF6586E2B9AB2F300760537 /* Release */ = {
+		CE0415A52B9AF3BB005D1A8A /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
@@ -340,6 +344,10 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
 				);
 				MARKETING_VERSION = 1.0;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
@@ -357,25 +365,25 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		CEF6585F2B9AB2F300760537 /* Build configuration list for PBXProject "MagTekSDK" */ = {
+		CE0415962B9AF3BB005D1A8A /* Build configuration list for PBXProject "MagTekSDK" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				CEF6586A2B9AB2F300760537 /* Debug */,
-				CEF6586B2B9AB2F300760537 /* Release */,
+				CE0415A12B9AF3BB005D1A8A /* Debug */,
+				CE0415A22B9AF3BB005D1A8A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		CEF6586C2B9AB2F300760537 /* Build configuration list for PBXNativeTarget "MagTekSDK" */ = {
+		CE0415A32B9AF3BB005D1A8A /* Build configuration list for PBXNativeTarget "MagTekSDK" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				CEF6586D2B9AB2F300760537 /* Debug */,
-				CEF6586E2B9AB2F300760537 /* Release */,
+				CE0415A42B9AF3BB005D1A8A /* Debug */,
+				CE0415A52B9AF3BB005D1A8A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = CEF6585C2B9AB2F300760537 /* Project object */;
+	rootObject = CE0415932B9AF3BB005D1A8A /* Project object */;
 }

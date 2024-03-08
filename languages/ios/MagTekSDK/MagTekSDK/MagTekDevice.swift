@@ -1,14 +1,13 @@
 //
-//  MagTekBLE.swift
+//  MagTekDevice.swift
 //  MagTekSDK
 //
-//  Created by Parker on 3/7/24.
+//  Created by Parker on 3/8/24.
 //
 
 import Foundation
 
-public class MagTekBLE: NSObject, MTSCRAEventDelegate {
-    
+public class MagTekDevice: NSObject, MTSCRAEventDelegate {
     private let lib: MTSCRA = MTSCRA()  // initialize the MTSCRA library
     private let key: String // we'll need this at some point
 
@@ -71,4 +70,5 @@ public class MagTekBLE: NSObject, MTSCRAEventDelegate {
         }
         devicesScanned = true
     }
+    
 }

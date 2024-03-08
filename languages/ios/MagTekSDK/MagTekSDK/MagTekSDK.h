@@ -2,7 +2,7 @@
 //  MagTekSDK.h
 //  MagTekSDK
 //
-//  Created by Parker on 3/7/24.
+//  Created by Parker on 3/8/24.
 //
 
 #import <Foundation/Foundation.h>
@@ -14,6 +14,5 @@ FOUNDATION_EXPORT double MagTekSDKVersionNumber;
 FOUNDATION_EXPORT const unsigned char MagTekSDKVersionString[];
 
 // In this header, you should import all the public headers of your framework using statements like #import <MagTekSDK/PublicHeader.h>
-
 
 #import <MagTekSDK/MTSCRA.h>
