@@ -1,8 +1,9 @@
 import Foundation
 
 public class MagTekDevice: NSObject, MTSCRAEventDelegate {
+    
     private let lib: MTSCRA = MTSCRA()  // initialize the MTSCRA library
-    private let key: String // we'll need this at some point
+    private let key: String = "testapikey" // we'll need this at some point
 
     // list of discovered BLE readers [Name, Address]
     private var devices: [String: String] = [:]
@@ -12,9 +13,7 @@ public class MagTekDevice: NSObject, MTSCRAEventDelegate {
     private var devicesScanned: Bool = false
     
     // Start the device with an API key tied to it
-    public init(_ key: String) {
-        self.key = key
-
+    override init() {
         // configure the SCRA lib for a bluetooth tDynamo
         lib.setConnectionType(UInt(BLE_EMV))
         lib.setDeviceType(UInt32(MAGTEKTDYNAMO))

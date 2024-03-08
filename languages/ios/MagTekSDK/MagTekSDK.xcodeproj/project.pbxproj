@@ -11,7 +11,7 @@
 		CE0415AA2B9AF41A005D1A8A /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = CE0415A92B9AF41A005D1A8A /* libc++.tbd */; };
 		CE0415AE2B9AF4A1005D1A8A /* MagTekDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0415AD2B9AF4A1005D1A8A /* MagTekDevice.swift */; };
 		CE0415B02B9AF595005D1A8A /* MTSCRA.h in Headers */ = {isa = PBXBuildFile; fileRef = CE0415AF2B9AF595005D1A8A /* MTSCRA.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		CE710F3E2B9B010B00C46A18 /* MTSCRA.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CE710F3D2B9B010B00C46A18 /* MTSCRA.a */; };
+		CE60F3252B9B97B50055C47A /* MTSCRA.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CE60F3232B9B97080055C47A /* MTSCRA.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -21,7 +21,8 @@
 		CE0415AD2B9AF4A1005D1A8A /* MagTekDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagTekDevice.swift; sourceTree = "<group>"; };
 		CE0415AF2B9AF595005D1A8A /* MTSCRA.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTSCRA.h; sourceTree = "<group>"; };
 		CE60F3002B9B71630055C47A /* build-xcframework.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "build-xcframework.sh"; sourceTree = "<group>"; };
-		CE710F3D2B9B010B00C46A18 /* MTSCRA.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = MTSCRA.a; sourceTree = "<group>"; };
+		CE60F3232B9B97080055C47A /* MTSCRA.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = MTSCRA.a; sourceTree = "<group>"; };
+		CE60F32D2B9BA1080055C47A /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,8 +30,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CE710F3E2B9B010B00C46A18 /* MTSCRA.a in Frameworks */,
 				CE0415AA2B9AF41A005D1A8A /* libc++.tbd in Frameworks */,
+				CE60F3252B9B97B50055C47A /* MTSCRA.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -40,6 +41,7 @@
 		CE0415922B9AF3BB005D1A8A = {
 			isa = PBXGroup;
 			children = (
+				CE60F32D2B9BA1080055C47A /* README.md */,
 				CE60F3002B9B71630055C47A /* build-xcframework.sh */,
 				CE04159E2B9AF3BB005D1A8A /* MagTekSDK */,
 				CE04159D2B9AF3BB005D1A8A /* Products */,
@@ -68,7 +70,7 @@
 		CE0415A82B9AF41A005D1A8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				CE710F3D2B9B010B00C46A18 /* MTSCRA.a */,
+				CE60F3232B9B97080055C47A /* MTSCRA.a */,
 				CE0415A92B9AF41A005D1A8A /* libc++.tbd */,
 			);
 			name = Frameworks;
