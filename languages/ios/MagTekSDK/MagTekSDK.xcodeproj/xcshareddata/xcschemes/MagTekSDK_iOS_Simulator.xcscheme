@@ -16,7 +16,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "CE60F4492B9E32580055C47A"
-               BuildableName = "MagTekSDK_iOS_Simulator.framework"
+               BuildableName = "MagTekSDK.framework"
                BlueprintName = "MagTekSDK_iOS_Simulator"
                ReferencedContainer = "container:MagTekSDK.xcodeproj">
             </BuildableReference>
@@ -51,7 +51,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "CE60F4492B9E32580055C47A"
-            BuildableName = "MagTekSDK_iOS_Simulator.framework"
+            BuildableName = "MagTekSDK.framework"
             BlueprintName = "MagTekSDK_iOS_Simulator"
             ReferencedContainer = "container:MagTekSDK.xcodeproj">
          </BuildableReference>

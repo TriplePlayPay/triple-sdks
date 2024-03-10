@@ -3,4 +3,4 @@
 FOUNDATION_EXPORT double MagTekSDKVersionNumber;
 FOUNDATION_EXPORT const unsigned char MagTekSDKVersionString[];
 
-#import <MagTekSDK_iOS/mtscra.h>
+#import <MagTekSDK/mtscra.h>

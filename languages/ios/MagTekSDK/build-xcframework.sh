@@ -1,5 +1,7 @@
 #!/bin/sh
 
+# this is a fucking mess on both apple and magtek's part
+
 if [ $# -ge 1 ] && ([ "$1" != "clean" ] && [ "$1" != "sign" ]); then
     echo "not a supported sub-command: '$1'"
     exit 0
@@ -29,9 +31,9 @@ xcodebuild archive \
 # create the bundle
 xcodebuild -create-xcframework \
     -archive "$archive_path/MagTekSDK_iOS.xcarchive" \
-    -framework MagTekSDK_iOS.framework \
+    -framework MagTekSDK.framework \
     -archive "$archive_path/MagTekSDK_iOS_Simulator.xcarchive" \
-    -framework MagTekSDK_iOS_Simulator.framework \
+    -framework MagTekSDK.framework \
     -output "$build_path/MagTekSDK.xcframework"
 
 # sign the bundle with the current user's dev account

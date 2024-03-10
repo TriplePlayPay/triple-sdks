@@ -2,8 +2,9 @@ import Foundation
 
 public class MagTekBLE: NSObject, MTSCRAEventDelegate {
     private let lib: MTSCRA = MTSCRA()
+    private let key: String
     
-    override public init() {
-        lib.setDeviceType(UInt32(MAGTEKTDYNAMO))
+    public init(key: String) {
+        self.key = key
     }
 }
