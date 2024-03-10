@@ -1,0 +1,592 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		CE60F43F2B9E2CDA0055C47A /* MagTekSDK_iOS.h in Headers */ = {isa = PBXBuildFile; fileRef = CE60F43E2B9E2CDA0055C47A /* MagTekSDK_iOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		CE60F44D2B9E32580055C47A /* MagTekSDK_iOS_Simulator.h in Headers */ = {isa = PBXBuildFile; fileRef = CE60F44C2B9E32580055C47A /* MagTekSDK_iOS_Simulator.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		CE60F4532B9E34C40055C47A /* MagTekBLE.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE60F4522B9E34C40055C47A /* MagTekBLE.swift */; };
+		CE60F4542B9E34C40055C47A /* MagTekBLE.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE60F4522B9E34C40055C47A /* MagTekBLE.swift */; };
+		CE60F45A2B9E35AD0055C47A /* mtscra.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CE60F4552B9E35AD0055C47A /* mtscra.a */; };
+		CE60F4632B9E36310055C47A /* mtscra.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CE60F4572B9E35AD0055C47A /* mtscra.a */; };
+		CE60F4652B9E36490055C47A /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = CE60F4642B9E363D0055C47A /* libc++.tbd */; };
+		CE60F4672B9E371F0055C47A /* mtscra.h in Headers */ = {isa = PBXBuildFile; fileRef = CE60F4662B9E371F0055C47A /* mtscra.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		CE60F46B2B9E37460055C47A /* mtscra.h in Headers */ = {isa = PBXBuildFile; fileRef = CE60F4692B9E37460055C47A /* mtscra.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		CE60F46D2B9E3CD30055C47A /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = CE60F4642B9E363D0055C47A /* libc++.tbd */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		CE60F43B2B9E2CDA0055C47A /* MagTekSDK_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MagTekSDK_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CE60F43E2B9E2CDA0055C47A /* MagTekSDK_iOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MagTekSDK_iOS.h; sourceTree = "<group>"; };
+		CE60F44A2B9E32580055C47A /* MagTekSDK_iOS_Simulator.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MagTekSDK_iOS_Simulator.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CE60F44C2B9E32580055C47A /* MagTekSDK_iOS_Simulator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MagTekSDK_iOS_Simulator.h; sourceTree = "<group>"; };
+		CE60F4522B9E34C40055C47A /* MagTekBLE.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagTekBLE.swift; sourceTree = "<group>"; };
+		CE60F4552B9E35AD0055C47A /* mtscra.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = mtscra.a; sourceTree = "<group>"; };
+		CE60F4572B9E35AD0055C47A /* mtscra.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = mtscra.a; sourceTree = "<group>"; };
+		CE60F4642B9E363D0055C47A /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk/usr/lib/libc++.tbd"; sourceTree = DEVELOPER_DIR; };
+		CE60F4662B9E371F0055C47A /* mtscra.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mtscra.h; sourceTree = "<group>"; };
+		CE60F4692B9E37460055C47A /* mtscra.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mtscra.h; sourceTree = "<group>"; };
+		CE60F46C2B9E385E0055C47A /* build-xcframework.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "build-xcframework.sh"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		CE60F4382B9E2CDA0055C47A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CE60F46D2B9E3CD30055C47A /* libc++.tbd in Frameworks */,
+				CE60F45A2B9E35AD0055C47A /* mtscra.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CE60F4472B9E32580055C47A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CE60F4652B9E36490055C47A /* libc++.tbd in Frameworks */,
+				CE60F4632B9E36310055C47A /* mtscra.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		CE60F4312B9E2CDA0055C47A = {
+			isa = PBXGroup;
+			children = (
+				CE60F46C2B9E385E0055C47A /* build-xcframework.sh */,
+				CE60F4592B9E35AD0055C47A /* Library */,
+				CE60F4512B9E34B00055C47A /* Source */,
+				CE60F43D2B9E2CDA0055C47A /* MagTekSDK_iOS */,
+				CE60F44B2B9E32580055C47A /* MagTekSDK_iOS_Simulator */,
+				CE60F43C2B9E2CDA0055C47A /* Products */,
+				CE60F4622B9E36310055C47A /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		CE60F43C2B9E2CDA0055C47A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				CE60F43B2B9E2CDA0055C47A /* MagTekSDK_iOS.framework */,
+				CE60F44A2B9E32580055C47A /* MagTekSDK_iOS_Simulator.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		CE60F43D2B9E2CDA0055C47A /* MagTekSDK_iOS */ = {
+			isa = PBXGroup;
+			children = (
+				CE60F4662B9E371F0055C47A /* mtscra.h */,
+				CE60F43E2B9E2CDA0055C47A /* MagTekSDK_iOS.h */,
+			);
+			path = MagTekSDK_iOS;
+			sourceTree = "<group>";
+		};
+		CE60F44B2B9E32580055C47A /* MagTekSDK_iOS_Simulator */ = {
+			isa = PBXGroup;
+			children = (
+				CE60F4692B9E37460055C47A /* mtscra.h */,
+				CE60F44C2B9E32580055C47A /* MagTekSDK_iOS_Simulator.h */,
+			);
+			path = MagTekSDK_iOS_Simulator;
+			sourceTree = "<group>";
+		};
+		CE60F4512B9E34B00055C47A /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				CE60F4522B9E34C40055C47A /* MagTekBLE.swift */,
+			);
+			path = Source;
+			sourceTree = "<group>";
+		};
+		CE60F4562B9E35AD0055C47A /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				CE60F4552B9E35AD0055C47A /* mtscra.a */,
+			);
+			path = iOS;
+			sourceTree = "<group>";
+		};
+		CE60F4582B9E35AD0055C47A /* iOS_Simulator */ = {
+			isa = PBXGroup;
+			children = (
+				CE60F4572B9E35AD0055C47A /* mtscra.a */,
+			);
+			path = iOS_Simulator;
+			sourceTree = "<group>";
+		};
+		CE60F4592B9E35AD0055C47A /* Library */ = {
+			isa = PBXGroup;
+			children = (
+				CE60F4562B9E35AD0055C47A /* iOS */,
+				CE60F4582B9E35AD0055C47A /* iOS_Simulator */,
+			);
+			path = Library;
+			sourceTree = "<group>";
+		};
+		CE60F4622B9E36310055C47A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				CE60F4642B9E363D0055C47A /* libc++.tbd */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		CE60F4362B9E2CDA0055C47A /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CE60F4672B9E371F0055C47A /* mtscra.h in Headers */,
+				CE60F43F2B9E2CDA0055C47A /* MagTekSDK_iOS.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CE60F4452B9E32580055C47A /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CE60F46B2B9E37460055C47A /* mtscra.h in Headers */,
+				CE60F44D2B9E32580055C47A /* MagTekSDK_iOS_Simulator.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		CE60F43A2B9E2CDA0055C47A /* MagTekSDK_iOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CE60F4422B9E2CDA0055C47A /* Build configuration list for PBXNativeTarget "MagTekSDK_iOS" */;
+			buildPhases = (
+				CE60F4362B9E2CDA0055C47A /* Headers */,
+				CE60F4372B9E2CDA0055C47A /* Sources */,
+				CE60F4382B9E2CDA0055C47A /* Frameworks */,
+				CE60F4392B9E2CDA0055C47A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MagTekSDK_iOS;
+			productName = MagTekSDK;
+			productReference = CE60F43B2B9E2CDA0055C47A /* MagTekSDK_iOS.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		CE60F4492B9E32580055C47A /* MagTekSDK_iOS_Simulator */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CE60F44E2B9E32580055C47A /* Build configuration list for PBXNativeTarget "MagTekSDK_iOS_Simulator" */;
+			buildPhases = (
+				CE60F4452B9E32580055C47A /* Headers */,
+				CE60F4462B9E32580055C47A /* Sources */,
+				CE60F4472B9E32580055C47A /* Frameworks */,
+				CE60F4482B9E32580055C47A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MagTekSDK_iOS_Simulator;
+			productName = MagTekSDK_iOS_Simulator;
+			productReference = CE60F44A2B9E32580055C47A /* MagTekSDK_iOS_Simulator.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		CE60F4322B9E2CDA0055C47A /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastUpgradeCheck = 1530;
+				TargetAttributes = {
+					CE60F43A2B9E2CDA0055C47A = {
+						CreatedOnToolsVersion = 15.3;
+						LastSwiftMigration = 1530;
+					};
+					CE60F4492B9E32580055C47A = {
+						CreatedOnToolsVersion = 15.3;
+						LastSwiftMigration = 1530;
+					};
+				};
+			};
+			buildConfigurationList = CE60F4352B9E2CDA0055C47A /* Build configuration list for PBXProject "MagTekSDK" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = CE60F4312B9E2CDA0055C47A;
+			productRefGroup = CE60F43C2B9E2CDA0055C47A /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				CE60F43A2B9E2CDA0055C47A /* MagTekSDK_iOS */,
+				CE60F4492B9E32580055C47A /* MagTekSDK_iOS_Simulator */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		CE60F4392B9E2CDA0055C47A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CE60F4482B9E32580055C47A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		CE60F4372B9E2CDA0055C47A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CE60F4532B9E34C40055C47A /* MagTekBLE.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CE60F4462B9E32580055C47A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CE60F4542B9E34C40055C47A /* MagTekBLE.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		CE60F4402B9E2CDA0055C47A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		CE60F4412B9E2CDA0055C47A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		CE60F4432B9E2CDA0055C47A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 9H7T54D9WJ;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 15;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Library/iOS",
+					"$(PROJECT_DIR)/Library/iOS_Simulator",
+				);
+				MARKETING_VERSION = 1.0;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
+				PRODUCT_BUNDLE_IDENTIFIER = com.tripleplaypay.MagTekSDK;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_INSTALL_OBJC_HEADER = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		CE60F4442B9E2CDA0055C47A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 9H7T54D9WJ;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 15;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Library/iOS",
+					"$(PROJECT_DIR)/Library/iOS_Simulator",
+				);
+				MARKETING_VERSION = 1.0;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
+				PRODUCT_BUNDLE_IDENTIFIER = com.tripleplaypay.MagTekSDK;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_INSTALL_OBJC_HEADER = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		CE60F44F2B9E32580055C47A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 9H7T54D9WJ;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 15;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/Library/iOS",
+					"$(PROJECT_DIR)/Library/iOS_Simulator",
+				);
+				MARKETING_VERSION = 1.0;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.tripleplaypay.MagTekSDK-iOS-Simulator";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_INSTALL_OBJC_HEADER = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		CE60F4502B9E32580055C47A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 9H7T54D9WJ;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 15;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/Library/iOS",
+					"$(PROJECT_DIR)/Library/iOS_Simulator",
+				);
+				MARKETING_VERSION = 1.0;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.tripleplaypay.MagTekSDK-iOS-Simulator";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_INSTALL_OBJC_HEADER = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		CE60F4352B9E2CDA0055C47A /* Build configuration list for PBXProject "MagTekSDK" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CE60F4402B9E2CDA0055C47A /* Debug */,
+				CE60F4412B9E2CDA0055C47A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CE60F4422B9E2CDA0055C47A /* Build configuration list for PBXNativeTarget "MagTekSDK_iOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CE60F4432B9E2CDA0055C47A /* Debug */,
+				CE60F4442B9E2CDA0055C47A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CE60F44E2B9E32580055C47A /* Build configuration list for PBXNativeTarget "MagTekSDK_iOS_Simulator" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CE60F44F2B9E32580055C47A /* Debug */,
+				CE60F4502B9E32580055C47A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = CE60F4322B9E2CDA0055C47A /* Project object */;
+}
