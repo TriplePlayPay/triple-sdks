@@ -1,6 +1,6 @@
 #!/bin/sh
-
-# this is a fucking mess on both apple and magtek's part
+# this is a fucking mess on both Apple and MagTek's part
+# enjoy...
 
 if [ $# -ge 1 ] && ([ "$1" != "clean" ] && [ "$1" != "sign" ]); then
     echo "not a supported sub-command: '$1'"
@@ -12,7 +12,7 @@ archive_path="$build_path/Archives"
 
 # begone thot
 echo "cleaning build folder..."; rm -rf $build_path
-if [ "$1" == "clean" ]; then exit 0; fi
+if [ "$1" == "clean" ]; then echo "+ all clean"; exit 0; fi
 
 # create the framework archive for bare-metal
 xcodebuild archive \
@@ -30,21 +30,19 @@ xcodebuild archive \
 
 # create the bundle
 xcodebuild -create-xcframework \
-    -archive "$archive_path/MagTekSDK_iOS.xcarchive" \
-    -framework MagTekSDK.framework \
-    -archive "$archive_path/MagTekSDK_iOS_Simulator.xcarchive" \
-    -framework MagTekSDK.framework \
+    -archive "$archive_path/MagTekSDK_iOS.xcarchive" -framework MagTekSDK.framework \
+    -archive "$archive_path/MagTekSDK_iOS_Simulator.xcarchive" -framework MagTekSDK.framework \
     -output "$build_path/MagTekSDK.xcframework"
 
-# sign the bundle with the current user's dev account
+# sign the bundle with the current user's dev account if they so choose
 if [ "$1" == "sign" ]; then
-    echo "signing xcframework bundle with $USER's apple development account"
+    echo "signing the xcframework bundle with $USER's apple development account"
     apple_id=$(security find-identity -p codesigning \
         | grep 'Apple Development' \
         | cut -f 4 -d ' ' \
         | head -n 1 )
     codesign --timestamp -s $apple_id "$build_path/MagTekSDK.xcframework"
-    echo "successfully signed bundle."
+    echo "successfully signed the bundle."
 fi
 
 echo "+ done"
