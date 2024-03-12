@@ -1,15 +1,29 @@
 import Foundation
 
-open class MagTekBLE: NSObject, MTSCRAEventDelegate {
+func toN12(amount: String) -> NSData {
+    /* TODO:
+     * convert dollar amount string into proper
+     * N12 encoded byte-string
+     */
+    return NSData() // return a format acceptable by lib.startTransaction
+}
+
+public class MagTekBLE: NSObject, MTSCRAEventDelegate {
     private let lib: MTSCRA = MTSCRA()
-    private let apiKey: String
     
     private var scanningForDevices: Bool = false
     private var devices: [String: String] = [:]
     
+    enum MagTekCommand: String {
+        case setMSR = "580101"
+        case setBLE = "480101"
+    }
+    
+    private let apiKey: String
     public init(apiKey: String) {
         MTSCRA.enableDebugPrint(true)
-        self.apiKey = apiKey
+        
+        self.apiKey = apiKey // ties this device to the client
         
         self.lib.setConnectionType(UInt(BLE_EMV))
         self.lib.setDeviceType(UInt32(MAGTEKTDYNAMO))
@@ -28,14 +42,18 @@ open class MagTekBLE: NSObject, MTSCRAEventDelegate {
                 usleep(timeout * 100)
                 remaining -= 1
             }
-            onConnected(self.isConnected())
+
             if self.isConnected() {
-                self.lib.clearBuffers()
+                self.lib.sendCommandSync(MagTekCommand.setMSR.rawValue)
+                self.lib.sendCommandSync(MagTekCommand.setBLE.rawValue)
             }
+            
+            onConnected(self.isConnected())
         })
     }
     
     public func disconnect() {
+        self.lib.clearBuffers()
         self.lib.closeDevice()
     }
     
@@ -43,8 +61,8 @@ open class MagTekBLE: NSObject, MTSCRAEventDelegate {
         self.lib.startScanningForPeripherals()
         self.scanningForDevices = true
         self.devices = [:] // reset devices list
-                
-        Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true, block: { timer in
+        
+        Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { timer in
             if !self.scanningForDevices { timer.invalidate() }
             
             for device in (self.lib.getDiscoveredPeripherals() as! [CBPeripheral]) {
@@ -63,5 +81,18 @@ open class MagTekBLE: NSObject, MTSCRAEventDelegate {
         self.scanningForDevices = false
     }
     
-    public func startTransaction(amount: Double) {}
+    // after connection
+    
+    public func getDeviceInfo() -> String {
+        return """
+        Product ID: \(self.lib.getProductID())
+        Firmware: \(self.lib.getFirmware() ?? "ERROR")
+        S/N: \(self.lib.getDeviceSerial() ?? "ERROR")
+        Total transactions: \(self.lib.getSwipeCount())
+        """
+    }
+    
+    public func startTransaction(amount: String) {
+        
+    }
 }
