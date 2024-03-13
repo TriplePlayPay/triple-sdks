@@ -56,8 +56,8 @@ public class MagTekBLE: NSObject, MTSCRAEventDelegate {
         self.lib.setAddress(devices[deviceName])
         self.lib.openDevice()
         
-        // do this part async so the UI in the main scope can properly update
-        DispatchQueue.main.asyncAfter(deadline: .now(), execute: {
+        // do this part async so any UI in the main scope can properly update
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
             var remaining = timeout
             while remaining > 0 && !self.isConnected() {
                 usleep(timeout * 100)
@@ -65,12 +65,15 @@ public class MagTekBLE: NSObject, MTSCRAEventDelegate {
             }
 
             if self.isConnected() {
-                self.lib.sendCommandSync(MagTekCommand.setMSR.rawValue)
-                self.lib.sendCommandSync(MagTekCommand.setBLE.rawValue)
-                self.lib.sendCommandSync(self.getDateByteString())
+                self.deviceSerial = self.lib.getDeviceSerial() ?? self.deviceSerial
+                
+                self.lib.sendCommandSync(MagTekCommand.setMSR.rawValue) // set MSR mode ON
+                self.lib.sendCommandSync(MagTekCommand.setBLE.rawValue) // set BLE Response mode ON
+                // set the date + time for EMV
+                self.lib.sendCommandSync(MagTekCommand.setDateTimePrefix.rawValue + self.deviceSerial + self.getDateByteString())
             }
             
-            onConnected(self.isConnected())
+            onConnected(self.isConnected()) // tell the user if we are connected or not
         })
     }
     
@@ -84,7 +87,7 @@ public class MagTekBLE: NSObject, MTSCRAEventDelegate {
         self.scanningForDevices = true
         self.devices = [:] // reset devices list
         
-        Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { timer in
+        Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { timer in
             if !self.scanningForDevices { timer.invalidate() }
             
             for device in (self.lib.getDiscoveredPeripherals() as! [CBPeripheral]) {
@@ -107,8 +110,7 @@ public class MagTekBLE: NSObject, MTSCRAEventDelegate {
     
     public func getDeviceInfo() -> String {
         return """
-        S/N: \(self.lib.getDeviceSerial() ?? "ERROR")
-        Firmware: \(self.lib.getFirmware() ?? "ERROR")
+        S/N: \(self.deviceSerial)
         Total transactions: \(self.lib.getSwipeCount())
         """
     }
