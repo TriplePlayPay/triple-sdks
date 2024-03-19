@@ -1,6 +1,8 @@
 import Foundation
 
-
+extension String {
+    
+}
 
 public class MagTekBLE: NSObject, MTSCRAEventDelegate {
     private let lib: MTSCRA = MTSCRA()
@@ -11,6 +13,7 @@ public class MagTekBLE: NSObject, MTSCRAEventDelegate {
     
     // connected
     private var deviceSerial: String = "00000000000000000000000000000000"
+    private var activeTransaction: Bool = false
     
     private enum MagTekCommand: String {
         case setMSR = "580101"
@@ -28,16 +31,22 @@ public class MagTekBLE: NSObject, MTSCRAEventDelegate {
         self.lib.setDeviceType(UInt32(MAGTEKTDYNAMO))
     }
     
-    private func toN12(fromString amount: String) -> NSData {
-        /* TODO:
-         * convert dollar amount string into proper
-         * N12 encoded byte-string
-         */
-        return NSData() // return a format acceptable by lib.startTransaction
-    }
+    func hexStringBytes(_ input: String) -> [UInt8] {
+        let bytes = Array(input.utf8)
+        var data: [UInt8] = []
 
-    private func toN12(fromDouble amount: Double) -> NSData {
-        return NSData()
+        for i in stride(from: 1, to: bytes.count, by: 2){
+            let ascii = Array<UInt8>(bytes[i - 1...i] + [0])
+            let value = UInt8(strtoul(ascii, nil, 16))
+            data.append(value)
+        }
+
+        return data
+    }
+    
+    private func toN12(_ amount: String) -> [UInt8] {
+        let formattedString = String(format: "%12.0f", (Double(amount) ?? 0) * 100)
+        return hexStringBytes(formattedString)
     }
 
     private func getDateByteString() -> String {
@@ -49,21 +58,18 @@ public class MagTekBLE: NSObject, MTSCRAEventDelegate {
         return String(format: format, date.month ?? 0, date.day ?? 0, date.hour ?? 0, date.minute ?? 0, date.second ?? 0, year)
     }
     
+    public func isActiveTransaction() -> Bool { activeTransaction }
     public func isConnected() -> Bool { self.lib.isDeviceOpened() && self.lib.isDeviceConnected() }
     public func isScanning() -> Bool { scanningForDevices }
     
-    public func connect(deviceName: String, timeout: UInt32, onConnected: @escaping (Bool) -> ()) {
+    public func connect(_ deviceName: String, timeout: UInt32, onConnected: @escaping (Bool) -> ()) {
         self.lib.setAddress(devices[deviceName])
         self.lib.openDevice()
         
-        // do this part async so any UI in the main scope can properly update
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
-            var remaining = timeout
-            while remaining > 0 && !self.isConnected() {
-                usleep(timeout * 100)
-                remaining -= 1
-            }
-
+        var remaining = timeout
+        Timer.scheduledTimer(withTimeInterval: 0.001, repeats: true, block: { timer in
+            if remaining == 0 { timer.invalidate() }
+            
             if self.isConnected() {
                 self.deviceSerial = self.lib.getDeviceSerial() ?? self.deviceSerial
                 
@@ -71,10 +77,15 @@ public class MagTekBLE: NSObject, MTSCRAEventDelegate {
                 self.lib.sendCommandSync(MagTekCommand.setBLE.rawValue) // set BLE Response mode ON
                 // set the date + time for EMV
                 self.lib.sendCommandSync(MagTekCommand.setDateTimePrefix.rawValue + self.deviceSerial + self.getDateByteString())
+                
+                onConnected(true) // successfully connected
+                timer.invalidate()
             }
             
-            onConnected(self.isConnected()) // tell the user if we are connected or not
+            remaining -= 1 // each cycle takes 0.001 seconds, so timeout is in milliseconds
         })
+        
+        onConnected(false)
     }
     
     public func disconnect() {
@@ -107,13 +118,20 @@ public class MagTekBLE: NSObject, MTSCRAEventDelegate {
     }
     
     // after connection
+    public func getSN() -> String { return self.deviceSerial }
     
-    public func getDeviceInfo() -> String {
-        return """
-        S/N: \(self.deviceSerial)
-        Total transactions: \(self.lib.getSwipeCount())
-        """
+    // (amount / cashback) format example for $1.00: "1", "1.00", "1.0"
+    // for $10.25: "10.25"
+    public func startTransaction(amount: String, cashback: String) {
+        var amountBytes = toN12(amount)
+        var cashbackBytes = toN12(cashback)
+        var currencyCode = hexStringBytes("0840")
+        lib.startTransaction(255, cardType: 7, option: 0x80, amount: &amountBytes, transactionType: 0, cashBack: &cashbackBytes, currencyCode: &currencyCode, reportingOption: 2)
+        self.activeTransaction = true
     }
     
-    public func startTransaction(amount: String) {}
+    public func cancelTransaction() {
+        lib.cancelTransaction()
+        self.activeTransaction = false
+    }
 }

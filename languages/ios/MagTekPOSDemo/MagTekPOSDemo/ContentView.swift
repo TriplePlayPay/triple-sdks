@@ -1,8 +1,8 @@
 //
 //  ContentView.swift
-//  ugh
+//  MagTekPOSDemo
 //
-//  Created by Parker on 3/10/24.
+//  Created by Parker on 3/19/24.
 //
 
 import SwiftUI
@@ -13,9 +13,11 @@ struct DeviceRow: View, Identifiable {
     
     let deviceName: String
     let cardReader: MagTekBLE
-    
-    @Binding var isConnected: Bool
+
     @State var connectedText: String = "connect"
+    
+    @Binding var isScanning: Bool
+    @Binding var isConnected: Bool
     
     var body: some View {
         HStack {
@@ -28,8 +30,8 @@ struct DeviceRow: View, Identifiable {
                     connectedText = isConnected ? "disconnect" : "connect"
                 } else {
                     cardReader.stopBluetoothScan()
-                    cardReader.connect(
-                        deviceName: deviceName,
+                    isScanning = false
+                    cardReader.connect(deviceName,
                         timeout: 5000,
                         onConnected: { status in
                             isConnected = status
@@ -48,7 +50,8 @@ struct ContentView: View {
     
     @State var deviceList: Array<DeviceRow> = []
     
-    @State var buttonText: String = "Scan for devices"
+    @State var scanButtonText: String = "Scan for devices"
+    @State var transactionButtonText: String = "Start transaction"
     
     @State var connected: Bool = false
     @State var scanning: Bool = false
@@ -62,25 +65,35 @@ struct ContentView: View {
                 
                 if connected {
                     Section {
-                        Text(cardReader.getDeviceInfo())
+                        Text("S/N: \(cardReader.getSN())")
                     } header: { Text("Connected Device Info") }
+                    Button(transactionButtonText, action: {
+                        if cardReader.isActiveTransaction() {
+                            transactionButtonText = "Start transaction"
+                            cardReader.cancelTransaction()
+                        } else {
+                            transactionButtonText = "Cancel transaction"
+                            cardReader.startTransaction(amount: "1.25", cashback: "0.00")
+                        }
+                    }).frame(maxWidth: .infinity, alignment: .center)
                 }
             }
             
             if scanning { ProgressView().padding() }
             
-            Button(buttonText, action: {
+            Button(scanButtonText, action: {
                 if (cardReader.isScanning()) {
-                    buttonText = "Scan for devices"
+                    scanButtonText = "Scan for devices"
                     cardReader.stopBluetoothScan()
                 } else {
-                    buttonText = "Cancel"
+                    scanButtonText = "Stop scanning"
                     deviceList.removeAll()
                     cardReader.startBluetoothScan(onDiscovered: { deviceName in
                         deviceList.append(DeviceRow(
                             id: UUID(),
                             deviceName: deviceName,
                             cardReader: cardReader,
+                            isScanning: $scanning,
                             isConnected: $connected
                         ))
                     })

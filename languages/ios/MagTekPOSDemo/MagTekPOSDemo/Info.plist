@@ -3,8 +3,8 @@
 <plist version="1.0">
 <dict>
 	<key>NSBluetoothPeripheralUsageDescription</key>
-	<string>Scans for and connects to MagTek Secure Card Readers</string>
+	<string>Uses bluetooth to scan for MagTek devices</string>
 	<key>NSBluetoothAlwaysUsageDescription</key>
-	<string>Scans for and connects to MagTek Secure Card Readers</string>
+	<string>Uses bluetooth to scan for MagTek devices</string>
 </dict>
 </plist>
