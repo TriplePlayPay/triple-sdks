@@ -1,9 +1,5 @@
 import Foundation
 
-extension String {
-    
-}
-
 public class MagTekBLE: NSObject, MTSCRAEventDelegate {
     private let lib: MTSCRA = MTSCRA()
     
