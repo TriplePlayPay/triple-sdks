@@ -8,103 +8,70 @@
 import SwiftUI
 import MagTekSDK
 
-struct DeviceRow: View, Identifiable {
-    let id: UUID // required for List view
-    
+struct BTDeviceRow: View, Identifiable {
+    let id: UUID = UUID()
     let deviceName: String
-    let cardReader: MagTekBLE
-
-    @State var connectedText: String = "connect"
     
-    @Binding var isScanning: Bool
+    private let buttonText: [Bool: String] = [false: "connect", true: "disconnect"]
+    
     @Binding var isConnected: Bool
+    @Binding var tDynamo: MagTekTDynamoBLE
+    
+    @State var isSelected: Bool = false
     
     var body: some View {
         HStack {
-            Text(deviceName)
-            Spacer()
-            Button(connectedText, action: {
-                if (isConnected) {
-                    cardReader.disconnect()
-                    isConnected = cardReader.isConnected()
-                    connectedText = isConnected ? "disconnect" : "connect"
+            Text(deviceName); Spacer()
+            Button(buttonText[isSelected]!, action: {
+                if isSelected {
+                    tDynamo.disconnect()
                 } else {
-                    cardReader.stopBluetoothScan()
-                    isScanning = false
-                    cardReader.connect(deviceName,
-                        timeout: 5000,
-                        onConnected: { status in
-                            isConnected = status
-                            connectedText = isConnected ? "disconnect" : "connect"
-                        })
-                    connectedText = "connecting"
+                    tDynamo.connect()
                 }
-            }).buttonStyle(BorderlessButtonStyle())
+            })
         }
     }
 }
 
 struct ContentView: View {
     
-    let cardReader: MagTekBLE = MagTekBLE(apiKey: "testkey")
+    @State var isScanning: Bool = false
+    @State var isConnected: Bool = false
     
-    @State var deviceList: Array<DeviceRow> = []
-    
-    @State var scanButtonText: String = "Scan for devices"
-    @State var transactionButtonText: String = "Start transaction"
-    
-    @State var connected: Bool = false
-    @State var scanning: Bool = false
+    @State var tDynamo: MagTekTDynamoBLE = MagTekTDynamoBLE("testapikey")
+    @State var discoveredDevices: [BTDeviceRow] = []
+
+    let scanButtonText: [Bool: String] = [false: "start scanning", true: "cancel scan"]
     
     var body: some View {
         VStack {
             List {
                 Section {
-                    ForEach(deviceList) { deviceRow in deviceRow }
-                } header: { Text("Scanned Device List") }
-                
-                if connected {
-                    Section {
-                        Text("S/N: \(cardReader.getSN())")
-                    } header: { Text("Connected Device Info") }
-                    Button(transactionButtonText, action: {
-                        if cardReader.isActiveTransaction() {
-                            transactionButtonText = "Start transaction"
-                            cardReader.cancelTransaction()
-                        } else {
-                            transactionButtonText = "Cancel transaction"
-                            cardReader.startTransaction(amount: "1.25", cashback: "0.00")
-                        }
-                    }).frame(maxWidth: .infinity, alignment: .center)
+                    ForEach(discoveredDevices) { device in device }
+                } header: {
+                    Text("Discovered devices")
                 }
             }
             
-            if scanning { ProgressView().padding() }
+            if isScanning {
+                ProgressView("looking for devices")
+                    .padding()
+            }
             
-            Button(scanButtonText, action: {
-                if (cardReader.isScanning()) {
-                    scanButtonText = "Scan for devices"
-                    cardReader.stopBluetoothScan()
+            Button(scanButtonText[isScanning]!, action: {
+                if isScanning {
+                    tDynamo.cancelDeviceDiscovery()
                 } else {
-                    scanButtonText = "Stop scanning"
-                    deviceList.removeAll()
-                    cardReader.startBluetoothScan(onDiscovered: { deviceName in
-                        deviceList.append(DeviceRow(
-                            id: UUID(),
-                            deviceName: deviceName,
-                            cardReader: cardReader,
-                            isScanning: $scanning,
-                            isConnected: $connected
+                    tDynamo.startDeviceDiscovery({ deviceName in
+                        discoveredDevices.append(BTDeviceRow(
+                            name: deviceName,
+                            isConnected: $isConnected,
+                            tDynamo: $tDynamo
                         ))
                     })
                 }
-                scanning = cardReader.isScanning()
-            })
-            .disabled(connected)
-            .padding()
-            
-            Button("Clear device list", action: { self.deviceList = [] })
-                .disabled(connected)
+                isScanning = !isScanning
+            }).disabled(isConnected).padding()
         }
     }
 }

@@ -11,18 +11,21 @@ public class MagTekBLE: NSObject, MTSCRAEventDelegate {
     private var deviceSerial: String = "00000000000000000000000000000000"
     private var activeTransaction: Bool = false
     
+    // class callbacks
+    private var onMessage: (String) -> () = { data in () }
+    
     private enum MagTekCommand: String {
         case setMSR = "580101"
         case setBLE = "480101"
         case setDateTimePrefix = "030C001800"
     }
     
-    private let apiKey: String // only thing we really need from the user
-    public init(apiKey: String) {
+    override public init() {
+        super.init()
+        
         MTSCRA.enableDebugPrint(true)
         
-        self.apiKey = apiKey // ties this device to the client
-        
+        self.lib.delegate = self
         self.lib.setConnectionType(UInt(BLE_EMV))
         self.lib.setDeviceType(UInt32(MAGTEKTDYNAMO))
     }
@@ -30,13 +33,13 @@ public class MagTekBLE: NSObject, MTSCRAEventDelegate {
     func hexStringBytes(_ input: String) -> [UInt8] {
         let bytes = Array(input.utf8)
         var data: [UInt8] = []
-
+        
         for i in stride(from: 1, to: bytes.count, by: 2){
             let ascii = Array<UInt8>(bytes[i - 1...i] + [0])
             let value = UInt8(strtoul(ascii, nil, 16))
             data.append(value)
         }
-
+        
         return data
     }
     
@@ -44,7 +47,7 @@ public class MagTekBLE: NSObject, MTSCRAEventDelegate {
         let formattedString = String(format: "%12.0f", (Double(amount) ?? 0) * 100)
         return hexStringBytes(formattedString)
     }
-
+    
     private func getDateByteString() -> String {
         let dateComponents: Set<Calendar.Component> = [.month, .day, .hour, .minute, .second, .year]
         let date = Calendar.current.dateComponents(dateComponents, from: Date())
@@ -81,7 +84,7 @@ public class MagTekBLE: NSObject, MTSCRAEventDelegate {
             remaining -= 1 // each cycle takes 0.001 seconds, so timeout is in milliseconds
         })
         
-        onConnected(false)
+        onConnected(false) // if we got here we did not connect yet
     }
     
     public func disconnect() {
@@ -121,8 +124,15 @@ public class MagTekBLE: NSObject, MTSCRAEventDelegate {
     public func startTransaction(amount: String, cashback: String) {
         var amountBytes = toN12(amount)
         var cashbackBytes = toN12(cashback)
-        var currencyCode = hexStringBytes("0840")
-        lib.startTransaction(255, cardType: 7, option: 0x80, amount: &amountBytes, transactionType: 0, cashBack: &cashbackBytes, currencyCode: &currencyCode, reportingOption: 2)
+        var currencyCode = hexStringBytes("0840") // USD
+        self.lib.startTransaction(60, // set time limit to 60 seconds
+                                  cardType: 7,
+                                  option: 0x80,
+                                  amount: &amountBytes,
+                                  transactionType: 0, // 0 = sale
+                                  cashBack: &cashbackBytes,
+                                  currencyCode: &currencyCode,
+                                  reportingOption: 2)
         self.activeTransaction = true
     }
     
