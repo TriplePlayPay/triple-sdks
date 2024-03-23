@@ -10,23 +10,37 @@ import MagTekSDK
 
 struct BTDeviceRow: View, Identifiable {
     let id: UUID = UUID()
-    let deviceName: String
+    let name: String
+    let rssi: Int32
     
-    private let buttonText: [Bool: String] = [false: "connect", true: "disconnect"]
-    
+    @Binding var tDynamo: MagTekTDynamoBLE // bind from parent view
     @Binding var isConnected: Bool
-    @Binding var tDynamo: MagTekTDynamoBLE
+    @Binding var isScanning: Bool // connecting to a device cancels the bluetooth scan
     
+    @State var buttonText: String = "connect"
     @State var isSelected: Bool = false
+    
+    private func setConnected(_ state: Bool) {
+        buttonText = state ? "disconnect" : "connect"
+        isSelected = state
+        isConnected = state
+    }
     
     var body: some View {
         HStack {
-            Text(deviceName); Spacer()
-            Button(buttonText[isSelected]!, action: {
+            Text(name)
+            Text(String(rssi))
+            Spacer()
+            Button(buttonText, action: {
                 if isSelected {
+                    setConnected(false)
                     tDynamo.disconnect()
                 } else {
-                    tDynamo.connect()
+                    isScanning = false
+                    buttonText = "connecting..."
+                    tDynamo.connect(name, { connected in
+                        setConnected(connected)
+                    })
                 }
             })
         }
@@ -35,13 +49,15 @@ struct BTDeviceRow: View, Identifiable {
 
 struct ContentView: View {
     
-    @State var isScanning: Bool = false
+    @State var isTransaction: Bool = false
     @State var isConnected: Bool = false
-    
-    @State var tDynamo: MagTekTDynamoBLE = MagTekTDynamoBLE("testapikey")
-    @State var discoveredDevices: [BTDeviceRow] = []
+    @State var isScanning: Bool = false
 
-    let scanButtonText: [Bool: String] = [false: "start scanning", true: "cancel scan"]
+    @State var tDynamo: MagTekTDynamoBLE = MagTekTDynamoBLE("testapikey", debug: true)
+    @State var discoveredDevices: [BTDeviceRow] = []
+    
+    @State var transactionButtonText = "Start Transaction for $1.23"
+    let scanButtonText: [Bool: String] = [false: "Scan", true: "Cancel"]
     
     var body: some View {
         VStack {
@@ -49,29 +65,47 @@ struct ContentView: View {
                 Section {
                     ForEach(discoveredDevices) { device in device }
                 } header: {
-                    Text("Discovered devices")
+                    HStack {
+                        Text("discover")
+                        if isScanning {
+                            ProgressView()
+                                .padding(.leading)
+                        }
+                        Spacer()
+                        Button(scanButtonText[isScanning]!, action: {
+                            if isScanning {
+                                tDynamo.cancelDeviceDiscovery()
+                            } else {
+                                discoveredDevices = []
+                                tDynamo.startDeviceDiscovery({ name, rssi in
+                                    discoveredDevices.append(BTDeviceRow(
+                                        name: name,
+                                        rssi: rssi, // <- connection strength
+                                        tDynamo: $tDynamo,
+                                        isConnected: $isConnected,
+                                        isScanning: $isScanning
+                                    ))
+                                })
+                            }
+                            isScanning = !isScanning
+                        }).disabled(isConnected)
+                        
+                    }.padding(.bottom)
                 }
             }
-            
-            if isScanning {
-                ProgressView("looking for devices")
-                    .padding()
-            }
-            
-            Button(scanButtonText[isScanning]!, action: {
-                if isScanning {
-                    tDynamo.cancelDeviceDiscovery()
+
+            Button(transactionButtonText, action: {
+                if isTransaction {
+                    transactionButtonText = "Start Transaction for $1.23"
+                    tDynamo.cancelTransaction()
                 } else {
-                    tDynamo.startDeviceDiscovery({ deviceName in
-                        discoveredDevices.append(BTDeviceRow(
-                            name: deviceName,
-                            isConnected: $isConnected,
-                            tDynamo: $tDynamo
-                        ))
-                    })
+                    transactionButtonText = "Cancel"
+                    tDynamo.startTransaction("1.23")
                 }
-                isScanning = !isScanning
-            }).disabled(isConnected).padding()
+                isTransaction = !isTransaction
+            }).font(.system(size: 24))
+                .disabled(!isConnected)
+                .padding(.bottom)
         }
     }
 }

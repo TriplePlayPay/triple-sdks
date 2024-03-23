@@ -30,32 +30,11 @@ public class MagTekBLE: NSObject, MTSCRAEventDelegate {
         self.lib.setDeviceType(UInt32(MAGTEKTDYNAMO))
     }
     
-    func hexStringBytes(_ input: String) -> [UInt8] {
-        let bytes = Array(input.utf8)
-        var data: [UInt8] = []
-        
-        for i in stride(from: 1, to: bytes.count, by: 2){
-            let ascii = Array<UInt8>(bytes[i - 1...i] + [0])
-            let value = UInt8(strtoul(ascii, nil, 16))
-            data.append(value)
-        }
-        
-        return data
-    }
+
     
-    private func toN12(_ amount: String) -> [UInt8] {
-        let formattedString = String(format: "%12.0f", (Double(amount) ?? 0) * 100)
-        return hexStringBytes(formattedString)
-    }
+
     
-    private func getDateByteString() -> String {
-        let dateComponents: Set<Calendar.Component> = [.month, .day, .hour, .minute, .second, .year]
-        let date = Calendar.current.dateComponents(dateComponents, from: Date())
-        let year = (date.year ?? 2008) - 2008
-        
-        let format = String(repeating: "%02lX", count: 5) + "%04lX"
-        return String(format: format, date.month ?? 0, date.day ?? 0, date.hour ?? 0, date.minute ?? 0, date.second ?? 0, year)
-    }
+
     
     public func isActiveTransaction() -> Bool { activeTransaction }
     public func isConnected() -> Bool { self.lib.isDeviceOpened() && self.lib.isDeviceConnected() }
@@ -75,7 +54,7 @@ public class MagTekBLE: NSObject, MTSCRAEventDelegate {
                 self.lib.sendCommandSync(MagTekCommand.setMSR.rawValue) // set MSR mode ON
                 self.lib.sendCommandSync(MagTekCommand.setBLE.rawValue) // set BLE Response mode ON
                 // set the date + time for EMV
-                self.lib.sendCommandSync(MagTekCommand.setDateTimePrefix.rawValue + self.deviceSerial + self.getDateByteString())
+                self.lib.sendCommandSync(MagTekCommand.setDateTimePrefix.rawValue + self.deviceSerial)
                 
                 onConnected(true) // successfully connected
                 timer.invalidate()
@@ -122,8 +101,8 @@ public class MagTekBLE: NSObject, MTSCRAEventDelegate {
     // (amount / cashback) format example for $1.00: "1", "1.00", "1.0"
     // for $10.25: "10.25"
     public func startTransaction(amount: String, cashback: String) {
-        var amountBytes = toN12(amount)
-        var cashbackBytes = toN12(cashback)
+        var amountBytes = [0]
+        var cashbackBytes = [0]
         var currencyCode = hexStringBytes("0840") // USD
         self.lib.startTransaction(60, // set time limit to 60 seconds
                                   cardType: 7,
