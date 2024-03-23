@@ -11,8 +11,8 @@
 		CE0951822BA96622007F6244 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0951812BA96622007F6244 /* ContentView.swift */; };
 		CE0951842BA96624007F6244 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE0951832BA96624007F6244 /* Assets.xcassets */; };
 		CE0951872BA96624007F6244 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE0951862BA96624007F6244 /* Preview Assets.xcassets */; };
-		CE5158372BAECBBB00642104 /* MagTekSDK.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE5158362BAECBBB00642104 /* MagTekSDK.xcframework */; };
-		CE5158382BAECBBB00642104 /* MagTekSDK.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CE5158362BAECBBB00642104 /* MagTekSDK.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		CE5158792BAF935C00642104 /* MagTekSDK.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE5158782BAF935C00642104 /* MagTekSDK.xcframework */; };
+		CE51587A2BAF935C00642104 /* MagTekSDK.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CE5158782BAF935C00642104 /* MagTekSDK.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -22,7 +22,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				CE5158382BAECBBB00642104 /* MagTekSDK.xcframework in Embed Frameworks */,
+				CE51587A2BAF935C00642104 /* MagTekSDK.xcframework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -36,7 +36,7 @@
 		CE0951832BA96624007F6244 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CE0951862BA96624007F6244 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		CE09518D2BA96657007F6244 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		CE5158362BAECBBB00642104 /* MagTekSDK.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = MagTekSDK.xcframework; path = ../MagTekSDK/Build/MagTekSDK.xcframework; sourceTree = "<group>"; };
+		CE5158782BAF935C00642104 /* MagTekSDK.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = MagTekSDK.xcframework; path = ../MagTekSDK/Build/MagTekSDK.xcframework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -44,7 +44,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CE5158372BAECBBB00642104 /* MagTekSDK.xcframework in Frameworks */,
+				CE5158792BAF935C00642104 /* MagTekSDK.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -91,7 +91,7 @@
 		CE09518E2BA9666A007F6244 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				CE5158362BAECBBB00642104 /* MagTekSDK.xcframework */,
+				CE5158782BAF935C00642104 /* MagTekSDK.xcframework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
