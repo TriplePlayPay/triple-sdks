@@ -1,10 +1,3 @@
-//
-//  MagTekBLEController.swift
-//  MagTekSDK
-//
-//  Created by Parker on 3/23/24.
-//
-
 import Foundation
 
 struct MagTekBluetoothInfo {
@@ -61,7 +54,8 @@ class MagTekBLEController: NSObject, MTSCRAEventDelegate {
         self.lib.delegate = self
     }
     
-    // super class overrides
+    // -- MT CALLBACKS --
+    
     func bleReaderStateUpdated(_ state: MTSCRABLEState) { self.bluetoothState = state }
     
     func onDeviceList(_ instance: Any!, connectionType: UInt, deviceList: [Any]!) {
@@ -83,8 +77,7 @@ class MagTekBLEController: NSObject, MTSCRAEventDelegate {
 
             self.deviceSerial = self.lib.getDeviceSerial() ?? self.deviceSerial
             self.lib.sendCommandSync(MagTekCommand.setMSR.rawValue) // put device into MSR mode
-            self.lib.sendCommandSync(MagTekCommand.setBLE.rawValue) // set response mode to BLE
-            // set date + time for EMV
+            self.lib.sendCommandSync(MagTekCommand.setBLE.rawValue) // set response mode to BLE, then set date + time
             self.lib.sendExtendedCommandSync(MagTekCommand.setDateTimePrefix.rawValue + self.deviceSerial + getDateByteString())
         }
         self.onConnection?(connected)
@@ -104,6 +97,12 @@ class MagTekBLEController: NSObject, MTSCRAEventDelegate {
         }
         self.onTransaction?(self.displayMessage, self.transactionEvent, self.transactionStatus)
     }
+    
+    func onARQCReceived(_ data: Data!) {
+        
+    }
+    
+    // -- END CALLBACKS --
     
     // public utility functions
     public func startDeviceDiscovery() {
@@ -139,8 +138,8 @@ class MagTekBLEController: NSObject, MTSCRAEventDelegate {
         var cashbackBytes = n12Bytes(cashback)
         var currencyCode = hexStringBytes("0840")
         
-        self.lib.startTransaction(255,
-            cardType: 7,
+        self.lib.startTransaction(0,
+            cardType: 7, // always offer all 3
             option: quickEmv ? 0x80 : 0,
             amount: &amountBytes,
             transactionType: 0,

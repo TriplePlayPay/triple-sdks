@@ -1,7 +1,5 @@
 import Foundation
 
-
-
 public class MagTekCardReader {
     
     public class func getEventMessage(_ event: MagTekTransactionEvent) -> String {

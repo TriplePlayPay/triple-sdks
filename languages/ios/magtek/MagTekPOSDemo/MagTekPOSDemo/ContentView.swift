@@ -98,7 +98,7 @@ struct ContentView: View {
                 }
             }
             
-            if isConnected {
+            if isTransaction {
                 Text(transactionEvent)
                 Text(transactionStatus)
                 Text(transactionMessage)
@@ -126,8 +126,8 @@ struct ContentView: View {
             }).font(.system(size: 20))
                 .disabled(!isConnected)
                 .padding()
-                .foregroundStyle(.gray)
-                .background(isConnected ? Color.blue : Color.gray)
+                .foregroundStyle(.white)
+                .background(isConnected ? .blue : .gray)
                 .cornerRadius(25)
         }
     }
