@@ -92,14 +92,13 @@ class MagTekBLEController: NSObject, MTSCRAEventDelegate {
     func onDisplayMessageRequest(_ data: Data!) {
         self.displayMessage = ""
         for token in data {
-            let character = Character(UnicodeScalar(token))
-            self.displayMessage.insert(character, at: displayMessage.endIndex)
+            self.displayMessage += String(UnicodeScalar(token))
         }
         self.onTransaction?(self.displayMessage, self.transactionEvent, self.transactionStatus)
     }
     
     func onARQCReceived(_ data: Data!) {
-        
+        print("+ arqc recv")
     }
     
     // -- END CALLBACKS --
