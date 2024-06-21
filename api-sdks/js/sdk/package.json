@@ -1,6 +1,6 @@
 {
   "name": "@tripleplaypay/sdk",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "",
   "main": "src/index.js",
   "type": "commonjs",
@@ -15,7 +15,7 @@
     "url": "https://github.com/TriplePlayPay/triple-sdks/issues"
   },
   "license": "Apache-2.0",
-  "homepage": "https://github.com/TriplePlayPay/triple-sdks/tree/main/languages/js/sdk",
+  "homepage": "https://github.com/TriplePlayPay/triple-sdks/tree/main/api-sdks/js/sdk",
   "repository": {
     "type": "git",
     "url": "https://github.com/TriplePlayPay/triple-sdks.git"
