@@ -1,8 +1,8 @@
 ---
-openapi: '3.0.0'
+openapi: '3.1.0'
 servers:
-- description: 'Triple Play Pay'
-  url: 'https://www.tripleplaypay.com'
+  - description: 'Triple Play Pay'
+    url: 'https://www.tripleplaypay.com'
 info:
   description: 'Payment API'
   version: '0.0.0'
@@ -138,7 +138,7 @@ paths:
       summary: '/report'
       operationId: 'report'
       description: 'Get transaction detail history'
-      responses: { '200': { $ref: '#/components/responses/200' }, '201': { $ref: '#/components/responses/201' }, '202': { $ref: '#/components/responses/202' }, '204': { $ref: '#/components/responses/204' }, '304': { $ref: '#/components/responses/304' }, '400': { $ref: '#/components/responses/400' }, '401': { $ref: '#/components/responses/401' }, '403': { $ref: '#/components/responses/403' }, '404': { $ref: '#/components/responses/404' }, '429': { $ref: '#/components/responses/429' }, '500': { $ref: '#/components/responses/500' }, '502': { $ref: '#/components/responses/502' }, '503': { $ref: '#/components/responses/503' }, }
+      responses: { '200': { $ref: '#/components/responses/ReportResponse' }, '201': { $ref: '#/components/responses/201' }, '202': { $ref: '#/components/responses/202' }, '204': { $ref: '#/components/responses/204' }, '304': { $ref: '#/components/responses/304' }, '400': { $ref: '#/components/responses/400' }, '401': { $ref: '#/components/responses/401' }, '403': { $ref: '#/components/responses/403' }, '404': { $ref: '#/components/responses/404' }, '429': { $ref: '#/components/responses/429' }, '500': { $ref: '#/components/responses/500' }, '502': { $ref: '#/components/responses/502' }, '503': { $ref: '#/components/responses/503' }, }
 
   /subscription:
     get:
@@ -567,7 +567,7 @@ components:
         account_number: { type: string, description: 'Bank Account to deposit transactions.' }
         routing_number: { type: string, description: 'Bank Routing Number to deposit transactions.' }
         stock_symbol: { type: string, description: '' }
-        ownership_type: { enum: ["Sole Proprietor", "C-Corp Private", "C-Corp Public", "S-Corp Private", "S-Corp Public", "LLC Private", "LLC Public", "Not For Profit", "Partnership Private", "Partnership", "Government Agency"] }
+        ownership_type: { enum: [ "Sole Proprietor", "C-Corp Private", "C-Corp Public", "S-Corp Private", "S-Corp Public", "LLC Private", "LLC Public", "Not For Profit", "Partnership Private", "Partnership", "Government Agency" ] }
         business_description: { type: string, description: '' }
         business_phone_number: { type: string, description: '' }
         business_address_1: { type: string, description: '' }
@@ -588,6 +588,72 @@ components:
         principal_ownership_percentage: { type: string, description: '' }
         principal_phone_number: { type: string, description: '' }
 
+    ReportResponse:
+      type: object
+      description: Transactions which are returned from the reporting endpoint.
+      properties:
+        id: { type: string, format: uuid, description: 'request id' }
+        status: { type: boolean, description: 'whether or not the request was successful' }
+        method: { type: string, description: 'name of the operation performed' }
+        message:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReportTransactionList'
+
+    ReportTransactionList:
+      type: array
+      minItems: 4
+      maxItems: 4
+      prefixItems:
+        - type: string
+        - '$ref': '#/components/schemas/ReportTransaction'
+        - type: string
+          description: Merchant name (the merchant which accepted a payment in this transaction)
+        - type: string
+          description: Parent merchant's name
+
+    ReportTransaction:
+      type: object
+      properties:
+        id: { type: string, format: uuid, description: 'transaction id' }
+        is_deleted: { type: boolean, description: 'whether or not this record is soft deleted' }
+        created_at: { type: string, format: 'date' }
+        updated_at: { type: string, format: 'date' }
+        action: { enum: [ 'settle', 'debit', 'blind_refund', 'CAPTURE', 'AUTH_CAPTURE', 'authorize', 'AUTH_ONLY', 'void', 'charge', 'refund', 'credit' ], description: 'what type of action was taken' }
+        action_mode: { enum: [ 'settle', 'debit', 'blind_refund', 'authorize', 'void', 'charge', 'apple_pay', 'refund' ], description: 'what category does the action belong to' }
+        type: { type: string, enum: [ 'settle', 'terminal_charge', 'debit', 'adjustment', 'collected', 'terminal_blind_refund', 'cash', 'void', 'cc', 'payout', 'charge', 'refund', 'credit', 'batch', 'subscription', 'terminal', 'terminal_void', 'authorize' ], description: 'what type of transaction this is' }
+        payment_method_used: { enum: [ 'refund', 'cash', 'ach', 'card', 'terminal' ], description: 'type of payment' }
+        is_pass_to_consumer: { type: boolean }
+        request_status: { type: boolean, description: 'whether or not the request(s) to the processor was successful' }
+        payment_status: { type: boolean, description: 'whether or not the payment was successfully processed overall' }
+        currency: { type: string, description: 'type of currency used' }
+        amount: { type: number, multipleOf: 0.01, description: 'amount of money processed in the transaction (decimal(20, 2))' }
+        fee: { type: number, multipleOf: 0.01 }
+        tip: { type: number, multipleOf: 0.01 }
+        surcharge: { type: number, multipleOf: 0.01 }
+        platform_fee: { type: number, multipleOf: 0.01 }
+        split_fee: { type: number, multipleOf: 0.01 }
+        convenience_fee: { type: number, multipleOf: 0.01 }
+        initial_amount: { type: number, multipleOf: 0.01 }
+        request_headers: { type: object, additionalProperties: { type: string }, description: 'headers of original client request which initiated the transaction' }
+        settlement:
+          type: object
+          properties:
+            date: { type: string }
+            type: { type: string, description: 'type of settlement data source (for parsing settlement data)' }
+            amount: { type: number, multipleOf: 0.01, description: 'amount which was transferred as part of settlement' }
+            raw_data: { type: object, additionalProperties: { type: string }, description: 'raw data from the data source' }
+        data:
+          type: object
+          properties:
+            id: { type: string, format: uuid, description: 'id of the transaction metadata' }
+            is_deleted: { type: boolean, description: 'whether or not this record is soft deleted' }
+            created_at: { type: string, format: 'date' }
+            updated_at: { type: string, format: 'date' }
+            processor: { type: string, description: 'type of third party API' }
+            latency: { type: number, description: 'number of seconds waiting for response' }
+            api_response: { type: object, description: 'object which was returned from the API' }
+            third_party_api_response: { type: object, description: 'object which was returned from to API from the third party API' }
 
   responses:
     '200':
@@ -659,3 +725,11 @@ components:
         condition which will be alleviated after some delay. You can choose to resend
         the request again. Please report these to us by posting in the GitHub discussion.
 
+
+
+    ReportResponse:
+      description: body of the response of the '/report' resource
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ReportResponse'
