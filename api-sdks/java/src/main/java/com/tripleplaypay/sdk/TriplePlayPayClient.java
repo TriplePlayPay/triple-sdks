@@ -107,7 +107,7 @@ public class TriplePlayPayClient {
         public void handleError(ClientHttpResponse response) {
             try {
                 super.handleError(response);
-            } catch (IOException e) {
+            } catch (Exception e) {
                 throw new TriplePlayPayAPIException(e);
             }
         }
@@ -116,7 +116,7 @@ public class TriplePlayPayClient {
         protected void handleError(ClientHttpResponse response, HttpStatus statusCode) {
             try {
                 super.handleError(response, statusCode);
-            } catch (IOException e) {
+            } catch (Exception e) {
                 throw new TriplePlayPayAPIException(e);
             }
         }
