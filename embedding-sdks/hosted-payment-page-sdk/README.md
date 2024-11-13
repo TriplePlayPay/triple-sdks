@@ -9,7 +9,6 @@ It is currently available here:
 
 ```html
 <script src="https://tripleplaypay.com/static/js/triple.js"
-        integrity="sha384-Of0U6TbzQFcuPMMMR54fw8pRuCEKoQcOU4BEUKeFI69o1u9fmr/p0XAkalj4Iz8Q"
         crossorigin="anonymous">
 </script>
 ```
@@ -19,8 +18,18 @@ with the sandbox build available here:
 ```html
 
 <script src="https://tripleplaypay.com/static/js/sandbox.js"
-        integrity="sha384-LX21FlQRggr39UpDDxbSBbkl7a2sK0nsnoPckpf2R/5YwgxLFstnHqHQ1cVRkNGP"
-        crossorigin="anonymous"></script>
+        crossorigin="anonymous">
+</script>
+```
+
+The integrity attribute is not currently recommended as the version is updated in place.
+However, you can generate one like so:
+
+```bash
+echo '<script src="https://tripleplaypay.com/static/js/sandbox.js"
+        integrity="sha384-'$(curl -fSs 'https://tripleplaypay.com/static/js/sandbox.js' -w '' | openssl dgst -sha384 -binary | openssl base64)'"
+        crossorigin="anonymous">
+</script>'
 ```
 
 as documented here: [https://tripleplaypay.com/iframe.html](https://tripleplaypay.com/iframe.html).

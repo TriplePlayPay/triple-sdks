@@ -1,4 +1,7 @@
 .idea/
+.gradle/
 build/
+target/
+.vite/
 dist/
 node_modules/
