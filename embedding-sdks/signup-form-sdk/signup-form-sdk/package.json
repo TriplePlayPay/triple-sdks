@@ -1,0 +1,17 @@
+{
+  "name": "@tripleplaypay/sdk-signup-forms",
+  "version": "0.0.1",
+  "type": "commonjs",
+  "main": "dist/sdk-signup-forms.es.js",
+  "files": ["tpp-embedded-forms.js", "dist"],
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "build:watch": "vite build --watch",
+    "preview": "vite preview",
+    "prepublish": "vite build"
+  },
+  "devDependencies": {
+    "vite": "^5.4.10"
+  }
+}

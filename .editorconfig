@@ -1,0 +1,33 @@
+[*]
+ij_any_align_multiline_binary_operation = false
+ij_any_line_comment_add_space = true
+ij_any_line_comment_at_first_column = false
+ij_any_block_comment_add_space = false
+ij_any_block_comment_at_first_column = false
+
+[*.sh]
+tab_width = 2
+indent_size = 2
+ij_shell_tab_width = 2
+ij_shell_indent_size = 2
+ij_shell_switch_cases_indented = true
+ij_continuation_indent_size = 4
+
+[{*.css,*.js,*.mjs,*.html}]
+tab_width = 2
+indent_size = 2
+ij_continuation_indent_size = 2
+ij_html_block_comment_add_space = true
+ij_javascript_enforce_trailing_comma = whenmultiline
+ij_javascript_use_semicolon_after_statement = true
+ij_javascript_force_semicolon_style = true
+ij_javascript_use_double_quotes = true
+ij_javascript_force_quote_style = true
+ij_javascript_import_sort_members = true
+ij_javascript_import_sort_module_name = true
+ij_typescript_import_sort_members = true
+ij_typescript_import_sort_module_name = true
+ij_typescript_use_semicolon_after_statement = true
+ij_typescript_force_semicolon_style = true
+ij_typescript_use_double_quotes = true
+ij_typescript_force_quote_style = true
