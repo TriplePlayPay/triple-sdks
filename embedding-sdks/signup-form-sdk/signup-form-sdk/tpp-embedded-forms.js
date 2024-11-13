@@ -124,6 +124,14 @@ TppEnrollForm.prototype.on = function (eventName, callback) {
   this._callbacks[eventName].push(callback);
 };
 
+TppEnrollForm.prototype.submit = function () {
+  this._getIframe((iframe) => {
+    iframe.contentWindow.postMessage({
+      message: "submit",
+    }, "*");
+  });
+};
+
 /**
  * @typedef {{
  *   dba_name?: string
@@ -239,7 +247,7 @@ TppEnrollForm.prototype.setValues = function (fieldConfig) {
  * @param {Fields} fieldConfig
  */
 TppEnrollForm.prototype.setVisibility = function (fieldConfig) {
-  this._getIframe(iframe => {
+  this._getIframe((iframe) => {
     iframe.contentWindow.postMessage({
       message: "setVisibility",
       visibility: fieldConfig,
