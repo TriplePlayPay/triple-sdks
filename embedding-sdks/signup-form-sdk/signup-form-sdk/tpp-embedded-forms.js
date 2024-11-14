@@ -2,6 +2,7 @@
  * @typedef {{
  *   elementId: string
  *   parentId?: string
+ *   enrollmentId?: string
  *   baseUrl?: "production" | "sandbox" | string
  * }} MerchantEnrollmentFormConfig
  */
@@ -50,8 +51,12 @@ TppEnrollForm.prototype.mount = function () {
     throw new Error("no element found with elementId " + elementId);
 
   let url = `${this.config.baseUrl}/enroll`;
-  if (this.config.parentId)
+  if (this.config.parentId) {
     url += `/${this.config.parentId}`;
+    if (this.config.enrollmentId) {
+      url += `/${this.config.enrollmentId}`;
+    }
+  }
   element.innerHTML = `<iframe src="${url}" style="width: 100%; height: 4000px;"></iframe>`;
 
   // wait for interactivity
