@@ -70,6 +70,11 @@ function ready() {
     principal_state_province: "TN",
     principal_postal_code: "11111",
   });
+
+  form.setVisibility({
+    dba_name: false,
+    mcc_code: false,
+  });
 }
 
 window.addEventListener("DOMContentLoaded", ready);

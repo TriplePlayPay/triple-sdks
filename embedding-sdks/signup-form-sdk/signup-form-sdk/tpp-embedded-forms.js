@@ -287,6 +287,17 @@ TppEnrollForm.prototype.setValues = async function (fieldConfig) {
 };
 
 /**
+ * of note, the following fields are not included in this functionality:
+ *
+ * business_address_one,
+ * dba_name,
+ * email,
+ * fed_tx_id,
+ * legal_name,
+ * principal_first_name,
+ * principal_last_name,
+ * principal_ssn,
+ *
  * @param {Fields} fieldConfig
  */
 TppEnrollForm.prototype.setVisibility = async function (fieldConfig) {
