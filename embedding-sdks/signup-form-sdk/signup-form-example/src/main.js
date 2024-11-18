@@ -22,6 +22,11 @@ function ready() {
     // baseUrl: "sandbox", // for sandbox usage
   });
 
+  document.getElementById('tpp-signup-form-button').addEventListener("click", async () => {
+    let id = await form.submit();
+    console.log({ id });
+  });
+
   form.on("submit", (id) => console.log("enrolled a new id:", id));
 
   form.setValues({
