@@ -90,7 +90,7 @@ TppEnrollForm.prototype._postMessageCallback = function (message) {
       break;
     }
     case "isFormValid": {
-      this._callbacks[messageType]?.forEach(c => c(message.data.resultId));
+      this._callbacks[messageType]?.forEach(c => c(message.data.isFormValid));
       break;
     }
     default: {
