@@ -89,6 +89,10 @@ TppEnrollForm.prototype._postMessageCallback = function (message) {
       this._callbacks["submit"]?.forEach(c => c(message.data.resultId));
       break;
     }
+    case "isFormValid": {
+      this._callbacks[messageType]?.forEach(c => c(message.data.isFormValid));
+      break;
+    }
     default: {
       let error = `unknown message type: ${messageType}`;
       // console.log(error);
@@ -120,7 +124,7 @@ TppEnrollForm.prototype._listenForPostMessage = function () {
 };
 
 /**
- * @param {"submit"} eventName
+ * @param {"submit", "isFormValid"} eventName
  * @param {(enrollmentId: string) => void} callback
  */
 TppEnrollForm.prototype.on = function (eventName, callback) {
@@ -129,12 +133,43 @@ TppEnrollForm.prototype.on = function (eventName, callback) {
   this._callbacks[eventName].push(callback);
 };
 
-TppEnrollForm.prototype.submit = function () {
-  this._getIframe((iframe) => {
-    iframe.contentWindow.postMessage({
-      message: "submit",
-    }, "*");
-  });
+/**
+ * @param {"submit", "isFormValid"} eventName
+ * @param {(enrollmentId: string) => void} callback
+ */
+TppEnrollForm.prototype.once = function (eventName, callback) {
+  const that = this;
+  function newCallbackWrapper(enrollmentId) {
+    callback(enrollmentId);
+    let index = that._callbacks[eventName].indexOf(newCallbackWrapper);
+    if (index !== -1) {
+      that._callbacks[eventName].splice(index, 1);
+    }
+  }
+
+  this.on(eventName, newCallbackWrapper);
+};
+
+/**
+ * @returns {Promise<string>}
+ */
+TppEnrollForm.prototype.submit = async function () {
+  const iframe = await this._getIframePromise();
+  iframe.contentWindow.postMessage({
+    message: "submit",
+  }, "*");
+  return new Promise(r => this.once("submit", r));
+};
+
+/**
+ * @returns {Promise<boolean>}
+ */
+TppEnrollForm.prototype.isFormValid = async function () {
+  const iframe = await this._getIframePromise();
+  iframe.contentWindow.postMessage({
+    message: "isFormValid",
+  }, "*");
+  return new Promise(r => this.once("isFormValid", r));
 };
 
 /**
@@ -218,7 +253,7 @@ TppEnrollForm.prototype.submit = function () {
 
 /**
  *
- * @param {(iframe: HTMLIFrameElement) => void} cb
+ * @param {(error: unknown, iframe?: HTMLIFrameElement) => void} cb
  * @param {number} counter
  * @private
  */
@@ -226,38 +261,51 @@ TppEnrollForm.prototype._getIframe = function (cb, counter = 0) {
   let iframe = this.iframe;
   if (!iframe) {
     if (counter >= 10)
-      throw new Error("no iframe for setting values");
+      cb(new Error("no iframe for setting values"));
     setTimeout(() => this._getIframe(cb, counter + 1), 1000);
   } else {
-    setTimeout(() => cb(iframe));
+    setTimeout(() => cb(null, iframe));
   }
 };
 
 /**
- * @param {Fields} fieldConfig
+ * @returns {Promise<HTMLIFrameElement>}
  */
-TppEnrollForm.prototype.setValues = function (fieldConfig) {
-  /**
-   * @type {HTMLIFrameElement}
-   */
-  this._getIframe((iframe) => {
-    iframe.contentWindow.postMessage({
-      message: "setValues",
-      values: fieldConfig,
-    }, "*");
-  });
-};
+TppEnrollForm.prototype._getIframePromise = function () {
+  return new Promise((r, j) => this._getIframe((e, i) => e ? j(e) : r(i)));
+}
 
 /**
  * @param {Fields} fieldConfig
  */
-TppEnrollForm.prototype.setVisibility = function (fieldConfig) {
-  this._getIframe((iframe) => {
-    iframe.contentWindow.postMessage({
-      message: "setVisibility",
-      visibility: fieldConfig,
-    }, "*");
-  });
+TppEnrollForm.prototype.setValues = async function (fieldConfig) {
+  const iframe = await this._getIframePromise();
+  iframe.contentWindow.postMessage({
+    message: "setValues",
+    values: fieldConfig,
+  }, "*");
+};
+
+/**
+ * of note, the following fields are not included in this functionality:
+ *
+ * business_address_one,
+ * dba_name,
+ * email,
+ * fed_tx_id,
+ * legal_name,
+ * principal_first_name,
+ * principal_last_name,
+ * principal_ssn,
+ *
+ * @param {Fields} fieldConfig
+ */
+TppEnrollForm.prototype.setVisibility = async function (fieldConfig) {
+  const iframe = await this._getIframePromise();
+  iframe.contentWindow.postMessage({
+    message: "setVisibility",
+    visibility: fieldConfig,
+  }, "*");
 };
 
 export { TppEnrollForm };
