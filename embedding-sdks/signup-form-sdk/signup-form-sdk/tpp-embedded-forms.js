@@ -1,5 +1,6 @@
 /**
  * @typedef {{
+ *   apiKey?: string
  *   parentId?: string
  *   enrollmentId?: string
  *   baseUrl?: "production" | "sandbox" | string
@@ -168,14 +169,67 @@ TppEnrollForm.prototype.once = function (eventName, callback) {
 };
 
 /**
- * @returns {Promise<string>}
+ * @typedef {{
+ *   enrollmentId: string
+ *   apiKey?: string
+ *   publicKey?: string
+ * }} SubmittedEnrollment
+ */
+
+/**
+ * Returns a new enrollment.
+ *
+ * When an error occurs,
+ * such as not a required field not having a value,
+ * it returns a falsy value (`null`).
+ *
+ * This method attempts to fetch the api keys of the new enrollment.
+ * If it succeeds, they are present on the returned object.
+ * If not, just the enrollmentId is present.
+ *
+ * @returns {Promise<SubmittedEnrollment | null>}
  */
 TppEnrollForm.prototype.submit = async function () {
   const iframe = await this._getIframePromise();
   iframe.contentWindow.postMessage({
     message: "submit",
   }, "*");
-  return new Promise(r => this.once("submit", r));
+
+  let enrollmentId = await new Promise(r => this.once("submit", r));
+  if (!enrollmentId)
+    return null;
+
+  if (!this.config.apiKey) {
+    return { enrollmentId };
+  }
+
+  try {
+    let response = await fetch(`${this.config.baseUrl}/api/enroll/${enrollmentId}/pre-generated-keys`, {
+      headers: {
+        Authorization: `Bearer ${this.config.apiKey}`,
+      },
+    });
+    if (!response.ok) {
+      console.debug("failed to fetch api keys for", enrollmentId, "with status code", response.status, response.text());
+      return { enrollmentId };
+    }
+
+    let responseBody = await response.json();
+    let { message } = responseBody;
+    let { api_key, public_key } = message;
+    if (api_key && public_key) {
+      return {
+        enrollmentId,
+        apiKey: api_key,
+        publicKey: public_key,
+      };
+    }
+    console.debug("failed to fetch api keys for", enrollmentId, "with response body", responseBody);
+  } catch (e) {
+    console.debug("failed to fetch api keys for", enrollmentId, "with error", e);
+  }
+
+  return { enrollmentId };
 };
 
 /**
