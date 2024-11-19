@@ -199,6 +199,14 @@ TppEnrollForm.prototype.submit = async function () {
   if (!enrollmentId)
     return null;
 
+  return await this.preGeneratedKeys(enrollmentId);
+};
+
+/**
+ * @param enrollmentId
+ * @returns {Promise<SubmittedEnrollment>}
+ */
+TppEnrollForm.prototype.preGeneratedKeys = async function (enrollmentId) {
   if (!this.config.apiKey) {
     return { enrollmentId };
   }
