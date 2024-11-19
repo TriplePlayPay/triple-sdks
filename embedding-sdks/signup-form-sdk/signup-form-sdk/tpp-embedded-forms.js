@@ -1,10 +1,21 @@
 /**
  * @typedef {{
- *   elementId: string
  *   parentId?: string
  *   enrollmentId?: string
  *   baseUrl?: "production" | "sandbox" | string
- * }} MerchantEnrollmentFormConfig
+ * } & (ElementById | ElementRef)} MerchantEnrollmentFormConfig
+ */
+
+/**
+ * @typedef {{
+ *   elementId: string
+ * }} ElementById
+ */
+
+/**
+ * @typedef {{
+ *   element: HTMLElement
+ * }} ElementRef
  */
 
 const knownBaseUrls = {
@@ -43,12 +54,17 @@ function TppEnrollForm(config) {
 }
 
 TppEnrollForm.prototype.mount = function () {
-  let elementId = this.config.elementId;
-  if (!elementId)
-    throw new Error("no elementId given in config: " + JSON.stringify(this.config));
-  let element = document.getElementById(elementId);
-  if (!element)
-    throw new Error("no element found with elementId " + elementId);
+  let element;
+  if (this.config.elementId) {
+    let elementId = this.config.elementId;
+    if (!elementId)
+      throw new Error("no elementId given in config: " + JSON.stringify(this.config));
+    element = document.getElementById(elementId);
+    if (!element)
+      throw new Error("no element found with elementId " + elementId);
+  } else {
+    element = this.config.element;
+  }
 
   let url = `${this.config.baseUrl}/enroll`;
   if (this.config.parentId) {
@@ -139,6 +155,7 @@ TppEnrollForm.prototype.on = function (eventName, callback) {
  */
 TppEnrollForm.prototype.once = function (eventName, callback) {
   const that = this;
+
   function newCallbackWrapper(enrollmentId) {
     callback(enrollmentId);
     let index = that._callbacks[eventName].indexOf(newCallbackWrapper);
@@ -273,7 +290,7 @@ TppEnrollForm.prototype._getIframe = function (cb, counter = 0) {
  */
 TppEnrollForm.prototype._getIframePromise = function () {
   return new Promise((r, j) => this._getIframe((e, i) => e ? j(e) : r(i)));
-}
+};
 
 /**
  * @param {Fields} fieldConfig
