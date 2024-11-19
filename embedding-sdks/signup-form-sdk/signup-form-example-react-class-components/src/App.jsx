@@ -39,6 +39,7 @@ class TppSignupFormDiv extends Component {
   /**
    * @param {import("react").PropsWithChildren<{
    *   setForm: (tppEnrollForm: TppEnrollForm) => void
+   *   setEnrollmentId: (resultEnrollmentId: string) => void
    * }>} props
    */
   constructor(props) {
@@ -54,6 +55,7 @@ class TppSignupFormDiv extends Component {
       // baseUrl: "sandbox", // for sandbox usage
     });
     this.props.setForm(form);
+    form.once("submit", id => id && this.props.setEnrollmentId(id));
   }
 
   render() {
@@ -62,6 +64,7 @@ class TppSignupFormDiv extends Component {
 
   static propTypes = {
     setForm: PropTypes.func.isRequired,
+    setEnrollmentId: PropTypes.func.isRequired,
   };
 }
 
@@ -81,6 +84,7 @@ export default class App extends Component {
     };
 
     this.setForm = this.setForm.bind(this);
+    this.setEnrollmentId = this.setEnrollmentId.bind(this);
     this.formSubmit = this.formSubmit.bind(this);
   }
 
@@ -89,6 +93,17 @@ export default class App extends Component {
    */
   setForm(tppEnrollForm) {
     this.setState(s => ({ ...s, tppEnrollForm }));
+  }
+
+  /**
+   * @param {string} resultEnrollmentId
+   */
+  setEnrollmentId(resultEnrollmentId) {
+    console.log("there is now an enrollment id", resultEnrollmentId);
+    this.setState(s => ({ ...s, resultEnrollmentId }));
+    // optionally just immediately go to update page
+    // tppEnrollForm.config.enrollmentId = enrollmentId
+    // tppEnrollForm.mount();
   }
 
   async componentDidMount() {
@@ -132,11 +147,7 @@ export default class App extends Component {
 
     let enrollmentId = await tppEnrollForm.submit();
     if (enrollmentId) {
-      this.setState(s => ({ ...s, resultEnrollmentId: enrollmentId }));
-
-      // optionally just immediately go to update page
-      // tppEnrollForm.config.enrollmentId = enrollmentId
-      // tppEnrollForm.mount();
+      this.setEnrollmentId(enrollmentId)
     }
   }
 
@@ -145,7 +156,7 @@ export default class App extends Component {
       <div className="row featurette">
         <FeatureLeftSide submitClicked={() => this.formSubmit()} />
         <div className="col-md-9">
-          <TppSignupFormDiv setForm={this.setForm} />
+          <TppSignupFormDiv setForm={this.setForm} setEnrollmentId={this.setEnrollmentId} />
         </div>
       </div>
 
