@@ -99,11 +99,12 @@ TppEnrollForm.prototype.mount = function () {
  * @param {MessageEvent} message.event
  * @private
  */
-TppEnrollForm.prototype._postMessageCallback = function (message) {
+TppEnrollForm.prototype._postMessageCallback = async function (message) {
   let messageType = message?.data?.message;
   switch (messageType) {
     case "result": {
-      this._callbacks["submit"]?.forEach(c => c(message.data.resultId));
+      let resultId = await this.preGeneratedKeys(message.data.resultId);
+      this._callbacks["submit"]?.forEach(c => c(resultId));
       break;
     }
     case "isFormValid": {
@@ -131,10 +132,10 @@ TppEnrollForm.prototype._listenForPostMessage = function () {
     /**
      * @param {MessageEvent} event
      */
-    function (event) {
+    async function (event) {
       let key = event.data ? "data" : "message";
       let data = event[key];
-      that._postMessageCallback({ data, event });
+      await that._postMessageCallback({ data, event });
     },
     false,
   );
@@ -195,11 +196,7 @@ TppEnrollForm.prototype.submit = async function () {
     message: "submit",
   }, "*");
 
-  let enrollmentId = await new Promise(r => this.once("submit", r));
-  if (!enrollmentId)
-    return null;
-
-  return await this.preGeneratedKeys(enrollmentId);
+  return new Promise(r => this.once("submit", r));
 };
 
 /**
