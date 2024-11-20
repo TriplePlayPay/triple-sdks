@@ -143,7 +143,7 @@ TppEnrollForm.prototype._listenForPostMessage = function () {
 
 /**
  * @param {"submit", "isFormValid"} eventName
- * @param {(enrollmentId: string) => void} callback
+ * @param {((enrollment: SubmittedEnrollment) => void) | ((valid: boolean) => void)} callback
  */
 TppEnrollForm.prototype.on = function (eventName, callback) {
   if (!(eventName in knownCallbackNames)) return;
@@ -195,7 +195,6 @@ TppEnrollForm.prototype.submit = async function () {
   iframe.contentWindow.postMessage({
     message: "submit",
   }, "*");
-
   return new Promise(r => this.once("submit", r));
 };
 
