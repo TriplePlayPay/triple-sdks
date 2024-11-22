@@ -179,4 +179,5 @@ export class TppEnrollForm {
      * @param {Fields} fieldConfig
      */
     setVisibility(fieldConfig: Fields): Promise<void>;
+    hideElement(elementId: any): Promise<void>;
 }

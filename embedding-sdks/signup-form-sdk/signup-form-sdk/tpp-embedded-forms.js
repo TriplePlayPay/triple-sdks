@@ -383,4 +383,12 @@ TppEnrollForm.prototype.setVisibility = async function (fieldConfig) {
   }, "*");
 };
 
+TppEnrollForm.prototype.hideElement = async function (elementId) {
+  const iframe = await this._getIframePromise();
+  iframe.contentWindow.postMessage({
+    message: "hideElement",
+    elementId,
+  }, "*");
+};
+
 export { TppEnrollForm };
