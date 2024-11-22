@@ -56,6 +56,8 @@ class TppSignupFormDiv extends Component {
     });
     this.props.setForm(form);
     form.once("submit", id => id && this.props.setEnrollmentId(id));
+    // hide update button
+    form.hideElement("submitform").then();
   }
 
   render() {

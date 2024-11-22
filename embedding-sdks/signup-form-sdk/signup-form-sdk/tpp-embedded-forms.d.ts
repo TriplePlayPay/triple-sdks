@@ -1,4 +1,5 @@
 export type MerchantEnrollmentFormConfig = {
+    apiKey?: string;
     parentId?: string;
     enrollmentId?: string;
     baseUrl?: "production" | "sandbox" | string;
@@ -8,6 +9,11 @@ export type ElementById = {
 };
 export type ElementRef = {
     element: HTMLElement;
+};
+export type SubmittedEnrollment = {
+    enrollmentId: string;
+    apiKey?: string;
+    publicKey?: string;
 };
 export type Fields = {
     dba_name?: string;
@@ -111,18 +117,40 @@ export class TppEnrollForm {
     _listenForPostMessage(): void;
     /**
      * @param {"submit", "isFormValid"} eventName
-     * @param {(enrollmentId: string) => void} callback
+     * @param {((enrollment: SubmittedEnrollment) => void) | ((valid: boolean) => void)} callback
      */
-    on(eventName: any, callback: (enrollmentId: string) => void): void;
+    on(eventName: any, callback: ((enrollment: SubmittedEnrollment) => void) | ((valid: boolean) => void)): void;
     /**
      * @param {"submit", "isFormValid"} eventName
      * @param {(enrollmentId: string) => void} callback
      */
     once(eventName: any, callback: (enrollmentId: string) => void): void;
     /**
-     * @returns {Promise<string>}
+     * @typedef {{
+     *   enrollmentId: string
+     *   apiKey?: string
+     *   publicKey?: string
+     * }} SubmittedEnrollment
      */
-    submit(): Promise<string>;
+    /**
+     * Returns a new enrollment.
+     *
+     * When an error occurs,
+     * such as not a required field not having a value,
+     * it returns a falsy value (`null`).
+     *
+     * This method attempts to fetch the api keys of the new enrollment.
+     * If it succeeds, they are present on the returned object.
+     * If not, just the enrollmentId is present.
+     *
+     * @returns {Promise<SubmittedEnrollment | null>}
+     */
+    submit(): Promise<SubmittedEnrollment | null>;
+    /**
+     * @param enrollmentId
+     * @returns {Promise<SubmittedEnrollment>}
+     */
+    preGeneratedKeys(enrollmentId: any): Promise<SubmittedEnrollment>;
     /**
      * @returns {Promise<boolean>}
      */
@@ -151,4 +179,5 @@ export class TppEnrollForm {
      * @param {Fields} fieldConfig
      */
     setVisibility(fieldConfig: Fields): Promise<void>;
+    hideElement(elementId: any): Promise<void>;
 }
