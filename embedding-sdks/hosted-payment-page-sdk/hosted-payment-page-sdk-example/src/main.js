@@ -7,6 +7,7 @@ window.addEventListener("DOMContentLoaded", () => {
         It Works!
       </p>
       <div id="example"></div>
+      <button id="btn" class="btn btn-small btn-outline-secondary">Generate token</button>
     </div>
   `;
 
@@ -47,8 +48,9 @@ window.addEventListener("DOMContentLoaded", () => {
     hideSubmitButton: true,
 
     // Callback Embeds
-    onError: (id) => {
+    onError: (error) => {
       alert("An error");
+      console.log(error);
     },
     onSuccess: (data) => {
       console.log(data);
