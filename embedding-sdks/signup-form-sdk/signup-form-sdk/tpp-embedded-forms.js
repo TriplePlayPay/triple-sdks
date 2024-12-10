@@ -112,9 +112,10 @@ TppEnrollForm.prototype._postMessageCallback = async function (message) {
       break;
     }
     default: {
-      let error = `unknown message type: ${messageType}`;
-      // console.log(error);
-      throw new Error(error);
+      if ((message.event.origin || "").endsWith("tripleplaypay.com")) {
+        let error = `unknown message type: ${messageType}`;
+        throw new Error(error);
+      }
     }
   }
 };
