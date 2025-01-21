@@ -11,5 +11,4 @@
 | [**report**](#report)             | **GET** /report        | Get transaction detail history                                                                   |
 | [**settle**](#settle)             | **POST** /settle       | Same as sending a transactionId to charge, this method will settle an outstanding Authorization. |
 | [**subscription**](#subscription) | **POST** /subscription | Setup a payment subscription or get details/history. Can also send to /api/charge                |
-| [**terminal**](#terminal)         | **POST** /terminal     | Configure new Credit Card Terminal or get status of existing.                                    |
-| [**tokenize**](#tokenize)         | **POST** /tokenize     | Create a token for later use.                                                                    |
+| [**terminal**](#terminal)         | **POST** /terminal     | Configure new Credit Card Terminal or get status of existing.                                    | |
