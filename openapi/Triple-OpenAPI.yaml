@@ -1,149 +1,321 @@
----
-openapi: '3.1.0'
-servers:
-  - description: 'Triple Play Pay'
-    url: 'https://www.tripleplaypay.com'
+openapi: 3.1.0
 info:
-  description: 'Payment API'
-  version: '0.0.0'
-  title: 'Triple Play Pay API'
+  title: Triple Play Pay API
+  description: Payment API
+  version: '1.0.0'
   contact:
-    email: 'support@tripleplaypay.com'
+    email: support@tripleplaypay.com
   license:
-    name: 'Apache 2.0'
-    url: 'https://www.apache.org/licenses/LICENSE-2.0.html'
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+servers:
+  - description: Triple Play Pay
+    url: https://www.tripleplaypay.com
 tags:
   - name: sdk-v1.0.0
     description: core set of SDK functionality
 
 paths:
+
   /bankaccount:
     post:
       tags: [ 'sdk-v1.0.0' ]
       summary: '/bankaccount'
-      operationId: 'bankaccount'
+      operationId: bankaccount
       description: bank account creation
       requestBody:
         $ref: '#/components/requestBodies/BankAccountRequestBody'
-      responses: { '200': { $ref: '#/components/responses/200' }, '201': { $ref: '#/components/responses/201' }, '202': { $ref: '#/components/responses/202' }, '204': { $ref: '#/components/responses/204' }, '304': { $ref: '#/components/responses/304' }, '400': { $ref: '#/components/responses/400' }, '401': { $ref: '#/components/responses/401' }, '403': { $ref: '#/components/responses/403' }, '404': { $ref: '#/components/responses/404' }, '429': { $ref: '#/components/responses/429' }, '500': { $ref: '#/components/responses/500' }, '502': { $ref: '#/components/responses/502' }, '503': { $ref: '#/components/responses/503' }, }
+      responses:
+        '200': { $ref: '#/components/responses/200' }
+        '201': { $ref: '#/components/responses/201' }
+        '202': { $ref: '#/components/responses/202' }
+        '204': { $ref: '#/components/responses/204' }
+        '304': { $ref: '#/components/responses/304' }
+        '400': { $ref: '#/components/responses/400' }
+        '401': { $ref: '#/components/responses/401' }
+        '403': { $ref: '#/components/responses/403' }
+        '404': { $ref: '#/components/responses/404' }
+        '429': { $ref: '#/components/responses/429' }
+        '500': { $ref: '#/components/responses/500' }
+        '502': { $ref: '#/components/responses/502' }
+        '503': { $ref: '#/components/responses/503' }
 
   /card:
     post:
       tags: [ 'sdk-v1.0.0' ]
       summary: '/card'
-      operationId: 'card'
+      operationId: card
       description: credit card creation, same as bank account
       requestBody:
         $ref: '#/components/requestBodies/CardRequestBody'
-      responses: { '200': { $ref: '#/components/responses/200' }, '201': { $ref: '#/components/responses/201' }, '202': { $ref: '#/components/responses/202' }, '204': { $ref: '#/components/responses/204' }, '304': { $ref: '#/components/responses/304' }, '400': { $ref: '#/components/responses/400' }, '401': { $ref: '#/components/responses/401' }, '403': { $ref: '#/components/responses/403' }, '404': { $ref: '#/components/responses/404' }, '429': { $ref: '#/components/responses/429' }, '500': { $ref: '#/components/responses/500' }, '502': { $ref: '#/components/responses/502' }, '503': { $ref: '#/components/responses/503' }, }
+      responses:
+        '200': { $ref: '#/components/responses/200' }
+        '201': { $ref: '#/components/responses/201' }
+        '202': { $ref: '#/components/responses/202' }
+        '204': { $ref: '#/components/responses/204' }
+        '304': { $ref: '#/components/responses/304' }
+        '400': { $ref: '#/components/responses/400' }
+        '401': { $ref: '#/components/responses/401' }
+        '403': { $ref: '#/components/responses/403' }
+        '404': { $ref: '#/components/responses/404' }
+        '429': { $ref: '#/components/responses/429' }
+        '500': { $ref: '#/components/responses/500' }
+        '502': { $ref: '#/components/responses/502' }
+        '503': { $ref: '#/components/responses/503' }
 
   /charge:
     post:
       tags: [ 'sdk-v1.0.0' ]
       summary: '/charge'
-      operationId: 'charge'
-      description: >-
-        Process payment or settle a previous charge. (card, bank, terminal)
+      operationId: charge
+      description: >
+        Process payment or settle (capture) a previous charge. (card, bank, terminal)
       requestBody:
         $ref: '#/components/requestBodies/ChargeRequestBody'
-      responses: { '200': { $ref: '#/components/responses/200' }, '201': { $ref: '#/components/responses/201' }, '202': { $ref: '#/components/responses/202' }, '204': { $ref: '#/components/responses/204' }, '304': { $ref: '#/components/responses/304' }, '400': { $ref: '#/components/responses/400' }, '401': { $ref: '#/components/responses/401' }, '403': { $ref: '#/components/responses/403' }, '404': { $ref: '#/components/responses/404' }, '429': { $ref: '#/components/responses/429' }, '500': { $ref: '#/components/responses/500' }, '502': { $ref: '#/components/responses/502' }, '503': { $ref: '#/components/responses/503' }, }
+      responses:
+        '200': { $ref: '#/components/responses/200' }
+        '201': { $ref: '#/components/responses/201' }
+        '202': { $ref: '#/components/responses/202' }
+        '204': { $ref: '#/components/responses/204' }
+        '304': { $ref: '#/components/responses/304' }
+        '400': { $ref: '#/components/responses/400' }
+        '401': { $ref: '#/components/responses/401' }
+        '403': { $ref: '#/components/responses/403' }
+        '404': { $ref: '#/components/responses/404' }
+        '429': { $ref: '#/components/responses/429' }
+        '500': { $ref: '#/components/responses/500' }
+        '502': { $ref: '#/components/responses/502' }
+        '503': { $ref: '#/components/responses/503' }
 
   /authorize:
     post:
       summary: '/authorize'
-      description: >-
+      description: >
         Used to verify funds when the total amount of the purchase is unknown.
       requestBody:
         $ref: '#/components/requestBodies/AuthorizeRequestBody'
-      responses: { '200': { $ref: '#/components/responses/200' }, '201': { $ref: '#/components/responses/201' }, '202': { $ref: '#/components/responses/202' }, '204': { $ref: '#/components/responses/204' }, '304': { $ref: '#/components/responses/304' }, '400': { $ref: '#/components/responses/400' }, '401': { $ref: '#/components/responses/401' }, '403': { $ref: '#/components/responses/403' }, '404': { $ref: '#/components/responses/404' }, '429': { $ref: '#/components/responses/429' }, '500': { $ref: '#/components/responses/500' }, '502': { $ref: '#/components/responses/502' }, '503': { $ref: '#/components/responses/503' }, }
+      responses:
+        '200': { $ref: '#/components/responses/200' }
+        '201': { $ref: '#/components/responses/201' }
+        '202': { $ref: '#/components/responses/202' }
+        '204': { $ref: '#/components/responses/204' }
+        '304': { $ref: '#/components/responses/304' }
+        '400': { $ref: '#/components/responses/400' }
+        '401': { $ref: '#/components/responses/401' }
+        '403': { $ref: '#/components/responses/403' }
+        '404': { $ref: '#/components/responses/404' }
+        '429': { $ref: '#/components/responses/429' }
+        '500': { $ref: '#/components/responses/500' }
+        '502': { $ref: '#/components/responses/502' }
+        '503': { $ref: '#/components/responses/503' }
 
   /settle:
     post:
       summary: '/settle'
-      operationId: 'settle'
-      description: >-
-        Same as sending "id" to charge, this method will settle an outstanding Authorization.
+      operationId: settle
+      description: >
+        Same as sending "id" to charge, this method will settle (capture)
+        an outstanding Authorization.
       requestBody:
         $ref: '#/components/requestBodies/SettleRequestBody'
-      responses: { '200': { $ref: '#/components/responses/200' }, '201': { $ref: '#/components/responses/201' }, '202': { $ref: '#/components/responses/202' }, '204': { $ref: '#/components/responses/204' }, '304': { $ref: '#/components/responses/304' }, '400': { $ref: '#/components/responses/400' }, '401': { $ref: '#/components/responses/401' }, '403': { $ref: '#/components/responses/403' }, '404': { $ref: '#/components/responses/404' }, '429': { $ref: '#/components/responses/429' }, '500': { $ref: '#/components/responses/500' }, '502': { $ref: '#/components/responses/502' }, '503': { $ref: '#/components/responses/503' }, }
+      responses:
+        '200': { $ref: '#/components/responses/200' }
+        '201': { $ref: '#/components/responses/201' }
+        '202': { $ref: '#/components/responses/202' }
+        '204': { $ref: '#/components/responses/204' }
+        '304': { $ref: '#/components/responses/304' }
+        '400': { $ref: '#/components/responses/400' }
+        '401': { $ref: '#/components/responses/401' }
+        '403': { $ref: '#/components/responses/403' }
+        '404': { $ref: '#/components/responses/404' }
+        '429': { $ref: '#/components/responses/429' }
+        '500': { $ref: '#/components/responses/500' }
+        '502': { $ref: '#/components/responses/502' }
+        '503': { $ref: '#/components/responses/503' }
+
   /refund:
     post:
       tags: [ 'sdk-v1.0.0' ]
       summary: '/refund'
-      operationId: 'refund'
+      operationId: refund
       description: |
         Void/Refund a previous transaction or Credit the account. void/refund* credit**
         The system will automatically determine the optimal refund method between void, refund, and credit.
       requestBody:
         $ref: '#/components/requestBodies/RefundRequestBody'
-      responses: { '200': { $ref: '#/components/responses/200' }, '201': { $ref: '#/components/responses/201' }, '202': { $ref: '#/components/responses/202' }, '204': { $ref: '#/components/responses/204' }, '304': { $ref: '#/components/responses/304' }, '400': { $ref: '#/components/responses/400' }, '401': { $ref: '#/components/responses/401' }, '403': { $ref: '#/components/responses/403' }, '404': { $ref: '#/components/responses/404' }, '429': { $ref: '#/components/responses/429' }, '500': { $ref: '#/components/responses/500' }, '502': { $ref: '#/components/responses/502' }, '503': { $ref: '#/components/responses/503' }, }
+      responses:
+        '200': { $ref: '#/components/responses/200' }
+        '201': { $ref: '#/components/responses/201' }
+        '202': { $ref: '#/components/responses/202' }
+        '204': { $ref: '#/components/responses/204' }
+        '304': { $ref: '#/components/responses/304' }
+        '400': { $ref: '#/components/responses/400' }
+        '401': { $ref: '#/components/responses/401' }
+        '403': { $ref: '#/components/responses/403' }
+        '404': { $ref: '#/components/responses/404' }
+        '429': { $ref: '#/components/responses/429' }
+        '500': { $ref: '#/components/responses/500' }
+        '502': { $ref: '#/components/responses/502' }
+        '503': { $ref: '#/components/responses/503' }
+
   /multipay:
     post:
       summary: '/multipay'
-      operationId: 'multipay'
-      description: >-
+      operationId: multipay
+      description: >
         Takes an existing transaction id, as well as a list of key-value pairs containing
         an account/routing number, as well as an amount, which cannot exceed the total of
         the previously authorized transaction.
       requestBody:
         $ref: '#/components/requestBodies/MultipayRequestBody'
-      responses: { '200': { $ref: '#/components/responses/200' }, '201': { $ref: '#/components/responses/201' }, '202': { $ref: '#/components/responses/202' }, '204': { $ref: '#/components/responses/204' }, '304': { $ref: '#/components/responses/304' }, '400': { $ref: '#/components/responses/400' }, '401': { $ref: '#/components/responses/401' }, '403': { $ref: '#/components/responses/403' }, '404': { $ref: '#/components/responses/404' }, '429': { $ref: '#/components/responses/429' }, '500': { $ref: '#/components/responses/500' }, '502': { $ref: '#/components/responses/502' }, '503': { $ref: '#/components/responses/503' }, }
+      responses:
+        '200': { $ref: '#/components/responses/200' }
+        '201': { $ref: '#/components/responses/201' }
+        '202': { $ref: '#/components/responses/202' }
+        '204': { $ref: '#/components/responses/204' }
+        '304': { $ref: '#/components/responses/304' }
+        '400': { $ref: '#/components/responses/400' }
+        '401': { $ref: '#/components/responses/401' }
+        '403': { $ref: '#/components/responses/403' }
+        '404': { $ref: '#/components/responses/404' }
+        '429': { $ref: '#/components/responses/429' }
+        '500': { $ref: '#/components/responses/500' }
+        '502': { $ref: '#/components/responses/502' }
+        '503': { $ref: '#/components/responses/503' }
 
   /void:
     post:
       summary: '/void'
-      operationId: 'void'
+      operationId: void
       description: 'Void a transaction by its transaction UUID'
       requestBody:
         $ref: '#/components/requestBodies/VoidRequestBody'
-      responses: { '200': { $ref: '#/components/responses/200' }, '201': { $ref: '#/components/responses/201' }, '202': { $ref: '#/components/responses/202' }, '204': { $ref: '#/components/responses/204' }, '304': { $ref: '#/components/responses/304' }, '400': { $ref: '#/components/responses/400' }, '401': { $ref: '#/components/responses/401' }, '403': { $ref: '#/components/responses/403' }, '404': { $ref: '#/components/responses/404' }, '429': { $ref: '#/components/responses/429' }, '500': { $ref: '#/components/responses/500' }, '502': { $ref: '#/components/responses/502' }, '503': { $ref: '#/components/responses/503' }, }
+      responses:
+        '200': { $ref: '#/components/responses/200' }
+        '201': { $ref: '#/components/responses/201' }
+        '202': { $ref: '#/components/responses/202' }
+        '204': { $ref: '#/components/responses/204' }
+        '304': { $ref: '#/components/responses/304' }
+        '400': { $ref: '#/components/responses/400' }
+        '401': { $ref: '#/components/responses/401' }
+        '403': { $ref: '#/components/responses/403' }
+        '404': { $ref: '#/components/responses/404' }
+        '429': { $ref: '#/components/responses/429' }
+        '500': { $ref: '#/components/responses/500' }
+        '502': { $ref: '#/components/responses/502' }
+        '503': { $ref: '#/components/responses/503' }
 
   /tipadjust:
     post:
       summary: '/tipadjust'
-      operationId: 'tipadjust'
+      operationId: tipadjust
       description: 'Adjust the tip amount on a previously settled transaction'
       requestBody:
         $ref: '#/components/requestBodies/TipAdjustRequestBody'
-      responses: { '200': { $ref: '#/components/responses/200' }, '201': { $ref: '#/components/responses/201' }, '202': { $ref: '#/components/responses/202' }, '204': { $ref: '#/components/responses/204' }, '304': { $ref: '#/components/responses/304' }, '400': { $ref: '#/components/responses/400' }, '401': { $ref: '#/components/responses/401' }, '403': { $ref: '#/components/responses/403' }, '404': { $ref: '#/components/responses/404' }, '429': { $ref: '#/components/responses/429' }, '500': { $ref: '#/components/responses/500' }, '502': { $ref: '#/components/responses/502' }, '503': { $ref: '#/components/responses/503' }, }
+      responses:
+        '200': { $ref: '#/components/responses/200' }
+        '201': { $ref: '#/components/responses/201' }
+        '202': { $ref: '#/components/responses/202' }
+        '204': { $ref: '#/components/responses/204' }
+        '304': { $ref: '#/components/responses/304' }
+        '400': { $ref: '#/components/responses/400' }
+        '401': { $ref: '#/components/responses/401' }
+        '403': { $ref: '#/components/responses/403' }
+        '404': { $ref: '#/components/responses/404' }
+        '429': { $ref: '#/components/responses/429' }
+        '500': { $ref: '#/components/responses/500' }
+        '502': { $ref: '#/components/responses/502' }
+        '503': { $ref: '#/components/responses/503' }
 
   /terminal:
     get:
       summary: '/terminal'
-      description: >-
+      description: >
         Get terminal(s) and their status.
         Shows the activation codes for inactive terminals
-      responses: { '200': { $ref: '#/components/responses/200' }, '201': { $ref: '#/components/responses/201' }, '202': { $ref: '#/components/responses/202' }, '204': { $ref: '#/components/responses/204' }, '304': { $ref: '#/components/responses/304' }, '400': { $ref: '#/components/responses/400' }, '401': { $ref: '#/components/responses/401' }, '403': { $ref: '#/components/responses/403' }, '404': { $ref: '#/components/responses/404' }, '429': { $ref: '#/components/responses/429' }, '500': { $ref: '#/components/responses/500' }, '502': { $ref: '#/components/responses/502' }, '503': { $ref: '#/components/responses/503' }, }
+      responses:
+        '200': { $ref: '#/components/responses/200' }
+        '201': { $ref: '#/components/responses/201' }
+        '202': { $ref: '#/components/responses/202' }
+        '204': { $ref: '#/components/responses/204' }
+        '304': { $ref: '#/components/responses/304' }
+        '400': { $ref: '#/components/responses/400' }
+        '401': { $ref: '#/components/responses/401' }
+        '403': { $ref: '#/components/responses/403' }
+        '404': { $ref: '#/components/responses/404' }
+        '429': { $ref: '#/components/responses/429' }
+        '500': { $ref: '#/components/responses/500' }
+        '502': { $ref: '#/components/responses/502' }
+        '503': { $ref: '#/components/responses/503' }
 
   /terminal/activate:
     post:
       summary: '/terminal/activate'
-      operationId: 'terminalActivate'
+      operationId: terminalActivate
       description: 'Activate and configure a deactivated terminal'
       requestBody:
         $ref: '#/components/requestBodies/TerminalActivateRequestBody'
-      responses: { '200': { $ref: '#/components/responses/200' }, '201': { $ref: '#/components/responses/201' }, '202': { $ref: '#/components/responses/202' }, '204': { $ref: '#/components/responses/204' }, '304': { $ref: '#/components/responses/304' }, '400': { $ref: '#/components/responses/400' }, '401': { $ref: '#/components/responses/401' }, '403': { $ref: '#/components/responses/403' }, '404': { $ref: '#/components/responses/404' }, '429': { $ref: '#/components/responses/429' }, '500': { $ref: '#/components/responses/500' }, '502': { $ref: '#/components/responses/502' }, '503': { $ref: '#/components/responses/503' }, }
+      responses:
+        '200': { $ref: '#/components/responses/200' }
+        '201': { $ref: '#/components/responses/201' }
+        '202': { $ref: '#/components/responses/202' }
+        '204': { $ref: '#/components/responses/204' }
+        '304': { $ref: '#/components/responses/304' }
+        '400': { $ref: '#/components/responses/400' }
+        '401': { $ref: '#/components/responses/401' }
+        '403': { $ref: '#/components/responses/403' }
+        '404': { $ref: '#/components/responses/404' }
+        '429': { $ref: '#/components/responses/429' }
+        '500': { $ref: '#/components/responses/500' }
+        '502': { $ref: '#/components/responses/502' }
+        '503': { $ref: '#/components/responses/503' }
 
   /terminal/deactivate:
     post:
       summary: '/terminal/deactivate'
-      operationId: 'terminalDeactivate'
+      operationId: terminalDeactivate
       description: 'Activate a terminal'
       requestBody:
         $ref: '#/components/requestBodies/TerminalDeactivateRequestBody'
-      responses: { '200': { $ref: '#/components/responses/200' }, '201': { $ref: '#/components/responses/201' }, '202': { $ref: '#/components/responses/202' }, '204': { $ref: '#/components/responses/204' }, '304': { $ref: '#/components/responses/304' }, '400': { $ref: '#/components/responses/400' }, '401': { $ref: '#/components/responses/401' }, '403': { $ref: '#/components/responses/403' }, '404': { $ref: '#/components/responses/404' }, '429': { $ref: '#/components/responses/429' }, '500': { $ref: '#/components/responses/500' }, '502': { $ref: '#/components/responses/502' }, '503': { $ref: '#/components/responses/503' }, }
+      responses:
+        '200': { $ref: '#/components/responses/200' }
+        '201': { $ref: '#/components/responses/201' }
+        '202': { $ref: '#/components/responses/202' }
+        '204': { $ref: '#/components/responses/204' }
+        '304': { $ref: '#/components/responses/304' }
+        '400': { $ref: '#/components/responses/400' }
+        '401': { $ref: '#/components/responses/401' }
+        '403': { $ref: '#/components/responses/403' }
+        '404': { $ref: '#/components/responses/404' }
+        '429': { $ref: '#/components/responses/429' }
+        '500': { $ref: '#/components/responses/500' }
+        '502': { $ref: '#/components/responses/502' }
+        '503': { $ref: '#/components/responses/503' }
 
   /report:
     get:
       summary: '/report'
-      operationId: 'report'
+      operationId: report
       description: 'Get transaction detail history'
-      responses: { '200': { $ref: '#/components/responses/ReportResponse' }, '201': { $ref: '#/components/responses/201' }, '202': { $ref: '#/components/responses/202' }, '204': { $ref: '#/components/responses/204' }, '304': { $ref: '#/components/responses/304' }, '400': { $ref: '#/components/responses/400' }, '401': { $ref: '#/components/responses/401' }, '403': { $ref: '#/components/responses/403' }, '404': { $ref: '#/components/responses/404' }, '429': { $ref: '#/components/responses/429' }, '500': { $ref: '#/components/responses/500' }, '502': { $ref: '#/components/responses/502' }, '503': { $ref: '#/components/responses/503' }, }
+      responses:
+        '200': { $ref: '#/components/responses/ReportResponse' }
+        '201': { $ref: '#/components/responses/201' }
+        '202': { $ref: '#/components/responses/202' }
+        '204': { $ref: '#/components/responses/204' }
+        '304': { $ref: '#/components/responses/304' }
+        '400': { $ref: '#/components/responses/400' }
+        '401': { $ref: '#/components/responses/401' }
+        '403': { $ref: '#/components/responses/403' }
+        '404': { $ref: '#/components/responses/404' }
+        '429': { $ref: '#/components/responses/429' }
+        '500': { $ref: '#/components/responses/500' }
+        '502': { $ref: '#/components/responses/502' }
+        '503': { $ref: '#/components/responses/503' }
 
   /subscription:
     get:
       summary: '/subscription'
-      operationId: 'subscriptionGet'
+      operationId: subscriptionGet
       description: 'Setup a payment subscription or get details/history. Can also send to /api/charge'
       parameters:
         - in: query
@@ -152,37 +324,349 @@ paths:
           description: GET specific subscription by id. An empty call gets a list of all current subscriptions
           schema:
             type: string
-      responses: { '200': { $ref: '#/components/responses/200' }, '201': { $ref: '#/components/responses/201' }, '202': { $ref: '#/components/responses/202' }, '204': { $ref: '#/components/responses/204' }, '304': { $ref: '#/components/responses/304' }, '400': { $ref: '#/components/responses/400' }, '401': { $ref: '#/components/responses/401' }, '403': { $ref: '#/components/responses/403' }, '404': { $ref: '#/components/responses/404' }, '429': { $ref: '#/components/responses/429' }, '500': { $ref: '#/components/responses/500' }, '502': { $ref: '#/components/responses/502' }, '503': { $ref: '#/components/responses/503' }, }
+      responses:
+        '200': { $ref: '#/components/responses/200' }
+        '201': { $ref: '#/components/responses/201' }
+        '202': { $ref: '#/components/responses/202' }
+        '204': { $ref: '#/components/responses/204' }
+        '304': { $ref: '#/components/responses/304' }
+        '400': { $ref: '#/components/responses/400' }
+        '401': { $ref: '#/components/responses/401' }
+        '403': { $ref: '#/components/responses/403' }
+        '404': { $ref: '#/components/responses/404' }
+        '429': { $ref: '#/components/responses/429' }
+        '500': { $ref: '#/components/responses/500' }
+        '502': { $ref: '#/components/responses/502' }
+        '503': { $ref: '#/components/responses/503' }
+
     post:
       summary: '/subscription'
-      operationId: 'subscriptionCreate'
+      operationId: subscriptionCreate
       requestBody:
         $ref: '#/components/requestBodies/SubscriptionCreateRequestBody'
-      responses: { '200': { $ref: '#/components/responses/200' }, '201': { $ref: '#/components/responses/201' }, '202': { $ref: '#/components/responses/202' }, '204': { $ref: '#/components/responses/204' }, '304': { $ref: '#/components/responses/304' }, '400': { $ref: '#/components/responses/400' }, '401': { $ref: '#/components/responses/401' }, '403': { $ref: '#/components/responses/403' }, '404': { $ref: '#/components/responses/404' }, '429': { $ref: '#/components/responses/429' }, '500': { $ref: '#/components/responses/500' }, '502': { $ref: '#/components/responses/502' }, '503': { $ref: '#/components/responses/503' }, }
+      responses:
+        '200': { $ref: '#/components/responses/200' }
+        '201': { $ref: '#/components/responses/201' }
+        '202': { $ref: '#/components/responses/202' }
+        '204': { $ref: '#/components/responses/204' }
+        '304': { $ref: '#/components/responses/304' }
+        '400': { $ref: '#/components/responses/400' }
+        '401': { $ref: '#/components/responses/401' }
+        '403': { $ref: '#/components/responses/403' }
+        '404': { $ref: '#/components/responses/404' }
+        '429': { $ref: '#/components/responses/429' }
+        '500': { $ref: '#/components/responses/500' }
+        '502': { $ref: '#/components/responses/502' }
+        '503': { $ref: '#/components/responses/503' }
+
   /enroll:
     post:
       summary: '/enroll'
       description: 'Enroll a new child merchant.'
       requestBody:
         $ref: '#/components/requestBodies/EnrollRequestBody'
-      responses: { '200': { $ref: '#/components/responses/200' }, '201': { $ref: '#/components/responses/201' }, '202': { $ref: '#/components/responses/202' }, '204': { $ref: '#/components/responses/204' }, '304': { $ref: '#/components/responses/304' }, '400': { $ref: '#/components/responses/400' }, '401': { $ref: '#/components/responses/401' }, '403': { $ref: '#/components/responses/403' }, '404': { $ref: '#/components/responses/404' }, '429': { $ref: '#/components/responses/429' }, '500': { $ref: '#/components/responses/500' }, '502': { $ref: '#/components/responses/502' }, '503': { $ref: '#/components/responses/503' }, }
+      responses:
+        '200': { $ref: '#/components/responses/200' }
+        '201': { $ref: '#/components/responses/201' }
+        '202': { $ref: '#/components/responses/202' }
+        '204': { $ref: '#/components/responses/204' }
+        '304': { $ref: '#/components/responses/304' }
+        '400': { $ref: '#/components/responses/400' }
+        '401': { $ref: '#/components/responses/401' }
+        '403': { $ref: '#/components/responses/403' }
+        '404': { $ref: '#/components/responses/404' }
+        '429': { $ref: '#/components/responses/429' }
+        '500': { $ref: '#/components/responses/500' }
+        '502': { $ref: '#/components/responses/502' }
+        '503': { $ref: '#/components/responses/503' }
+
+  # -----------------------------------------------------------------
+  # ADDITIONAL PATHS (purely additive) from the api_methods list
+  # -----------------------------------------------------------------
+  /capture:
+    post:
+      summary: '/capture'
+      operationId: capture
+      description: >
+        Same as sending "id" to /charge, but specifically called "capture."
+        Captures an outstanding authorization.
+      requestBody:
+        $ref: '#/components/requestBodies/CaptureRequestBody'
+      responses:
+        '200': { $ref: '#/components/responses/200' }
+        '201': { $ref: '#/components/responses/201' }
+        '202': { $ref: '#/components/responses/202' }
+        '204': { $ref: '#/components/responses/204' }
+        '304': { $ref: '#/components/responses/304' }
+        '400': { $ref: '#/components/responses/400' }
+        '401': { $ref: '#/components/responses/401' }
+        '403': { $ref: '#/components/responses/403' }
+        '404': { $ref: '#/components/responses/404' }
+        '429': { $ref: '#/components/responses/429' }
+        '500': { $ref: '#/components/responses/500' }
+        '502': { $ref: '#/components/responses/502' }
+        '503': { $ref: '#/components/responses/503' }
+
+  /charge-multipay:
+    post:
+      summary: '/charge-multipay'
+      operationId: chargeMultipay
+      description: >
+        With a given source account/token and transaction amount, optionally
+        specify who is responsible for platform fees and how to split the remainder
+        among multiple sub-merchant accounts.
+      requestBody:
+        $ref: '#/components/requestBodies/ChargeMultipayRequestBody'
+      responses:
+        '200': { $ref: '#/components/responses/200' }
+        '201': { $ref: '#/components/responses/201' }
+        '202': { $ref: '#/components/responses/202' }
+        '204': { $ref: '#/components/responses/204' }
+        '304': { $ref: '#/components/responses/304' }
+        '400': { $ref: '#/components/responses/400' }
+        '401': { $ref: '#/components/responses/401' }
+        '403': { $ref: '#/components/responses/403' }
+        '404': { $ref: '#/components/responses/404' }
+        '429': { $ref: '#/components/responses/429' }
+        '500': { $ref: '#/components/responses/500' }
+        '502': { $ref: '#/components/responses/502' }
+        '503': { $ref: '#/components/responses/503' }
+
+  /refund-multipay:
+    post:
+      summary: '/refund-multipay'
+      operationId: refundMultipay
+      description: >
+        Refund a prior multipay transaction, specifying which accounts will
+        actually pay back which portion of the funds.
+      requestBody:
+        $ref: '#/components/requestBodies/RefundMultipayRequestBody'
+      responses:
+        '200': { $ref: '#/components/responses/200' }
+        '201': { $ref: '#/components/responses/201' }
+        '202': { $ref: '#/components/responses/202' }
+        '204': { $ref: '#/components/responses/204' }
+        '304': { $ref: '#/components/responses/304' }
+        '400': { $ref: '#/components/responses/400' }
+        '401': { $ref: '#/components/responses/401' }
+        '403': { $ref: '#/components/responses/403' }
+        '404': { $ref: '#/components/responses/404' }
+        '429': { $ref: '#/components/responses/429' }
+        '500': { $ref: '#/components/responses/500' }
+        '502': { $ref: '#/components/responses/502' }
+        '503': { $ref: '#/components/responses/503' }
+
+  /text2pay:
+    post:
+      summary: '/text2pay'
+      operationId: text2pay
+      description: >
+        Sends a payment link (message parameter) to a specified phone number (to parameter).
+        This endpoint is still in development and called outside the /api route in production.
+      requestBody:
+        $ref: '#/components/requestBodies/Text2PayRequestBody'
+      responses:
+        '200': { $ref: '#/components/responses/200' }
+        '201': { $ref: '#/components/responses/201' }
+        '202': { $ref: '#/components/responses/202' }
+        '204': { $ref: '#/components/responses/204' }
+        '304': { $ref: '#/components/responses/304' }
+        '400': { $ref: '#/components/responses/400' }
+        '401': { $ref: '#/components/responses/401' }
+        '403': { $ref: '#/components/responses/403' }
+        '404': { $ref: '#/components/responses/404' }
+        '429': { $ref: '#/components/responses/429' }
+        '500': { $ref: '#/components/responses/500' }
+        '502': { $ref: '#/components/responses/502' }
+        '503': { $ref: '#/components/responses/503' }
+
+  /stp:
+    post:
+      summary: '/stp'
+      operationId: stp
+      description: >
+        Process a straight-through payment. This endpoint is still in development and
+        called outside the /api route. 
+      requestBody:
+        $ref: '#/components/requestBodies/StpRequestBody'
+      responses:
+        '200': { $ref: '#/components/responses/200' }
+        '201': { $ref: '#/components/responses/201' }
+        '202': { $ref: '#/components/responses/202' }
+        '204': { $ref: '#/components/responses/204' }
+        '304': { $ref: '#/components/responses/304' }
+        '400': { $ref: '#/components/responses/400' }
+        '401': { $ref: '#/components/responses/401' }
+        '403': { $ref: '#/components/responses/403' }
+        '404': { $ref: '#/components/responses/404' }
+        '429': { $ref: '#/components/responses/429' }
+        '500': { $ref: '#/components/responses/500' }
+        '502': { $ref: '#/components/responses/502' }
+        '503': { $ref: '#/components/responses/503' }
+
+  /events:
+    get:
+      summary: '/events'
+      operationId: eventsList
+      description: >
+        Returns a list of all client events (including child client events), based on
+        the provided API key.
+      responses:
+        '200': { $ref: '#/components/responses/200' }
+        '201': { $ref: '#/components/responses/201' }
+        '202': { $ref: '#/components/responses/202' }
+        '204': { $ref: '#/components/responses/204' }
+        '304': { $ref: '#/components/responses/304' }
+        '400': { $ref: '#/components/responses/400' }
+        '401': { $ref: '#/components/responses/401' }
+        '403': { $ref: '#/components/responses/403' }
+        '404': { $ref: '#/components/responses/404' }
+        '429': { $ref: '#/components/responses/429' }
+        '500': { $ref: '#/components/responses/500' }
+        '502': { $ref: '#/components/responses/502' }
+        '503': { $ref: '#/components/responses/503' }
+
+  /payouts:
+    get:
+      summary: '/payouts'
+      operationId: payoutsList
+      description: >
+        Returns a linked list of deposits with nested individual transactions,
+        critical for any reconciliation process.
+      responses:
+        '200': { $ref: '#/components/responses/200' }
+        '201': { $ref: '#/components/responses/201' }
+        '202': { $ref: '#/components/responses/202' }
+        '204': { $ref: '#/components/responses/204' }
+        '304': { $ref: '#/components/responses/304' }
+        '400': { $ref: '#/components/responses/400' }
+        '401': { $ref: '#/components/responses/401' }
+        '403': { $ref: '#/components/responses/403' }
+        '404': { $ref: '#/components/responses/404' }
+        '429': { $ref: '#/components/responses/429' }
+        '500': { $ref: '#/components/responses/500' }
+        '502': { $ref: '#/components/responses/502' }
+        '503': { $ref: '#/components/responses/503' }
 
 components:
   requestBodies:
-    BankAccountRequestBody: { content: { 'application/json': { schema: { $ref: '#/components/schemas/BankAccountRequest' } } } }
-    CardRequestBody: { content: { 'application/json': { schema: { $ref: '#/components/schemas/CardRequest' } } } }
-    ChargeRequestBody: { content: { 'application/json': { schema: { $ref: '#/components/schemas/ChargeRequest' } } } }
-    AuthorizeRequestBody: { content: { 'application/json': { schema: { $ref: '#/components/schemas/AuthorizeRequest' } } } }
-    SettleRequestBody: { content: { 'application/json': { schema: { $ref: '#/components/schemas/SettleRequest' } } } }
-    RefundRequestBody: { content: { 'application/json': { schema: { $ref: '#/components/schemas/RefundRequest' } } } }
-    MultipayRequestBody: { content: { 'application/json': { schema: { $ref: '#/components/schemas/MultipayRequest' } } } }
-    VoidRequestBody: { content: { 'application/json': { schema: { $ref: '#/components/schemas/VoidRequest' } } } }
-    TipAdjustRequestBody: { content: { 'application/json': { schema: { $ref: '#/components/schemas/TipAdjustRequest' } } } }
-    TerminalActivateRequestBody: { content: { 'application/json': { schema: { $ref: '#/components/schemas/TerminalActivateRequest' } } } }
-    TerminalDeactivateRequestBody: { content: { 'application/json': { schema: { $ref: '#/components/schemas/TerminalDeactivateRequest' } } } }
-    SubscriptionCreateRequestBody: { content: { 'application/json': { schema: { $ref: '#/components/schemas/SubscriptionCreateRequest' } } } }
-    EnrollRequestBody: { content: { 'application/json': { schema: { $ref: '#/components/schemas/EnrollRequest' } } } }
+    BankAccountRequestBody:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/BankAccountRequest'
+
+    CardRequestBody:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CardRequest'
+
+    ChargeRequestBody:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ChargeRequest'
+
+    AuthorizeRequestBody:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/AuthorizeRequest'
+
+    SettleRequestBody:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SettleRequest'
+
+    RefundRequestBody:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RefundRequest'
+
+    MultipayRequestBody:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/MultipayRequest'
+
+    VoidRequestBody:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/VoidRequest'
+
+    TipAdjustRequestBody:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/TipAdjustRequest'
+
+    TerminalActivateRequestBody:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/TerminalActivateRequest'
+
+    TerminalDeactivateRequestBody:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/TerminalDeactivateRequest'
+
+    SubscriptionCreateRequestBody:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SubscriptionCreateRequest'
+
+    EnrollRequestBody:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/EnrollRequest'
+
+    # -----------------------------------------------------------------
+    # Additional requestBodies for newly introduced endpoints
+    # -----------------------------------------------------------------
+    CaptureRequestBody:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CaptureRequest'
+
+    ChargeMultipayRequestBody:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ChargeMultipayRequest'
+
+    RefundMultipayRequestBody:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RefundMultipayRequest'
+
+    Text2PayRequestBody:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Text2PayRequest'
+
+    StpRequestBody:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/StpRequest'
+
+
   schemas:
+
+    # ---------------------------------------------------
+    # Standard and Shared
+    # ---------------------------------------------------
     StandardResponse:
       type: object
       properties:
@@ -191,6 +675,8 @@ components:
         message:
           oneOf:
             - type: string
+              description: result
+            - type: object
               description: result
             - type: string
               description: error message
@@ -213,146 +699,375 @@ components:
 
     CardRequest:
       type: object
-      required: [ 'cc', 'mm', 'yy' ]
+      required: [ cc, mm, yy ]
       properties:
-        cc: { type: string, description: 'The number of the credit card to be charged.' }
-        cvv: { type: string, description: 'This is a unique code printed on cards to authorize payments.' }
-        mm: { type: string, description: 'A two-digit month value for the expiration of the card.' }
-        yy: { type: string, description: 'A two-digit month value for the expiration of the card.' }
-        email: { type: string, description: '(Optional) A valid email address representing a customer.' }
+        cc:
+          type: string
+          description: 'The number of the credit card to be charged.'
+        cvv:
+          type: string
+          description: 'This is a unique code printed on cards to authorize payments.'
+        mm:
+          type: string
+          description: 'A two-digit month value for the expiration of the card.'
+        yy:
+          type: string
+          description: 'A two-digit year value for the expiration of the card.'
+        email:
+          type: string
+          description: '(Optional) A valid email address representing a customer.'
 
-    ChargeRequest: &ChargeRequest
+    ChargeRequest:
       oneOf:
-        - type: 'object'
+
+        # Card-based charge
+        - type: object
           title: 'Card Charge Request'
-          required: [ 'amount', 'cc', 'mm', 'yy', 'cvv' ]
+          required: [ amount, cc, mm, yy, cvv ]
           properties:
             amount:
-              type: 'string'
-              description: >-
-                The total transaction amount. This is the amount of funds to move on the card
+              type: string
+              description: 'The total transaction amount to move on the card.'
             id:
-              type: 'string'
-              example: >-
-                Transaction ID used to settle an authorized payment method
-                (cc or bank info then not required).
+              type: string
+              example: 'Transaction ID used to settle an authorized payment method.'
             token:
               type: string
-              description: Use a saved payment token (cc or bank info then not required)
+              description: 'Use a saved payment token (cc or bank info then not required).'
             email:
               type: string
-              description: User email, will auto generate payment tokens
+              description: 'User email, will auto generate payment tokens.'
             meta:
-              type: 'object'
-              description: Optional user defined object to be returned with future response
-            address1: { type: 'string', description: 'Address' }
-            address2: { type: 'string', description: 'Unit Number' }
-            city: { type: 'string', description: 'City' }
-            state: { type: 'string', description: 'State' }
-            zip: { type: 'string', description: 'Postal code (can be the only part of the address)' }
-            tip: { type: 'string', description: 'Add a tip to the transaction, `amount` should be total including tip.' }
+              type: object
+              description: 'Optional user defined object to be returned with future response'
+            address1: { type: string, description: 'Address' }
+            address2: { type: string, description: 'Unit Number' }
+            city: { type: string, description: 'City' }
+            state: { type: string, description: 'State' }
+            zip: { type: string, description: 'Postal code (can be the only part of the address)' }
+            tip: { type: string, description: 'Add a tip to the transaction; `amount` includes tip.' }
+            cc: { type: string, description: 'Credit Card Number without dashes' }
+            mm: { type: string, description: '2 digit month' }
+            yy: { type: string, description: '2 digit year' }
+            cvv: { type: string, description: 'Card Verification Value' }
 
-            # Payment Method: Cards
-            cc: { type: 'string', description: 'Credit Card Number without dashes' }
-            mm: { type: 'string', description: '2 digit month' }
-            yy: { type: 'string', description: '2 digit year' }
-            cvv: { type: 'string', description: 'Card Verification Value found on the card (CVV2, CVC2, CID)' }
+            # newly added optional fields (additive):
+            ticket:
+              type: string
+              description: 'Ticket Number used by POS'
+            platform_fee:
+              type: string
+              description: 'Optional platform fee amount which can be added post-submission.'
+            surcharge:
+              type: string
+              description: 'Optional surcharge amount added to the total.'
+            level_three_data:
+              type: array
+              description: 'Optional array of objects for Level 2/3 transaction data.'
+              items:
+                type: object
+                properties:
+                  quantity:
+                    type: number
+                  unit_cost:
+                    type: number
+                  order_date:
+                    type: string
+                  duty_amount:
+                    type: number
+                  item_amount:
+                    type: number
+                  product_code:
+                    type: string
+                  vat_tax_rate:
+                    type: number
+                  customer_code:
+                    type: string
+                  purchase_order:
+                    type: string
+                  vat_tax_amount:
+                    type: number
+                  department_name:
+                    type: string
+                  discount_amount:
+                    type: number
+                  line_item_total:
+                    type: number
+                  unit_of_measure:
+                    type: string
+                  item_description:
+                    type: string
+                  promotional_code:
+                    type: string
+                  tax_rate_applied:
+                    type: number
+                  dept_category_code:
+                    type: string
+                  item_commodity_code:
+                    type: string
+                  sales_tax_indicator:
+                    type: string
+                  ship_to_postal_code:
+                    type: string
+                  alternate_tax_amount:
+                    type: number
+                  promotional_end_date:
+                    type: string
+                  discount_per_line_item:
+                    type: number
+                  promotional_start_date:
+                    type: string
+                  freight_shipping_amount:
+                    type: number
+                  destination_country_code:
+                    type: string
+                  ship_from_postal_zip_code:
+                    type: string
+                  destination_postal_zip_code:
+                    type: string
+                  vat_invoice_reference_number:
+                    type: string
+                  vat_tax_rate_freight_shipping:
+                    type: number
+                  vat_tax_amount_freight_shipping:
+                    type: number
 
-        - type: 'object'
+        # Bank-based charge
+        - type: object
           title: 'Bank Charge Request'
-          required: [ 'amount', 'account_number', 'routing_number' ]
+          required: [ amount, account_number, routing_number ]
           properties:
             amount:
-              type: 'string'
-              description: >-
-                The total transaction amount. This is the amount of funds to move on the card
+              type: string
+              description: 'The total transaction amount to move on the bank account.'
             id:
-              type: 'string'
-              example: >-
-                Transaction ID used to settle an authorized payment method
-                (cc or bank info then not required).
+              type: string
+              example: 'Transaction ID used to settle an authorized payment method.'
             token:
               type: string
-              description: Use a saved payment token (cc or bank info then not required)
+              description: 'Use a saved payment token (cc or bank info then not required).'
             email:
               type: string
-              description: User email, will auto generate payment tokens
+              description: 'User email, will auto generate payment tokens.'
             meta:
-              type: 'object'
-              description: Optional user defined object to be returned with future response
-            address1: { type: 'string', description: 'Address' }
-            address2: { type: 'string', description: 'Unit Number' }
-            city: { type: 'string', description: 'City' }
-            state: { type: 'string', description: 'State' }
-            zip: { type: 'string', description: 'Postal code (can be the only part of the address)' }
-            tip: { type: 'string', description: 'Add a tip to the transaction, `amount` should be total including tip.' }
+              type: object
+              description: 'Optional user defined object to be returned with future response.'
+            address1: { type: string, description: 'Address' }
+            address2: { type: string, description: 'Unit Number' }
+            city: { type: string, description: 'City' }
+            state: { type: string, description: 'State' }
+            zip: { type: string, description: 'Postal code' }
+            tip: { type: string, description: 'Add a tip; `amount` includes tip.' }
+            account_number: { type: string, description: 'Bank Account Number' }
+            routing_number: { type: string, description: 'Bank Routing Number' }
+            type:
+              type: string
+              enum: [ checking, savings ]
+              default: checking
 
-            # Payment Method: ACH
-            account_number: { type: 'string', description: 'Bank Account Number' }
-            routing_number: { type: 'string', description: 'Bank Routing Number' }
-            type: { enum: [ 'checking', 'savings' ], default: 'checking' }
+            # newly added optional fields (additive):
+            ticket:
+              type: string
+              description: 'Ticket Number used by POS'
+            platform_fee:
+              type: string
+              description: 'Optional platform fee amount which can be added post-submission.'
+            surcharge:
+              type: string
+              description: 'Optional surcharge amount added to the total.'
+            level_three_data:
+              type: array
+              description: 'Optional array of objects for Level 2/3 transaction data.'
+              items:
+                type: object
+                properties:
+                  quantity:
+                    type: number
+                  unit_cost:
+                    type: number
+                  order_date:
+                    type: string
+                  duty_amount:
+                    type: number
+                  item_amount:
+                    type: number
+                  product_code:
+                    type: string
+                  vat_tax_rate:
+                    type: number
+                  customer_code:
+                    type: string
+                  purchase_order:
+                    type: string
+                  vat_tax_amount:
+                    type: number
+                  department_name:
+                    type: string
+                  discount_amount:
+                    type: number
+                  line_item_total:
+                    type: number
+                  unit_of_measure:
+                    type: string
+                  item_description:
+                    type: string
+                  promotional_code:
+                    type: string
+                  tax_rate_applied:
+                    type: number
+                  dept_category_code:
+                    type: string
+                  item_commodity_code:
+                    type: string
+                  sales_tax_indicator:
+                    type: string
+                  ship_to_postal_code:
+                    type: string
+                  alternate_tax_amount:
+                    type: number
+                  promotional_end_date:
+                    type: string
+                  discount_per_line_item:
+                    type: number
+                  promotional_start_date:
+                    type: string
+                  freight_shipping_amount:
+                    type: number
+                  destination_country_code:
+                    type: string
+                  ship_from_postal_zip_code:
+                    type: string
+                  destination_postal_zip_code:
+                    type: string
+                  vat_invoice_reference_number:
+                    type: string
+                  vat_tax_rate_freight_shipping:
+                    type: number
+                  vat_tax_amount_freight_shipping:
+                    type: number
 
-        - type: 'object'
+        # Terminal-based charge
+        - type: object
           title: 'Terminal Charge Request'
-          required: [ 'amount', 'laneId', ]
+          required: [ amount, laneId ]
           properties:
             amount:
-              type: 'string'
-              description: >-
-                The total transaction amount. This is the amount of funds to move on the card.
+              type: string
+              description: 'The total transaction amount to move via terminal.'
             id:
-              type: 'string'
-              example: >-
-                Transaction ID used to settle an authorized payment method
-                (cc or bank info then not required).
+              type: string
+              example: 'Transaction ID used to settle an authorized payment method.'
             token:
               type: string
-              description: Use a saved payment token (cc or bank info then not required)
+              description: 'Use a saved payment token (cc or bank info then not required).'
             email:
               type: string
-              description: User email, will auto generate payment tokens
+              description: 'User email, will auto generate payment tokens.'
             meta:
-              type: 'object'
-              description: Optional user defined object to be returned with future response
-            address1: { type: 'string', description: 'Address' }
-            address2: { type: 'string', description: 'Unit Number' }
-            city: { type: 'string', description: 'City' }
-            state: { type: 'string', description: 'State' }
-            zip: { type: 'string', description: 'Postal code (can be the only part of the address)' }
-            tip: { type: 'string', description: 'Add a tip to the transaction, `amount` should be total including tip.' }
+              type: object
+              description: 'Optional user defined object to be returned with future response.'
+            address1: { type: string, description: 'Address' }
+            address2: { type: string, description: 'Unit Number' }
+            city: { type: string, description: 'City' }
+            state: { type: string, description: 'State' }
+            zip: { type: string, description: 'Postal code' }
+            tip: { type: string, description: 'Add a tip; `amount` includes tip.' }
+            laneId: { type: string, description: 'Credit Card terminal by its laneId' }
+            surcharge: { type: string, description: 'A surcharge added to the total.' }
+            printReceipt: { type: boolean, description: 'Prints a receipt from the device' }
 
-            # Payment Method: Terminals
-            laneId: { type: 'string', description: 'Initiate a Credit Card terminal transaction by its laneId (assigned during creation)' }
-            surcharge: { type: 'string', description: 'A surcharge added to the total and ultimately charged to the customer' }
-            #amount
-            #tip: { type: 'string', description: 'Preset tip amount to be sent to the terminal. Note: this overrides `askForTip`.' \}
+            # newly added optional fields:
+            ticket:
+              type: string
+              description: 'Ticket Number used by POS'
+            platform_fee:
+              type: string
+              description: 'Optional platform fee amount which can be added post-submission.'
+            level_three_data:
+              type: array
+              description: 'Optional array of objects for Level 2/3 transaction data.'
+              items:
+                type: object
+                properties:
+                  quantity:
+                    type: number
+                  unit_cost:
+                    type: number
+                  order_date:
+                    type: string
+                  duty_amount:
+                    type: number
+                  item_amount:
+                    type: number
+                  product_code:
+                    type: string
+                  vat_tax_rate:
+                    type: number
+                  customer_code:
+                    type: string
+                  purchase_order:
+                    type: string
+                  vat_tax_amount:
+                    type: number
+                  department_name:
+                    type: string
+                  discount_amount:
+                    type: number
+                  line_item_total:
+                    type: number
+                  unit_of_measure:
+                    type: string
+                  item_description:
+                    type: string
+                  promotional_code:
+                    type: string
+                  tax_rate_applied:
+                    type: number
+                  dept_category_code:
+                    type: string
+                  item_commodity_code:
+                    type: string
+                  sales_tax_indicator:
+                    type: string
+                  ship_to_postal_code:
+                    type: string
+                  alternate_tax_amount:
+                    type: number
+                  promotional_end_date:
+                    type: string
+                  discount_per_line_item:
+                    type: number
+                  promotional_start_date:
+                    type: string
+                  freight_shipping_amount:
+                    type: number
+                  destination_country_code:
+                    type: string
+                  ship_from_postal_zip_code:
+                    type: string
+                  destination_postal_zip_code:
+                    type: string
+                  vat_invoice_reference_number:
+                    type: string
+                  vat_tax_rate_freight_shipping:
+                    type: number
+                  vat_tax_amount_freight_shipping:
+                    type: number
 
     AuthorizeRequest:
       oneOf:
-        - type: 'object'
-          required: [ 'amount', 'cc', 'mm', 'yy', 'cvv' ]
+        # Card-based authorize
+        - type: object
+          required: [ amount, cc, mm, yy, cvv ]
           properties:
-            amount:
-              type: 'string'
-              description: >-
-                The total transaction amount. This is the amount of funds to move on the card
-            id:
-              type: 'string'
-              example: >-
-                Transaction ID used to settle an authorized payment method
-                (cc or bank info then not required).
-            token:
-              type: string
-              description: Use a saved payment token (cc or bank info then not required)
-            ticket:
-              type: string
-              description: Ticket Number used by POS
-            email:
-              type: string
-              description: User email, will auto generate payment tokens
+            amount: { type: string }
+            id: { type: string }
+            token: { type: string }
+            ticket: { type: string }
+            email: { type: string }
             items:
               type: array
-              description: List of items for receipt and level3 data.
+              description: 'List of items for receipt and level3 data'
               items:
                 type: object
                 properties:
@@ -362,44 +1077,30 @@ components:
                   tax: { type: string }
                   options: { type: string }
             meta:
-              type: 'object'
-              description: Optional user defined object to be returned with future response
-            address1: { type: 'string', description: 'Address' }
-            address2: { type: 'string', description: 'Unit Number' }
-            city: { type: 'string', description: 'City' }
-            state: { type: 'string', description: 'State' }
-            zip: { type: 'string', description: 'Postal code (can be the only part of the address)' }
+              type: object
+              description: 'Optional user defined object to be returned with future response'
+            address1: { type: string }
+            address2: { type: string }
+            city: { type: string }
+            state: { type: string }
+            zip: { type: string }
+            cc: { type: string }
+            mm: { type: string }
+            yy: { type: string }
+            cvv: { type: string }
 
-            # Payment Method: Cards
-            cc: { type: 'string', description: 'Credit Card Number without dashes' }
-            mm: { type: 'string', description: '2 digit month' }
-            yy: { type: 'string', description: '2 digit year' }
-            cvv: { type: 'string', description: 'Card Verification Value found on the card (CVV2, CVC2, CID)' }
-
-        - type: 'object'
-          required: [ 'amount', 'accountNumber', 'routingNumber', 'type' ]
+        # Bank-based authorize
+        - type: object
+          required: [ amount, accountNumber, routingNumber, type ]
           properties:
-            amount:
-              type: 'string'
-              description: >-
-                The total transaction amount. This is the amount of funds to move on the card
-            id:
-              type: 'string'
-              example: >-
-                Transaction ID used to settle an authorized payment method
-                (cc or bank info then not required).
-            token:
-              type: string
-              description: Use a saved payment token (cc or bank info then not required)
-            ticket:
-              type: string
-              description: Ticket Number used by POS
-            email:
-              type: string
-              description: User email, will auto generate payment tokens
+            amount: { type: string }
+            id: { type: string }
+            token: { type: string }
+            ticket: { type: string }
+            email: { type: string }
             items:
               type: array
-              description: List of items for receipt and level3 data.
+              description: 'List of items for receipt and level3 data'
               items:
                 type: object
                 properties:
@@ -409,42 +1110,32 @@ components:
                   tax: { type: string }
                   options: { type: string }
             meta:
-              type: 'object'
-              description: Optional user defined object to be returned with future response
-            address1: { type: 'string', description: 'Address' }
-            address2: { type: 'string', description: 'Unit Number' }
-            city: { type: 'string', description: 'City' }
-            state: { type: 'string', description: 'State' }
-            zip: { type: 'string', description: 'Postal code (can be the only part of the address)' }
+              type: object
+              description: 'Optional user defined object to be returned with future response'
+            address1: { type: string }
+            address2: { type: string }
+            city: { type: string }
+            state: { type: string }
+            zip: { type: string }
+            accountNumber: { type: string }
+            routingNumber: { type: string }
+            type:
+              type: string
+              enum: [ checking, savings ]
+              default: checking
 
-            # Payment Method: ACH
-            accountNumber: { type: 'string', description: 'Bank Account Number' }
-            routingNumber: { type: 'string', description: 'Bank Routing Number' }
-            type: { enum: [ 'checking', 'savings' ], default: 'checking' }
-        - type: 'object'
-          required: [ 'amount', 'laneId', ]
+        # Terminal-based authorize
+        - type: object
+          required: [ amount, laneId ]
           properties:
-            amount:
-              type: 'string'
-              description: >-
-                The total transaction amount. This is the amount of funds to move on the card
-            id:
-              type: 'string'
-              example: >-
-                Transaction ID used to settle an authorized payment method
-                (cc or bank info then not required).
-            token:
-              type: string
-              description: Use a saved payment token (cc or bank info then not required)
-            ticket:
-              type: string
-              description: Ticket Number used by POS
-            email:
-              type: string
-              description: User email, will auto generate payment tokens
+            amount: { type: string }
+            id: { type: string }
+            token: { type: string }
+            ticket: { type: string }
+            email: { type: string }
             items:
               type: array
-              description: List of items for receipt and level3 data.
+              description: 'List of items for receipt and level3 data'
               items:
                 type: object
                 properties:
@@ -454,120 +1145,150 @@ components:
                   tax: { type: string }
                   options: { type: string }
             meta:
-              type: 'object'
-              description: Optional user defined object to be returned with future response
-            address1: { type: 'string', description: 'Address' }
-            address2: { type: 'string', description: 'Unit Number' }
-            city: { type: 'string', description: 'City' }
-            state: { type: 'string', description: 'State' }
-            zip: { type: 'string', description: 'Postal code (can be the only part of the address)' }
-
-            # Payment Method: Terminals
-            laneId: { type: 'string', description: 'Initiate a Credit Card terminal transaction by its laneId (assigned during creation)' }
-            printReceipt: { type: 'boolean', description: 'Prints a receipt of the transaction from the device' }
+              type: object
+              description: 'Optional user defined object to be returned with future response'
+            address1: { type: string }
+            address2: { type: string }
+            city: { type: string }
+            state: { type: string }
+            zip: { type: string }
+            laneId: { type: string }
+            printReceipt: { type: boolean }
 
     SettleRequest:
       oneOf:
         - title: 'Settle Request'
           type: object
-          required: [ 'id' ]
+          required: [ id ]
           properties:
             id: { type: string, description: 'Transaction ID of charged event' }
             ticket: { type: string, description: 'Ticket Number used by POS' }
             meta:
               type: object
               additionalProperties: true
-              description: >-
-                Optional user defined object to be returned with future response
+              description: 'Optional user defined object to be returned with future response'
 
         - title: 'Terminal Settle Request'
           type: object
-          required: [ 'id', 'laneId' ]
+          required: [ id, laneId ]
           properties:
             id: { type: string, description: 'Transaction ID of charged event' }
-            laneId: { type: string, description: 'Initiate a Credit Card terminal settlement by its laneId' }
-            tip: { type: number, description: 'Preset tip amount to be sent to the terminal. Note: this overrides askForTip.' }
-            printReceipt: { type: 'boolean', description: 'Prints a receipt of the transaction from the device' }
+            laneId: { type: string, description: 'Initiate settlement by laneId' }
+            tip: { type: number, description: 'Tip amount for terminal settlement.' }
+            printReceipt: { type: boolean, description: 'Print a receipt from the device' }
 
     RefundRequest:
       type: object
-      required: [ 'id' ]
+      required: [ id ]
       properties:
         id: { type: string, description: 'Void/Refund a previous transaction by its ID' }
         amount:
           type: number
-          description: >-
-            Used if partial void/refund otherwise full amount
-            from previous transaction will be used.
-
+          description: 'If partial, specify amount. Otherwise full refund is used.'
 
     MultipayRequest:
       type: object
-      required: [ 'transaction_id' ]
+      required: [ transaction_id ]
       properties:
-        transaction_id: { type: string, description: 'The previously authorized transaction by its ID' }
-        routing_number: { type: string, description: 'A routing number destination' }
-        account_number: { type: string, description: 'A account number destination' }
-        amount: { type: number, description: 'An amount to forward to the specified account/routing number' }
+        transaction_id: { type: string, description: 'Previously authorized transaction id' }
+        routing_number: { type: string, description: 'Routing number destination' }
+        account_number: { type: string, description: 'Account number destination' }
+        amount: { type: number, description: 'Amount to forward to the specified account' }
 
     VoidRequest:
       oneOf:
         - title: 'Terminal Void Request'
           type: object
           properties:
-            laneId: { type: string, description: 'Void a terminal transaction by its laneId (assigned during creation)' }
+            laneId: { type: string, description: 'Void a terminal transaction by laneId' }
             id: { type: string, format: uuid, description: 'transaction id' }
 
     TipAdjustRequest:
       type: object
       properties:
-        laneId: { type: string, description: 'Void a terminal transaction by its laneId (assigned during creation)' }
+        laneId: { type: string, description: 'LaneId of terminal' }
         id: { type: string, format: uuid, description: 'transaction id' }
         tip: { type: number, description: 'Tip amount.' }
-        printReceipt: { type: 'boolean', description: 'Prints a receipt of the transaction from the device' }
+        printReceipt: { type: boolean, description: 'Print a receipt from the device' }
 
     TerminalActivateRequest:
       type: object
-      required: [ 'token', 'laneId' ]
-      properties:
-        token: { type: string, description: 'Activation code stored with the deactivated terminal' }
-        laneId: { type: string, description: 'New LaneID/name for terminal' }
-    TerminalDeactivateRequest:
-      type: object
-      required: [ 'token', 'laneId' ]
+      required: [ token, laneId ]
       properties:
         token: { type: string, description: 'Activation code stored with the deactivated terminal' }
         laneId: { type: string, description: 'New LaneID/name for terminal' }
 
+    TerminalDeactivateRequest:
+      type: object
+      required: [ token, laneId ]
+      properties:
+        token: { type: string, description: 'Activation code stored with the deactivated terminal' }
+        laneId: { type: string, description: 'LaneID/name for terminal' }
+
     SubscriptionCreateRequest:
       type: object
-      required: [ 'email', 'amount', 'start', 'interval', 'payment' ]
-      description: 'payment is the same object as for creating a charge'
+      required: [ email, amount, start, interval, payment ]
+      description: 'Payment is the same object as for creating a charge.'
       properties:
-        email: { type: 'string', description: 'Subscribers email address' }
-        amount: { type: 'string', description: 'Amount charged per cycle.' }
-        start: { type: 'string', description: 'Start of subscription YYYY-MM-DD' }
-        end: { type: 'string', description: 'End of subscription. YYYY-MM-DD Empty means forever.' }
-        cycles: { type: 'string', description: 'Set number of iterations. end will be calculated for you.' }
-        interval: { type: 'string', description: 'daily, weekly, monthly, yearly' }
-        payment: *ChargeRequest
-    
+        id:
+          type: string
+          description: 'GET specific subscription by id. Empty to list all current subscriptions.'
+        email:
+          type: string
+          description: 'Subscriber email address'
+        cancelId:
+          type: string
+          description: 'Subscription ID to cancel'
+        amount:
+          type: string
+          description: 'Amount charged per cycle.'
+        start:
+          type: string
+          description: 'Start of subscription (YYYY-MM-DD)'
+        end:
+          type: string
+          description: 'End of subscription (YYYY-MM-DD). Empty means forever.'
+        cycles:
+          type: string
+          description: 'Number of iterations. If set, the end date can be calculated automatically.'
+        interval:
+          type: string
+          description: 'One of: daily, weekly, monthly, yearly'
+        payment:
+          $ref: '#/components/schemas/ChargeRequest'
+        frequency:
+          type: number
+          description: 'Repeat every N intervals. For example, 2 means every other interval.'
+
     EnrollRequest:
       type: object
-      description: Enroll a new child merchant.
+      description: 'Enroll a new child merchant.'
       properties:
-        dba_name: { type: string, description: 'Doing Business As name. * Only field necessary for GET' }
+        dba_name: { type: string, description: 'Doing Business As name. * Only field needed for GET' }
         email: { type: string, description: '' }
         website: { type: string, description: '' }
-        fed_tx_id: { type: string, description: '' }
+        fed_tx_id: { type: string, description: 'EIN Number' }
         legal_name: { type: string, description: 'Legal Business Name' }
         start_date: { type: string, description: 'Business Start Date' }
         account_holder_name: { type: string, description: '' }
-        account_type: { type: string, description: '' }
+        account_type: { type: string, description: 'CHECKING or SAVINGS' }
         account_number: { type: string, description: 'Bank Account to deposit transactions.' }
         routing_number: { type: string, description: 'Bank Routing Number to deposit transactions.' }
         stock_symbol: { type: string, description: '' }
-        ownership_type: { enum: [ "Sole Proprietor", "C-Corp Private", "C-Corp Public", "S-Corp Private", "S-Corp Public", "LLC Private", "LLC Public", "Not For Profit", "Partnership Private", "Partnership", "Government Agency" ] }
+        ownership_type:
+          type: string
+          enum:
+            - 'Sole Proprietor'
+            - 'C-Corp Private'
+            - 'C-Corp Public'
+            - 'S-Corp Private'
+            - 'S-Corp Public'
+            - 'LLC Private'
+            - 'LLC Public'
+            - 'Not For Profit'
+            - 'Partnership Private'
+            - 'Partnership'
+            - 'Government Agency'
         business_description: { type: string, description: '' }
         business_phone_number: { type: string, description: '' }
         business_address_1: { type: string, description: '' }
@@ -575,9 +1296,9 @@ components:
         business_city: { type: string, description: '' }
         business_state_province: { type: string, description: '' }
         business_postal_code: { type: string, description: '' }
-        principal_first_name: { type: string, description: 'Primary Owners First Name. Adding a number to the parameter allows for adding multiple principal owners. Example: 2principal_first_name' }
-        principal_last_name: { type: string, description: 'Primary Owners Last Name.' }
-        principal_ssn: { type: string, description: 'Primary Owners Social Security Number' }
+        principal_first_name: { type: string, description: 'Primary Owner First Name. "2principal_first_name" for multiple owners.' }
+        principal_last_name: { type: string, description: 'Primary Owner Last Name.' }
+        principal_ssn: { type: string, description: 'Primary Owner SSN' }
         principal_date_of_birth: { type: string, description: '' }
         principal_address_line_1: { type: string, description: '' }
         principal_address_line_2: { type: string, description: '' }
@@ -587,13 +1308,165 @@ components:
         principal_title: { type: string, description: '' }
         principal_ownership_percentage: { type: string, description: '' }
         principal_phone_number: { type: string, description: '' }
+        avg_ticket: { type: string, description: 'Average Transaction Amount' }
+        high_ticket: { type: string, description: 'Maximum expected transaction amount' }
+        monthly_volume: { type: string, description: 'Average total transaction volume in a month' }
+        monthly_high_volume: { type: string, description: 'Maximum expected total transaction volume in a month' }
 
+    CaptureRequest:
+      type: object
+      description: 'Used to capture an outstanding authorization (similar to /settle).'
+      oneOf:
+        - title: 'Capture Request'
+          type: object
+          required: [ id ]
+          properties:
+            id:
+              type: string
+              description: 'Transaction ID of the authorized event'
+            ticket:
+              type: string
+              description: 'Ticket Number used by POS'
+            meta:
+              type: object
+              description: 'Optional user-defined metadata object'
+        - title: 'Capture Terminal Request'
+          type: object
+          required: [ id, laneId ]
+          properties:
+            id:
+              type: string
+              description: 'Transaction ID of the authorized event'
+            laneId:
+              type: string
+              description: 'Terminal laneId for capturing a transaction.'
+            tip:
+              type: number
+              description: 'Tip amount to finalize at capture time.'
+            printReceipt:
+              type: boolean
+              description: 'Print a receipt from the device'
+
+    ChargeMultipayRequest:
+      type: object
+      description: 'Charge with multipay (split) support.'
+      required: [ amount, fee_assignment, split_payments ]
+      properties:
+        amount:
+          type: string
+          description: 'The total transaction amount. e.g. "50.00"'
+        fee_assignment:
+          type: string
+          description: 'The merchant UUID who will be charged the Triple Play Pay Fee'
+        cc:
+          type: string
+          description: 'Credit Card Number without dashes or spaces'
+        mm:
+          type: string
+          description: '2 digit month'
+        yy:
+          type: string
+          description: '2 digit year'
+        cvv:
+          type: string
+          description: 'Card Verification Value (optional per method docs)'
+        accountNumber:
+          type: string
+          description: 'Bank Account Number (ACH scenario)'
+        routingNumber:
+          type: string
+          description: 'Bank Routing Number (ACH scenario)'
+        split_payments:
+          type: array
+          description: 'An array of sub-merchant amounts to split from the total.'
+          items:
+            type: object
+            properties:
+              split_amount:
+                type: string
+                description: 'Amount to deduct and send to designated sub-merchant.'
+              split_amount_to_merchant_id:
+                type: string
+                description: 'UUID of sub-merchant receiving that split_amount.'
+
+    RefundMultipayRequest:
+      type: object
+      description: 'Refund a multipay transaction specifying sub-merchant amounts.'
+      required: [ id, split_payments ]
+      properties:
+        id:
+          type: string
+          description: 'Original multipay transaction ID to refund.'
+        amount:
+          type: string
+          description: 'Optional partial refund; otherwise full.'
+        split_payments:
+          type: array
+          description: 'An array of sub-merchant amounts to remove from them and return.'
+          items:
+            type: object
+            properties:
+              split_amount:
+                type: string
+                description: 'Amount to remove from sub-merchant.'
+              split_amount_to_merchant_id:
+                type: string
+                description: 'UUID of sub-merchant from which we remove the refunded amount.'
+
+    Text2PayRequest:
+      type: object
+      description: 'Send a payment link as a text message.'
+      required: [ to, message ]
+      properties:
+        to:
+          type: string
+          description: 'Valid phone number to send the link to.'
+        message:
+          type: string
+          description: 'A Triple Play Pay payment link to be sent via SMS.'
+
+    StpRequest:
+      type: object
+      description: 'Straight Through Payment request.'
+      required: [ amount, cc, mm, yy, cvv ]
+      properties:
+        amount:
+          type: string
+          description: 'The total transaction amount.'
+        token:
+          type: string
+          description: 'Use a saved payment token (cc/bank) if desired.'
+        meta:
+          type: object
+          description: 'Optional user-defined metadata object.'
+        address1: { type: string, description: 'Address' }
+        address2: { type: string, description: 'Unit Number' }
+        city: { type: string, description: 'City' }
+        state: { type: string, description: 'State' }
+        zip: { type: string, description: 'Postal code' }
+        tip: { type: string, description: 'Add a tip; `amount` includes tip.' }
+        cc:
+          type: string
+          description: 'Credit Card Number with or without dashes.'
+        mm:
+          type: string
+          description: '2 digit month'
+        yy:
+          type: string
+          description: '2 digit year'
+        cvv:
+          type: string
+          description: 'Card Verification Value found on the card.'
+
+    # ---------------------------------------------------
+    # Report Response + sub-schemas
+    # ---------------------------------------------------
     ReportResponse:
       type: object
-      description: Transactions which are returned from the reporting endpoint.
+      description: 'Transactions returned from the /report endpoint.'
       properties:
         id: { type: string, format: uuid, description: 'request id' }
-        status: { type: boolean, description: 'whether or not the request was successful' }
+        status: { type: boolean, description: 'whether the request was successful' }
         method: { type: string, description: 'name of the operation performed' }
         message:
           type: array
@@ -606,129 +1479,201 @@ components:
       maxItems: 4
       prefixItems:
         - type: string
-        - '$ref': '#/components/schemas/ReportTransaction'
+        - $ref: '#/components/schemas/ReportTransaction'
         - type: string
-          description: Merchant name (the merchant which accepted a payment in this transaction)
+          description: 'Merchant name (the merchant which accepted the payment)'
         - type: string
-          description: Parent merchant's name
+          description: "Parent merchant's name"
 
     ReportTransaction:
       type: object
       properties:
         id: { type: string, format: uuid, description: 'transaction id' }
-        is_deleted: { type: boolean, description: 'whether or not this record is soft deleted' }
-        created_at: { type: string, format: 'date' }
-        updated_at: { type: string, format: 'date' }
-        action: { enum: [ 'settle', 'debit', 'blind_refund', 'CAPTURE', 'AUTH_CAPTURE', 'authorize', 'AUTH_ONLY', 'void', 'charge', 'refund', 'credit' ], description: 'what type of action was taken' }
-        action_mode: { enum: [ 'settle', 'debit', 'blind_refund', 'authorize', 'void', 'charge', 'apple_pay', 'refund' ], description: 'what category does the action belong to' }
-        type: { type: string, enum: [ 'settle', 'terminal_charge', 'debit', 'adjustment', 'collected', 'terminal_blind_refund', 'cash', 'void', 'cc', 'payout', 'charge', 'refund', 'credit', 'batch', 'subscription', 'terminal', 'terminal_void', 'authorize' ], description: 'what type of transaction this is' }
-        payment_method_used: { enum: [ 'refund', 'cash', 'ach', 'card', 'terminal' ], description: 'type of payment' }
+        is_deleted: { type: boolean, description: 'soft delete flag' }
+        created_at: { type: string, format: date }
+        updated_at: { type: string, format: date }
+        action:
+          type: string
+          enum:
+            - settle
+            - debit
+            - blind_refund
+            - CAPTURE
+            - AUTH_CAPTURE
+            - authorize
+            - AUTH_ONLY
+            - void
+            - charge
+            - refund
+            - credit
+          description: 'what type of action was taken'
+        action_mode:
+          type: string
+          enum:
+            - settle
+            - debit
+            - blind_refund
+            - authorize
+            - void
+            - charge
+            - apple_pay
+            - refund
+          description: 'category of the action'
+        type:
+          type: string
+          enum:
+            - settle
+            - terminal_charge
+            - debit
+            - adjustment
+            - collected
+            - terminal_blind_refund
+            - cash
+            - void
+            - cc
+            - payout
+            - charge
+            - refund
+            - credit
+            - batch
+            - subscription
+            - terminal
+            - terminal_void
+            - authorize
+          description: 'what type of transaction'
+        payment_method_used:
+          type: string
+          enum: [ refund, cash, ach, card, terminal ]
+          description: 'type of payment'
         is_pass_to_consumer: { type: boolean }
-        request_status: { type: boolean, description: 'whether or not the request(s) to the processor was successful' }
-        payment_status: { type: boolean, description: 'whether or not the payment was successfully processed overall' }
+        request_status:
+          type: boolean
+          description: 'whether request to processor was successful'
+        payment_status:
+          type: boolean
+          description: 'overall success of payment'
         currency: { type: string, description: 'type of currency used' }
-        amount: { type: number, multipleOf: 0.01, description: 'amount of money processed in the transaction (decimal(20, 2))' }
-        fee: { type: number, multipleOf: 0.01 }
-        tip: { type: number, multipleOf: 0.01 }
-        surcharge: { type: number, multipleOf: 0.01 }
-        platform_fee: { type: number, multipleOf: 0.01 }
-        split_fee: { type: number, multipleOf: 0.01 }
-        convenience_fee: { type: number, multipleOf: 0.01 }
-        initial_amount: { type: number, multipleOf: 0.01 }
-        request_headers: { type: object, additionalProperties: { type: string }, description: 'headers of original client request which initiated the transaction' }
+        amount:
+          type: number
+          multipleOf: 0.01
+          description: 'transaction amount'
+        fee:
+          type: number
+          multipleOf: 0.01
+        tip:
+          type: number
+          multipleOf: 0.01
+        surcharge:
+          type: number
+          multipleOf: 0.01
+        platform_fee:
+          type: number
+          multipleOf: 0.01
+        split_fee:
+          type: number
+          multipleOf: 0.01
+        convenience_fee:
+          type: number
+          multipleOf: 0.01
+        initial_amount:
+          type: number
+          multipleOf: 0.01
+        request_headers:
+          type: object
+          additionalProperties:
+            type: string
+          description: 'headers from the original client request'
         settlement:
           type: object
           properties:
             date: { type: string }
-            type: { type: string, description: 'type of settlement data source (for parsing settlement data)' }
-            amount: { type: number, multipleOf: 0.01, description: 'amount which was transferred as part of settlement' }
-            raw_data: { type: object, additionalProperties: { type: string }, description: 'raw data from the data source' }
+            type: { type: string, description: 'type of settlement data source' }
+            amount:
+              type: number
+              multipleOf: 0.01
+              description: 'amount transferred as part of settlement'
+            raw_data:
+              type: object
+              additionalProperties: { type: string }
+              description: 'raw data from the data source'
         data:
           type: object
           properties:
-            id: { type: string, format: uuid, description: 'id of the transaction metadata' }
-            is_deleted: { type: boolean, description: 'whether or not this record is soft deleted' }
-            created_at: { type: string, format: 'date' }
-            updated_at: { type: string, format: 'date' }
-            processor: { type: string, description: 'type of third party API' }
-            latency: { type: number, description: 'number of seconds waiting for response' }
-            api_response: { type: object, description: 'object which was returned from the API' }
-            third_party_api_response: { type: object, description: 'object which was returned from to API from the third party API' }
+            id: { type: string, format: uuid, description: 'transaction metadata id' }
+            is_deleted: { type: boolean }
+            created_at: { type: string, format: date }
+            updated_at: { type: string, format: date }
+            processor: { type: string }
+            latency: { type: number }
+            api_response: { type: object }
+            third_party_api_response: { type: object }
 
   responses:
     '200':
-      description: >-
-        OK - The request has succeeded. The client can read the result
-        of the request in the body and the headers of the response.
+      description: 'OK - The request has succeeded.'
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/StandardResponse'
+
     '201':
-      description: >-
-        Created - The request has been fulfilled and resulted in a new
-        resource being created.
+      description: 'Created - A new resource has been created.'
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/StandardResponse'
+
     '202':
-      description: >-
-        Accepted - The request has been accepted for processing, but the
-        processing has not been completed.
+      description: 'Accepted - The request has been accepted for processing.'
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/StandardResponse'
+
     '204':
-      description: >-
-        No Content - The request has succeeded but returns no message
-        body.
+      description: 'No Content - The request has succeeded but returns no message body.'
+
     '304':
-      description: >-
-        Not Modified
+      description: 'Not Modified'
+
     '400':
-      description: >-
-        Bad Request - The request could not be understood by the server
-        due to malformed syntax. The message body will contain more information.
-        Just retrying the request should not change the outcome.
+      description: >
+        Bad Request - The request could not be understood due to malformed syntax.
+        Check the response body for more information.
+
     '401':
-      description: >-
-        Unauthorized - The request requires user authentication or, if
-        the request included authorization credentials, authorization has been refused
-        for those credentials.
+      description: >
+        Unauthorized - The request requires user authentication or the credentials provided
+        have been refused.
+
     '403':
-      description: >-
-        Forbidden - The server understood the request (and the included
-        credentials), but is refusing to fulfill it.
+      description: >
+        Forbidden - The server understands the request but is refusing to fulfill it.
+
     '404':
-      description: >-
-        Not Found - The requested resource could not be found. This error
-        can be due to a temporary or permanent condition.
+      description: >
+        Not Found - The requested resource could not be found.
+
     '429':
-      description: >-
-        Too Many Requests - Rate limiting has been applied. The request
-        should be retried.
+      description: >
+        Too Many Requests - Rate limiting has been applied. Retry later.
+
     '500':
-      description: >-
-        Internal Server Error - You should not come across any of these.
-        Please report these to us by posting in the GitHub discussion.
+      description: >
+        Internal Server Error - An unexpected error occurred. Please report this if encountered.
+
     '502':
-      description: >-
-        Bad Gateway - You should not come across any of these. This request
-        can be retried. The server was acting as a gateway or proxy and received
-        an invalid response from the upstream server.
+      description: >
+        Bad Gateway - The server, while acting as a gateway, received an invalid response.
+        Retry is possible.
+
     '503':
-      description: >-
-        Service Unavailable - Again, you should not come across any of
-        these. The server is currently unable to handle the request due to a temporary
-        condition which will be alleviated after some delay. You can choose to resend
-        the request again. Please report these to us by posting in the GitHub discussion.
-
-
+      description: >
+        Service Unavailable - The server is currently unable to handle the request due to
+        a temporary overload or scheduled maintenance.
 
     ReportResponse:
-      description: body of the response of the '/report' resource
+      description: 'body of the response of the `/report` resource'
       content:
         application/json:
           schema:
