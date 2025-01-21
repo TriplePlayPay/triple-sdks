@@ -1,0 +1,482 @@
+{
+  "info": {
+    "name": "Triple Play Pay API (OpenAPI-based)",
+    "_postman_id": "f04613f4-1234-4b10-a111-xxxxxxxxxxxx",
+    "description": "Postman Collection based on the Triple Play Pay OpenAPI specification. You can set {{base_url}} as your server URL in an environment variable.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "POST /bankaccount",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"routing_number\": \"123456789\",\n  \"account_number\": true,\n  \"email\": \"user@example.com\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/bankaccount",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "bankaccount"
+          ]
+        },
+        "description": "Create a new bank account record."
+      }
+    },
+    {
+      "name": "POST /card",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"cc\": \"4111111111111111\",\n  \"cvv\": \"123\",\n  \"mm\": \"12\",\n  \"yy\": \"25\",\n  \"email\": \"user@example.com\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/card",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "card"
+          ]
+        },
+        "description": "Create a new credit card record."
+      }
+    },
+    {
+      "name": "POST /charge",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"amount\": \"25.00\",\n  \"cc\": \"4111111111111111\",\n  \"mm\": \"12\",\n  \"yy\": \"25\",\n  \"cvv\": \"123\",\n  \"email\": \"user@example.com\",\n  \"ticket\": \"TCKT-100\",\n  \"platform_fee\": \"1.00\",\n  \"surcharge\": \"0.25\",\n  \"tip\": \"5.00\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/charge",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "charge"
+          ]
+        },
+        "description": "Process a payment or capture a previous authorization."
+      }
+    },
+    {
+      "name": "POST /authorize",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"amount\": \"100.00\",\n  \"cc\": \"4111111111111111\",\n  \"mm\": \"12\",\n  \"yy\": \"25\",\n  \"cvv\": \"123\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/authorize",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "authorize"
+          ]
+        },
+        "description": "Verify funds (authorize) when the total purchase amount may be unknown."
+      }
+    },
+    {
+      "name": "POST /settle",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"id\": \"<AUTHORIZED_TX_ID>\",\n  \"ticket\": \"TCKT-101\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/settle",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "settle"
+          ]
+        },
+        "description": "Settle (capture) an outstanding authorization."
+      }
+    },
+    {
+      "name": "POST /refund",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"id\": \"<TRANSACTION_ID>\",\n  \"amount\": 10.00\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/refund",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "refund"
+          ]
+        },
+        "description": "Void/Refund/Credit a previous transaction. (Optimal method chosen automatically.)"
+      }
+    },
+    {
+      "name": "POST /multipay",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"transaction_id\": \"<PREVIOUS_AUTH_ID>\",\n  \"routing_number\": \"123456789\",\n  \"account_number\": \"987654321\",\n  \"amount\": 25.00\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/multipay",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "multipay"
+          ]
+        },
+        "description": "Split an authorized transaction across multiple bank accounts."
+      }
+    },
+    {
+      "name": "POST /void",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"id\": \"<TRANSACTION_ID>\",\n  \"laneId\": \"<OPTIONAL_TERMINAL_ID>\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/void",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "void"
+          ]
+        },
+        "description": "Void a transaction by its transaction UUID."
+      }
+    },
+    {
+      "name": "POST /tipadjust",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"id\": \"<TRANSACTION_ID>\",\n  \"laneId\": \"<TERMINAL_ID>\",\n  \"tip\": 5.00,\n  \"printReceipt\": true\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/tipadjust",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "tipadjust"
+          ]
+        },
+        "description": "Adjust the tip amount on a previously settled transaction."
+      }
+    },
+    {
+      "name": "GET /terminal",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/terminal",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "terminal"
+          ]
+        },
+        "description": "Get terminal(s) and their status, including activation codes for inactive terminals."
+      }
+    },
+    {
+      "name": "POST /terminal/activate",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"token\": \"<ACTIVATION_CODE>\",\n  \"laneId\": \"Lane-1\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/terminal/activate",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "terminal",
+            "activate"
+          ]
+        },
+        "description": "Activate and configure a deactivated terminal."
+      }
+    },
+    {
+      "name": "POST /terminal/deactivate",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"token\": \"<ACTIVATION_CODE>\",\n  \"laneId\": \"Lane-1\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/terminal/deactivate",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "terminal",
+            "deactivate"
+          ]
+        },
+        "description": "Deactivate (or reconfigure) a terminal."
+      }
+    },
+    {
+      "name": "GET /report",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/report",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "report"
+          ]
+        },
+        "description": "Retrieve transaction detail history."
+      }
+    },
+    {
+      "name": "GET /subscription",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/subscription",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "subscription"
+          ],
+          "query": [
+            {
+              "key": "id",
+              "value": "",
+              "description": "Optional: GET specific subscription by id."
+            }
+          ]
+        },
+        "description": "Setup a payment subscription or get details/history."
+      }
+    },
+    {
+      "name": "POST /subscription",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"user@example.com\",\n  \"amount\": \"10.00\",\n  \"start\": \"2025-01-01\",\n  \"interval\": \"monthly\",\n  \"payment\": {\n    \"amount\": \"10.00\",\n    \"cc\": \"4111111111111111\",\n    \"mm\": \"12\",\n    \"yy\": \"25\"\n  }\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/subscription",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "subscription"
+          ]
+        },
+        "description": "Setup a new recurring subscription."
+      }
+    },
+    {
+      "name": "POST /enroll",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"dba_name\": \"My DBA\",\n  \"email\": \"owner@example.com\",\n  \"website\": \"https://example.com\",\n  \"fed_tx_id\": \"12-3456789\",\n  \"legal_name\": \"My Legal Business Name\",\n  \"start_date\": \"2020-01-01\",\n  \"account_holder_name\": \"John Smith\",\n  \"account_type\": \"CHECKING\",\n  \"account_number\": \"987654321\",\n  \"routing_number\": \"123456789\",\n  \"ownership_type\": \"Sole Proprietor\",\n  \"business_description\": \"Retail Shop\",\n  \"business_phone_number\": \"123-456-7890\",\n  \"business_address_1\": \"1234 Main St\",\n  \"business_address_2\": \"Suite 100\",\n  \"business_city\": \"Atlanta\",\n  \"business_state_province\": \"GA\",\n  \"business_postal_code\": \"30303\",\n  \"principal_first_name\": \"John\",\n  \"principal_last_name\": \"Smith\",\n  \"principal_ssn\": \"111-22-3333\",\n  \"principal_date_of_birth\": \"1970-01-01\",\n  \"principal_address_line_1\": \"100 Maple Ave\",\n  \"principal_address_line_2\": \"\",\n  \"principal_city\": \"Atlanta\",\n  \"principal_state_province\": \"GA\",\n  \"principal_postal_code\": \"30303\",\n  \"principal_title\": \"Owner\",\n  \"principal_ownership_percentage\": \"100\",\n  \"principal_phone_number\": \"123-456-7890\",\n  \"avg_ticket\": \"50\",\n  \"high_ticket\": \"500\",\n  \"monthly_volume\": \"10000\",\n  \"monthly_high_volume\": \"50000\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/enroll",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "enroll"
+          ]
+        },
+        "description": "Enroll a new child merchant."
+      }
+    },
+    {
+      "name": "POST /capture",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"id\": \"<AUTHORIZATION_ID>\",\n  \"ticket\": \"TCKT-200\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/capture",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "capture"
+          ]
+        },
+        "description": "Capture an outstanding authorization (similar to /settle)."
+      }
+    },
+    {
+      "name": "POST /charge-multipay",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"amount\": \"50.00\",\n  \"fee_assignment\": \"<MERCHANT_UUID_FOR_FEES>\",\n  \"cc\": \"4111111111111111\",\n  \"mm\": \"12\",\n  \"yy\": \"25\",\n  \"cvv\": \"123\",\n  \"split_payments\": [\n    {\n      \"split_amount\": \"20.00\",\n      \"split_amount_to_merchant_id\": \"<SUB_MERCHANT_UUID>\"\n    },\n    {\n      \"split_amount\": \"10.00\",\n      \"split_amount_to_merchant_id\": \"<SUB_MERCHANT_UUID>\"\n    }\n  ]\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/charge-multipay",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "charge-multipay"
+          ]
+        },
+        "description": "Charge with multi-pay/split, designating who absorbs fees and how the amount is split."
+      }
+    },
+    {
+      "name": "POST /refund-multipay",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"id\": \"<MULTIPAY_TRANSACTION_ID>\",\n  \"amount\": \"30.00\",\n  \"split_payments\": [\n    {\n      \"split_amount\": \"20.00\",\n      \"split_amount_to_merchant_id\": \"<SUB_MERCHANT_UUID>\"\n    },\n    {\n      \"split_amount\": \"10.00\",\n      \"split_amount_to_merchant_id\": \"<SUB_MERCHANT_UUID>\"\n    }\n  ]\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/refund-multipay",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "refund-multipay"
+          ]
+        },
+        "description": "Refund a prior multipay transaction, specifying split amounts for sub-merchants."
+      }
+    },
+    {
+      "name": "POST /text2pay",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"to\": \"+15555550123\",\n  \"message\": \"https://www.tripleplaypay.com/pay/abc123\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/text2pay",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "text2pay"
+          ]
+        },
+        "description": "Sends a payment link via SMS to the specified phone number."
+      }
+    },
+    {
+      "name": "POST /stp",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"amount\": \"100.00\",\n  \"cc\": \"4111111111111111\",\n  \"mm\": \"12\",\n  \"yy\": \"25\",\n  \"cvv\": \"123\",\n  \"address1\": \"123 Maple Ave\",\n  \"city\": \"Atlanta\",\n  \"state\": \"GA\",\n  \"zip\": \"30303\",\n  \"tip\": \"5.00\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/stp",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "stp"
+          ]
+        },
+        "description": "Process a Straight Through Payment (STP). This endpoint is still in development."
+      }
+    },
+    {
+      "name": "GET /events",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/events",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "events"
+          ]
+        },
+        "description": "Returns a list of client events, including child client events, by API key."
+      }
+    },
+    {
+      "name": "GET /payouts",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/payouts",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "payouts"
+          ]
+        },
+        "description": "Returns a linked list of deposits with nested transactions for reconciliation."
+      }
+    }
+  ]
+}
