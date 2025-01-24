@@ -1,0 +1,63 @@
+#!/usr/bin/env php
+<?php
+
+require __DIR__ . '/../vendor/autoload.php';
+
+use TriplePlayPay\Client;
+
+function printUsage(): void
+{
+    echo <<<EOL
+Usage:
+  ./bin/tripleplaypay <command> [--apiKey=... --key=value ... ]
+
+Example:
+  ./bin/tripleplaypay charge --apiKey=4ed74ef8-94ba-4f63-80f5-79aa2dc08a93 --amount=25.00 --cc=4111111111111111 --mm=12 --yy=25 --cvv=123 --email=user@example.com
+
+EOL;
+}
+
+// parse arguments
+$args = $argv;
+array_shift($args);
+
+if (empty($args)) {
+    printUsage();
+    exit(0);
+}
+
+$command = array_shift($args);
+$payload = [];
+$apiKey  = null;
+
+foreach ($args as $arg) {
+    if (strpos($arg, '--') === 0) {
+        $argWithoutPrefix = substr($arg, 2);
+        $parts = explode('=', $argWithoutPrefix, 2);
+        if (count($parts) === 2) {
+            [$key, $value] = $parts;
+            if ($key === 'apiKey') {
+                $apiKey = $value;
+            } else {
+                $payload[$key] = $value;
+            }
+        }
+    }
+}
+
+$client = new Client('https://tripleplaypay.com/api', $apiKey);
+
+$method = lcfirst($command);
+if (!method_exists($client, $method)) {
+    echo "Unknown command [$command].\n\n";
+    printUsage();
+    exit(1);
+}
+
+try {
+    $response = $client->{$method}($payload);
+    echo json_encode($response, JSON_PRETTY_PRINT) . "\n";
+} catch (\Exception $e) {
+    echo "Error: {$e->getMessage()}\n";
+    exit(1);
+}
