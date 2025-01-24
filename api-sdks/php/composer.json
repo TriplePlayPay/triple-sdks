@@ -1,0 +1,19 @@
+{
+  "name": "tripleplaypay/tripleplaypay-sdk",
+  "description": "A minimal-dependency PHP8 SDK for the Triple Play Pay API",
+  "license": "Apache-2.0",
+  "authors": [
+    {
+      "name": "Dev Team",
+      "email": "devteam@tripleplaypay.com"
+    }
+  ],
+  "require": {
+    "php": "^8.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "TriplePlayPay\\": "src/"
+    }
+  }
+}
