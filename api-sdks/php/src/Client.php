@@ -114,6 +114,18 @@ class Client
     }
 
     /**
+     * PATCH /subscription
+     *
+     * Note the $data argument should include the following:
+     *  - subscription_id - str (UUID) - (mandatory)
+     *  - reason - str - (optional)
+     */
+    public function cancelSubscription(array $data): mixed
+    {
+        return $this->transport->request('PATCH', "{$this->baseUrl}/subscription/cancel", $data);
+    }
+
+    /**
      * POST /enroll
      */
     public function enroll(array $data): mixed
@@ -134,7 +146,7 @@ class Client
      */
     public function getEvents(): mixed
     {
-        return $this->transport->request('GET', "{$this->baseUrl}/events");
+        return $this->transport->request('GET', "{$this->baseUrl}/events/client/events");
     }
 
     /**
